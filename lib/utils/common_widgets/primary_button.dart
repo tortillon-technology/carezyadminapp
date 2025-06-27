@@ -1,9 +1,9 @@
+import 'package:carezyadminapp/res/styles/fonts/bai_font_palette.dart';
 import 'package:carezyadminapp/utils/helpers/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../res/styles/color_palette.dart';
-import '../../res/styles/fonts/inter_font.dart';
 
 class PrimaryButton extends StatefulWidget {
   final String text;
@@ -65,6 +65,7 @@ class _PrimaryButtonState extends State<PrimaryButton> {
               height: 20,
               child: CircularProgressIndicator.adaptive(
                 strokeWidth: 2.0,
+                backgroundColor: Colors.white,
               ),
             )
         : Row(
@@ -76,7 +77,7 @@ class _PrimaryButtonState extends State<PrimaryButton> {
                 SizedBox(width: 8.w),
               ],
               Text(widget.text,
-                  style: widget.textStyle ?? InterFontPalette.fWhite_16_600),
+                  style: widget.textStyle ?? BaiFontPalette.fWhite_16_600),
             ],
           );
 
@@ -84,7 +85,8 @@ class _PrimaryButtonState extends State<PrimaryButton> {
       color: Colors.transparent,
       borderRadius: BorderRadius.circular(widget.borderRadius ?? 12.r),
       child: InkWell(
-        splashColor: Colors.white.mimicOpacityColor(0.2), // Better ripple effect
+        splashColor:
+            Colors.white.mimicOpacityColor(0.2), // Better ripple effect
         highlightColor: Colors.white.mimicOpacityColor(0.1), // On press hold
         borderRadius: BorderRadius.circular(widget.borderRadius ?? 12.r),
         onTap: disabled ? null : widget.onPressed,
@@ -93,8 +95,8 @@ class _PrimaryButtonState extends State<PrimaryButton> {
           opacity: disabled ? 0.6 : 1.0,
           child: Ink(
             width: widget.width ?? double.infinity,
-            height: widget.height,
-            padding: EdgeInsets.symmetric(vertical: 20.h),
+            height: widget.height ?? 60.h,
+            padding: EdgeInsets.symmetric(horizontal: 20.h),
             decoration: BoxDecoration(
               color: widget.onPressed == null
                   ? ColorPalette.fDDE2E4

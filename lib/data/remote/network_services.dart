@@ -32,7 +32,11 @@ class NetworkServices extends NetWorkBaseServices {
     try {
       log("URL : / ${dio.options.baseUrl}$endPoint");
       log("Headers : // API Key :: ${dio.options.headers["Api-key"]}");
-      log("Headers : // Token :: ${dio.options.headers["Authorization"]}");
+      if (AppConstants.accessToken.isNotEmpty) {
+        log("Headers : // Token :: ${dio.options.headers["Authorization"] = "Bearer ${AppConstants.accessToken}"}");
+      } else {
+        dio.options.headers["Authorization"] = '';
+      }
       Response response =
           await dio.get(endPoint).timeout(kReceiveTimeOut, onTimeout: () {
         throw ApiExceptions.oops();
@@ -57,7 +61,11 @@ class NetworkServices extends NetWorkBaseServices {
     try {
       log("URL : / ${dio.options.baseUrl}$endPoint");
       log("Headers : // API Key :: ${dio.options.headers["Api-key"]}");
-      log("Headers : // Token :: ${dio.options.headers["Authorization"] = AppConstants.accessToken}");
+      if (AppConstants.accessToken.isNotEmpty) {
+        log("Headers : // Token :: ${dio.options.headers["Authorization"] = "Bearer ${AppConstants.accessToken}"}");
+      } else {
+        dio.options.headers["Authorization"] = '';
+      }
       log("POST BODY : // $parameters");
       Response response = await dio
           .post(endPoint, data: parameters)
@@ -80,8 +88,13 @@ class NetworkServices extends NetWorkBaseServices {
     switch (response.statusCode) {
       case 200:
         return Right(response);
-      case 400:
+      case 201:
         return Right(response);
+      case 400:
+        return Left(ResponseError(
+            key: ApiErrorTypes.unAuthorized,
+            message: "Error",
+            response: response.data));
       case 401:
         return Left(ResponseError(
             key: ApiErrorTypes.unAuthorized,

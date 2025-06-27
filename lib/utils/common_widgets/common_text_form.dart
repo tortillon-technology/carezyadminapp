@@ -1,15 +1,11 @@
-
-
-
-
+import 'package:carezyadminapp/res/styles/fonts/plus_jakarta_font_palette.dart';
+import 'package:carezyadminapp/utils/helpers/hex_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 import '../../res/styles/color_palette.dart';
-import '../../res/styles/fonts/inter_font.dart';
 
 class CommonTextFormFieldWithValidator extends StatefulWidget {
   final String hintText;
@@ -52,7 +48,9 @@ class CommonTextFormFieldWithValidator extends StatefulWidget {
   final bool isLoading;
   final Widget? loadingWidget;
   final bool showObscureIcon;
-
+  final double? radius;
+  final double? width;
+  final Color? borderColor;
   const CommonTextFormFieldWithValidator({
     super.key,
     this.hintText = '',
@@ -67,6 +65,9 @@ class CommonTextFormFieldWithValidator extends StatefulWidget {
     this.maxLength,
     this.maxLines = 1,
     this.minLines = 1,
+    this.radius,
+    this.width,
+    this.borderColor,
     this.prefixIcon,
     this.contentPadding,
     this.readOnly = false,
@@ -104,12 +105,14 @@ class CommonTextFormFieldWithValidator extends StatefulWidget {
 
 class _CommonTextFormFieldWithValidatorState
     extends State<CommonTextFormFieldWithValidator> {
-  final ValueNotifier<bool> enableObscure = ValueNotifier<bool>(true);
+  late ValueNotifier<bool> enableObscure;
   final ValueNotifier<bool?> isFocusNotifier = ValueNotifier<bool?>(null);
 
   @override
   void initState() {
     super.initState();
+    enableObscure = ValueNotifier<bool>(widget.isObscure);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {});
     widget.focusNode?.addListener(_onFocusChange);
   }
 
@@ -138,32 +141,40 @@ class _CommonTextFormFieldWithValidatorState
 
   @override
   Widget build(BuildContext context) {
-    _getDefaultContentPadding();
-    final outlinedErrorBorder = widget.showBorder
+    final d = _getDefaultContentPadding();
+
+    final outlinedErrorBorder = widget.errorText != null
         ? OutlineInputBorder(
-            borderSide: BorderSide(color: ColorPalette.fDDE2E4, width: 1.r),
-            borderRadius: BorderRadius.circular(8.r))
+            borderSide: BorderSide(
+                color: HexColor("FF3B30"), width: widget.width ?? 1.r),
+            borderRadius: BorderRadius.circular(widget.radius ?? 16.r))
         : OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0.r),
-            borderSide:  BorderSide(color: ColorPalette.
-transparent));
+            borderRadius: BorderRadius.circular(widget.radius ?? 16.0.r),
+            borderSide: BorderSide(
+                color: widget.showBorder
+                    ? widget.borderColor ?? ColorPalette.fDDE2E4
+                    : ColorPalette.transparent));
     final outlinedBorder = widget.errorText != null
         ? outlinedErrorBorder
         : widget.showBorder
             ? OutlineInputBorder(
-                borderSide: BorderSide(color: ColorPalette.fDDE2E4, width: 1.r),
-                borderRadius: BorderRadius.circular(12.r))
+                borderSide: BorderSide(
+                    color: widget.borderColor ?? ColorPalette.fDDE2E4,
+                    width: widget.width ?? 1.r),
+                borderRadius: BorderRadius.circular(widget.radius ?? 16.r))
             : OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12.r),
+                borderRadius: BorderRadius.circular(widget.radius ?? 16.r),
                 borderSide: const BorderSide(color: ColorPalette.transparent));
     final outlinedFocusedBorder = widget.errorText != null
         ? outlinedErrorBorder
         : widget.showBorder
             ? OutlineInputBorder(
-                borderSide: BorderSide(color: ColorPalette.black, width: 1.r),
-                borderRadius: BorderRadius.circular(12.r))
+                borderSide: BorderSide(
+                    color: widget.borderColor ?? ColorPalette.black,
+                    width: widget.width ?? 1.r),
+                borderRadius: BorderRadius.circular(widget.radius ?? 16.r))
             : OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12.r),
+                borderRadius: BorderRadius.circular(widget.radius ?? 16.r),
                 borderSide: const BorderSide(color: ColorPalette.transparent));
 
     return ValueListenableBuilder<bool>(
@@ -181,85 +192,75 @@ transparent));
                         widget.title ?? "",
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: widget.titleStyle ??
-                            InterFontPalette.fBlack_12_600
-                                .copyWith(color: ColorPalette.black),
+                        // style: widget.titleStyle ??
+                        //     InterFontPalette.fBlack_12_600
+                        //         .copyWith(color: ColorPalette.black),
                       );
                     }),
               if (widget.title != null && widget.title != '')
                 (widget.heightBetweenTitleAndTextField ?? 4).verticalSpace,
-              Stack(
-                children: [
-                  SizedBox(
-                    height: widget.height ??60.h,
-                    child: TextFormField(
-                      
-                      readOnly: widget.readOnly,
-                      controller: widget.controller,
-                      focusNode: widget.focusNode,
-                      obscuringCharacter: '•',
-                      keyboardType: widget.inputType,
-                      cursorWidth: widget.cursorWidth ?? 2.0,
-                      cursorHeight: widget.cursorHeight,
-                      textAlign: widget.textAlign,
-                      textAlignVertical:
-                          widget.textAlignVertical ?? TextAlignVertical.center,
-                      expands: widget.expands,
-                      onTap: widget.onTap != null
-                          ? () {
-                              widget.onTap!();
-                            }
-                          : null,
-                      style: widget.style ?? InterFontPalette.fBlack_14_500,
-                      onChanged: widget.onChanged != null
-                          ? (val) => widget.onChanged!(val)
-                          : null,
-                      validator: widget.validator == null
-                          ? (val) {
-                              return null;
-                            }
-                          : (val) {
-                              return widget.validator!(val);
-                            },
-                      autocorrect: false,
-                      enableSuggestions: false,
-                      obscureText: widget.isObscure ? check : false,
-                      inputFormatters: widget.inputFormatters,
-                      maxLength: widget.maxLength,
-                      minLines: widget.expands ? null : widget.minLines,
-                      maxLines: widget.expands ? null : widget.maxLines,
-                      autofocus: widget.autoFocus,
-                      cursorColor: ColorPalette.black,
-                      textInputAction: widget.inputAction,
-decoration: InputDecoration(
-                        prefixIcon: widget.prefixIcon,
-                        border: outlinedBorder,
-                        enabledBorder: outlinedBorder,
-                        focusedBorder: outlinedFocusedBorder,
-                        focusedErrorBorder: outlinedErrorBorder,
-                        contentPadding: widget.contentPadding ??
-                            EdgeInsets.symmetric(
-                                horizontal: 20.w,
-                                vertical: _getDefaultContentPadding()),
-                        errorBorder: outlinedErrorBorder,
-                        errorStyle: const TextStyle(),
-                        hintText: widget.hintText,
-                        hintStyle: widget.hintFontStyle ??
-                            InterFontPalette.f616161_14_400,
-                        filled: true,
-                        fillColor: widget.filledColor ?? ColorPalette.fFAFAFA,
-                        prefix: widget.prefix,
-                        isDense: true,
-                        isCollapsed: widget.isCollapsed ?? true,
-                        prefixIconConstraints: widget.prefixIconConstraints,
-                        suffixIcon: widget.isObscure
-                            ? _obscureBtn(
-                                showObscureIcon: widget.showObscureIcon)
-                            : widget.suffix,
-                      ),
-                    ),
+              SizedBox(
+                height: widget.height ?? 60.h,
+                child: TextFormField(
+                  readOnly: widget.readOnly,
+                  controller: widget.controller,
+                  focusNode: widget.focusNode,
+                  obscuringCharacter: '•',
+                  keyboardType: widget.inputType,
+                  cursorWidth: widget.cursorWidth ?? 2.0,
+                  cursorHeight: widget.cursorHeight,
+                  textAlign: widget.textAlign,
+                  textAlignVertical:
+                      widget.textAlignVertical ?? TextAlignVertical.center,
+                  expands: widget.expands,
+                  onTap: widget.onTap != null
+                      ? () {
+                          widget.onTap!();
+                        }
+                      : null,
+                  style: widget.style ?? PlusJakartaFontPalette.fBlack_14_600,
+                  onChanged: widget.onChanged != null
+                      ? (val) => widget.onChanged!(val)
+                      : null,
+                  validator: widget.validator == null
+                      ? (val) {
+                          return null;
+                        }
+                      : (val) {
+                          return widget.validator!(val);
+                        },
+                  autocorrect: false,
+                  enableSuggestions: false,
+                  obscureText: check,
+                  inputFormatters: widget.inputFormatters,
+                  maxLength: widget.maxLength,
+                  minLines: widget.expands ? null : widget.minLines,
+                  maxLines: widget.expands ? null : widget.maxLines,
+                  autofocus: widget.autoFocus,
+                  cursorColor: ColorPalette.black,
+                  textInputAction: widget.inputAction,
+                  decoration: InputDecoration(
+                    prefixIcon: widget.prefixIcon,
+                    border: outlinedBorder,
+                    enabledBorder: outlinedBorder,
+                    focusedBorder: outlinedFocusedBorder,
+                    focusedErrorBorder: outlinedErrorBorder,
+                    contentPadding: widget.contentPadding ??
+                        EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
+                    errorBorder: outlinedErrorBorder,
+                    errorStyle: const TextStyle(),
+                    hintText: widget.hintText,
+                    hintStyle: widget.hintFontStyle ??
+                        PlusJakartaFontPalette.f616161_14_400,
+                    filled: true,
+                    fillColor: widget.filledColor ?? ColorPalette.fFAFAFA,
+                    prefix: widget.prefix,
+                    prefixIconConstraints: widget.prefixIconConstraints,
+                    suffixIcon: widget.isObscure
+                        ? _obscureBtn(showObscureIcon: widget.showObscureIcon)
+                        : widget.suffix,
                   ),
-                ],
+                ),
               ),
               if (widget.errorText != null) 3.verticalSpace,
               if (widget.errorText != null)
@@ -269,7 +270,8 @@ decoration: InputDecoration(
                       child: Text(
                         widget.errorText ?? "",
                         maxLines: 2,
-                        style: InterFontPalette.fFF3B30_12_400,
+                        style: PlusJakartaFontPalette.fBlack_12_400
+                            .copyWith(color: HexColor("FF3B30")),
                       ),
                     ),
                   ],

@@ -26,6 +26,7 @@ class TextInputFormats {
       CurrencyFormatter();
 
   static TextInputFormatter get alphabetsFormatter => AlphabetInputFormatter();
+  static TextInputFormatter get noLeadingZero => NoLeadingZeroFormatter();
 }
 
 class _EmiratesIDFormatter extends TextInputFormatter {
@@ -162,6 +163,52 @@ class FirstCharNotDotFormatter extends TextInputFormatter {
     if (newValue.text.isNotEmpty && newValue.text[0] == '.') {
       return oldValue;
     }
+    return newValue;
+  }
+}
+
+class RangeInputFormatter extends TextInputFormatter {
+  final int min;
+  final int max;
+
+  RangeInputFormatter({this.min = 0, this.max = 100});
+
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue,
+      TextEditingValue newValue,
+      ) {
+    final String text = newValue.text;
+
+    if (text.isEmpty) return newValue;
+
+    final int? value = int.tryParse(text);
+    if (value == null) return oldValue;
+
+    if (value < min || value > max) {
+      return oldValue;
+    }
+
+    return newValue;
+  }
+}
+
+class NoLeadingZeroFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue,
+      TextEditingValue newValue,
+      ) {
+    final text = newValue.text;
+
+    // Allow empty input
+    if (text.isEmpty) return newValue;
+
+    // Disallow initial zero
+    if (text.length == 1 && text == '0') {
+      return oldValue;
+    }
+
     return newValue;
   }
 }

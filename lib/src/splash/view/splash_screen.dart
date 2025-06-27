@@ -1,11 +1,11 @@
+import 'package:carezyadminapp/data/local/shared_service.dart';
+import 'package:carezyadminapp/generated/assets.dart';
 import 'package:carezyadminapp/utils/helpers/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import '../../../data/local/local_base_services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../res/constants/app_constants.dart';
 import '../../../res/styles/color_palette.dart';
-import '../../../services/get_it.dart';
 import '../../../utils/routes/route_constants.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -16,8 +16,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  final localData = getIt.get<LocalBaseServices>();
-
   @override
   void initState() {
     _pushToNextScreen();
@@ -25,20 +23,20 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   _pushToNextScreen() async {
-    localData.getUserData();
-    // SembastServices.instance.getUserData();
+    AppConstants.accessToken =
+        await SharedService.instance.getData(key: accessTokenKey);
     Future.delayed(const Duration(seconds: 3), () {
       if (mounted) {
         if (AppConstants.accessToken.isNotEmpty) {
           Navigator.pushNamedAndRemoveUntil(
             context,
-            RouteConstants.routeMainScreen,
+            RouteConstants.routeHomeScreen,
             (route) => false,
           );
         } else {
           Navigator.pushNamedAndRemoveUntil(
             context,
-            RouteConstants.routeEmpty,
+            RouteConstants.routeSignInScreen,
             (route) => false,
           );
         }
@@ -61,8 +59,12 @@ class _SplashScreenState extends State<SplashScreen> {
           width: context.sw(),
           height: context.sh(),
           child: Stack(
+            alignment: Alignment.center,
             children: [
-              Align(alignment: Alignment.center, child: Icon(Icons.image))
+              Positioned(
+                  right: 58.w,
+                  left: 57.w,
+                  child: Image.asset(Assets.pngProCareSplashLogo).fadeIn())
             ],
           ),
         ),

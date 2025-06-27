@@ -2,44 +2,33 @@
 class Assets {
   Assets._();
 
-  static const String fontsInterBold = 'assets/fonts/Inter-Bold.ttf';
-  static const String fontsInterExtraBold = 'assets/fonts/Inter-ExtraBold.ttf';
-  static const String fontsInterMedium = 'assets/fonts/Inter-Medium.ttf';
-  static const String fontsInterRegular = 'assets/fonts/Inter-Regular.ttf';
-  static const String fontsInterSemiBold = 'assets/fonts/Inter-SemiBold.ttf';
-  static const String imagesFooterImage = 'assets/images/footer_image.png';
-  static const String imagesHomeImage = 'assets/images/home_image.png';
-  static const String imagesKbnLogo = 'assets/images/kbn_logo.png';
-  static const String imagesSplashImage = 'assets/images/splash_image.png';
-  static const String svgsAc = 'assets/svgs/ac.svg';
-  static const String svgsAcService = 'assets/svgs/ac_service.svg';
-  static const String svgsAccountCircle = 'assets/svgs/account_circle.svg';
-  static const String svgsAppliancesService =
-      'assets/svgs/appliances_service.svg';
-  static const String svgsArrowDropDown = 'assets/svgs/arrow_drop_down.svg';
-  static const String svgsCalendarToday = 'assets/svgs/calendar_today.svg';
-  static const String svgsCarpentryService =
-      'assets/svgs/carpentry_service.svg';
-  static const String svgsCommonAmenitiesService =
-      'assets/svgs/common_amenities_service.svg';
-  static const String svgsCountryDropDown = 'assets/svgs/country_drop_down.svg';
-  static const String svgsDropdownArrow = 'assets/svgs/dropdown_arrow.svg';
-  static const String svgsElectricalService =
-      'assets/svgs/electrical_service.svg';
-  static const String svgsElevatorService = 'assets/svgs/elevator_service.svg';
-  static const String svgsFireSystemService =
-      'assets/svgs/fire_system_service.svg';
-  static const String svgsGoogle = 'assets/svgs/google.svg';
-  static const String svgsGuests = 'assets/svgs/guests.svg';
-  static const String svgsHome = 'assets/svgs/home.svg';
-  static const String svgsIconForward = 'assets/svgs/icon_forward.svg';
-  static const String svgsMasonryService = 'assets/svgs/masonry_service.svg';
-  static const String svgsPaintingService = 'assets/svgs/painting_service.svg';
-  static const String svgsPestService = 'assets/svgs/pest_service.svg';
-  static const String svgsPlumpingService = 'assets/svgs/plumping_service.svg';
-  static const String svgsRequests = 'assets/svgs/requests.svg';
-  static const String svgsSatelliteService =
-      'assets/svgs/satellite_service.svg';
-  static const String svgsServiceArrow = 'assets/svgs/service_arrow.svg';
-  static const String svgsSms = 'assets/svgs/sms.svg';
+  static const String baiJamjureeBaiJamjureeBold = 'assets/fonts/bai_jamjuree/BaiJamjuree-Bold.ttf';
+  static const String baiJamjureeBaiJamjureeMedium = 'assets/fonts/bai_jamjuree/BaiJamjuree-Medium.ttf';
+  static const String baiJamjureeBaiJamjureeRegular = 'assets/fonts/bai_jamjuree/BaiJamjuree-Regular.ttf';
+  static const String baiJamjureeBaiJamjureeSemiBold = 'assets/fonts/bai_jamjuree/BaiJamjuree-SemiBold.ttf';
+  static const String plusJakartaSansPlusJakartaSansBold = 'assets/fonts/plus_jakarta_sans/PlusJakartaSans-Bold.ttf';
+  static const String plusJakartaSansPlusJakartaSansExtraBold = 'assets/fonts/plus_jakarta_sans/PlusJakartaSans-ExtraBold.ttf';
+  static const String plusJakartaSansPlusJakartaSansMedium = 'assets/fonts/plus_jakarta_sans/PlusJakartaSans-Medium.ttf';
+  static const String plusJakartaSansPlusJakartaSansRegular = 'assets/fonts/plus_jakarta_sans/PlusJakartaSans-Regular.ttf';
+  static const String plusJakartaSansPlusJakartaSansSemiBold = 'assets/fonts/plus_jakarta_sans/PlusJakartaSans-SemiBold.ttf';
+  static const String pngProCareRedLogo = 'assets/images/png/pro_care_red_logo.png';
+  static const String pngProCareSplashLogo = 'assets/images/png/pro_care_splash_logo.png';
+  static const String pngSinginCarLogo = 'assets/images/png/singin_car_logo.png';
+  static const String pngTesla = 'assets/images/png/tesla.png';
+  static const String svgArrowRight = 'assets/images/svg/arrow_right.svg';
+  static const String svgBackArrow = 'assets/images/svg/back_arrow.svg';
+  static const String svgCustomerManagement = 'assets/images/svg/customer_management.svg';
+  static const String svgCustomers = 'assets/images/svg/customers.svg';
+  static const String svgGarageManagement = 'assets/images/svg/garage_management.svg';
+  static const String svgGarages = 'assets/images/svg/garages.svg';
+  static const String svgIosArrowDown = 'assets/images/svg/ios_arrow_down.svg';
+  static const String svgNotification = 'assets/images/svg/notification.svg';
+  static const String svgNotificationManagement = 'assets/images/svg/notification_management.svg';
+  static const String svgSearch = 'assets/images/svg/search.svg';
+  static const String svgSearchGrey = 'assets/images/svg/search_grey.svg';
+  static const String svgServiceRecords = 'assets/images/svg/service_records.svg';
+  static const String svgSettings = 'assets/images/svg/settings.svg';
+  static const String svgTodaysServices = 'assets/images/svg/todays_services.svg';
+  static const String svgTotalServices = 'assets/images/svg/total_services.svg';
+  static const String jpgPlaceHolder = 'assets/images/jpg/place_holder.svg';
 }

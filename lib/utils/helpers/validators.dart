@@ -1,13 +1,13 @@
 class Validators {
-  static String? validateEmailORMobile(String? value, {bool isEmailId = true}) {
+  static String? validateEmail(
+    String? value,
+  ) {
     String emailPattern = r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$';
     RegExp regex = RegExp(emailPattern);
     if (value == null || value.isEmpty) {
-      return "Email or Mobile number can not be empty";
-    } else if (!regex.hasMatch(value.trim()) && isEmailId) {
+      return "Email ID can not be empty";
+    } else if (!regex.hasMatch(value.trim())) {
       return "Please enter a valid Email ID";
-    } else if (!isEmailId && value.length <= 5) {
-      return "Please enter a valid Mobile number";
     } else {
       return null;
     }
@@ -66,5 +66,57 @@ class Validators {
     } else {
       return null;
     }
+  }
+
+  static String? validateName(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Name should not be empty";
+    } else if (value.length <= 3) {
+      return "Please enter a valid name";
+    } else {
+      return null;
+    }
+  }
+
+  static String? validatePhone(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Phone number should not be empty";
+    } else if (value.length < 10) {
+      return "Please enter a valid phone number";
+    } else {
+      return null;
+    }
+  }
+
+  static String? validateVehicleNumber(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Vehicle number is required';
+    }
+    final pattern = r'^[A-Z0-9\- ]{5,12}$';
+    final regExp = RegExp(pattern, caseSensitive: false);
+    if (!regExp.hasMatch(value.trim())) {
+      return 'Enter a valid vehicle number';
+    }
+
+    return null;
+  }
+
+  static String? validateODOMeter(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Odometer reading is required';
+    }
+    return null;
+  }
+
+  static String? validateVIN(String? value) {
+    final vinPattern = RegExp(r'^[A-HJ-NPR-Z0-9]{17}$');
+
+    if (value == null || value.isEmpty) {
+      return 'Please enter the VIN';
+    } else if (!vinPattern.hasMatch(value)) {
+      return 'Invalid VIN. VIN must be 17 characters and exclude I, O, Q.';
+    }
+
+    return null;
   }
 }

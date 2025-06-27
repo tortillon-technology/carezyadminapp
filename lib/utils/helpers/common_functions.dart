@@ -23,13 +23,19 @@ void afterInit(Function function) {
   });
 }
 
-SystemUiOverlayStyle get systemOverlayStyle => Platform.isAndroid
-    ? const SystemUiOverlayStyle(
-        statusBarIconBrightness: Brightness.dark,
-        statusBarColor: ColorPalette.white,
-        systemNavigationBarIconBrightness: Brightness.dark,
-        systemNavigationBarDividerColor: ColorPalette.white,
-        systemNavigationBarColor: ColorPalette.white)
-    : const SystemUiOverlayStyle(
-        statusBarBrightness: Brightness.light,
-        statusBarIconBrightness: Brightness.dark);
+SystemUiOverlayStyle get systemOverlayStyle => const SystemUiOverlayStyle(
+      statusBarIconBrightness: Brightness.dark,
+      statusBarColor: ColorPalette.white,
+      statusBarBrightness: Brightness.light,
+      systemNavigationBarIconBrightness: Brightness.dark,
+      systemNavigationBarDividerColor: ColorPalette.white,
+      systemNavigationBarColor: ColorPalette.white,
+    );
+SystemUiOverlayStyle get homeSystemOverlay => const SystemUiOverlayStyle(
+      statusBarIconBrightness: Brightness.light,
+      statusBarColor: ColorPalette.primaryColor,
+      statusBarBrightness: Brightness.dark,
+      systemNavigationBarIconBrightness: Brightness.dark,
+      systemNavigationBarDividerColor: ColorPalette.white,
+      systemNavigationBarColor: ColorPalette.white,
+    );

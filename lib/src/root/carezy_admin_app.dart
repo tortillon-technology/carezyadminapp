@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:toastification/toastification.dart';
 
 import '../../res/styles/app_theme.dart';
 import '../../utils/helpers/multi_provider.dart';
@@ -18,20 +19,22 @@ class CarezyAdminApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, _) => MultiProvider(
         providers: MultiProviderClass.providerLists,
-        child: MaterialApp(
-          title: 'CAREZY ADMIN APP',
-          debugShowCheckedModeBanner: false,
-          builder: (context, child) {
-            return MediaQuery.withClampedTextScaling(
-              minScaleFactor: 0.75,
-              maxScaleFactor: 1.4,
-              child: child ?? const SizedBox(),
-            );
-          },
-          navigatorKey: navigatorKey,
-          onGenerateRoute: RouteGenerator.generateRoute,
-          initialRoute: RouteConstants.routeInitial,
-          theme: AppTheme.themeData,
+        child: ToastificationWrapper(
+          child: MaterialApp(
+            title: 'CAREZY ADMIN APP',
+            debugShowCheckedModeBanner: false,
+            builder: (context, child) {
+              return MediaQuery.withClampedTextScaling(
+                minScaleFactor: 0.75,
+                maxScaleFactor: 1.4,
+                child: child ?? const SizedBox(),
+              );
+            },
+            navigatorKey: navigatorKey,
+            onGenerateRoute: RouteGenerator.generateRoute,
+            initialRoute: RouteConstants.routeInitial,
+            theme: AppTheme.themeData,
+          ),
         ),
       ),
     );

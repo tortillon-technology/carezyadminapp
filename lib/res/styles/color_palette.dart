@@ -18,4 +18,5 @@ class ColorPalette {
   static const f707070 =Color(0XFF707070);
   static const fEC0008 =Color(0XFFEC0008);
   static const fEAEAEA =Color(0XFFEAEAEA);
+  static const f6E6E6E =Color(0XFF6E6E6E);
 }

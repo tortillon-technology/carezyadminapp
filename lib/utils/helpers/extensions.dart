@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../common_widgets/fade_in_widget.dart';
+
 extension Context on BuildContext {
   double sh({double size = 1.0}) {
     return MediaQuery.of(this).size.height * size;
@@ -12,8 +14,6 @@ extension Context on BuildContext {
   int cacheSize(double size) {
     return (size * MediaQuery.of(this).devicePixelRatio).round();
   }
-
-  
 }
 
 extension StringExtension on String {
@@ -28,7 +28,20 @@ extension StringExtension on String {
 
 extension OpacityColorExtension on Color {
   Color mimicOpacityColor(double opacity) {
-    assert(opacity >= 0.0 && opacity <= 1.0, 'Opacity must be between 0.0 and 1.0');
+    assert(opacity >= 0.0 && opacity <= 1.0,
+        'Opacity must be between 0.0 and 1.0');
     return withAlpha((opacity * 255).round());
+  }
+}
+
+extension FadeInExtension on Widget {
+  Widget fadeIn(
+      {Duration duration = const Duration(seconds: 2),
+      Curve curve = Curves.easeIn}) {
+    return FadeInWidget(
+      duration: duration,
+      curve: curve,
+      child: this,
+    );
   }
 }
