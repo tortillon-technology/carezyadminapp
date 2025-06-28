@@ -45,3 +45,13 @@ extension FadeInExtension on Widget {
     );
   }
 }
+
+extension StringCasingExtension on String {
+  String capitalizeEachLetter() {
+    if (trim().isEmpty) return '';
+    return split(' ').map((word) {
+      if (word.isEmpty) return '';
+      return word[0].toUpperCase() + word.substring(1).toLowerCase();
+    }).join(' ');
+  }
+}

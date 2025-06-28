@@ -6,6 +6,19 @@ import '../color_palette.dart';
 class BaiFontPalette {
   static const String fontFamily = "Bai Jamjuree";
 
+  /*<---12-->*/
+  static TextStyle get f6E6E6E_12_500 => TextStyle(
+      fontSize: 12.sp,
+      fontWeight: FontWeight.w500,
+      color: ColorPalette.f6E6E6E);
+
+  static TextStyle get fBlack_12_600 => TextStyle(
+      fontSize: 12.sp, fontWeight: FontWeight.w600, color: ColorPalette.black);
+
+  /*<---14-->*/
+  static TextStyle get fBlack_14_600 => TextStyle(
+      fontSize: 14.sp, fontWeight: FontWeight.w600, color: ColorPalette.black);
+
   /*<---16--->*/
   static TextStyle get fBlack_16_500 => TextStyle(
       fontSize: 16.sp, fontWeight: FontWeight.w500, color: ColorPalette.black);
@@ -23,7 +36,6 @@ class BaiFontPalette {
   /*<---20-->*/
   static TextStyle get fWhite_20_600 => TextStyle(
       fontSize: 20.sp, fontWeight: FontWeight.w600, color: ColorPalette.white);
-
 
   /*<---24-->*/
   static TextStyle get fBlack_24_600 => TextStyle(

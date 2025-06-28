@@ -1,3 +1,4 @@
+import 'package:carezyadminapp/src/customer/model/customer_list_model.dart';
 import 'package:carezyadminapp/src/customer/repo/customer_repo.dart';
 import 'package:either_dart/either.dart';
 
@@ -55,5 +56,18 @@ class CustomerRepoImplements extends CustomerRepo {
         .thenRight(service.checkHttpStatus)
         .thenRight(service.parseJson)
         .mapRight((right) => GarageModel.fromJson(right));
+  }
+
+  @override
+  Future<Either<ResponseError, CustomerListModel>> getCustomerList(
+      {required String query, required int nextPage}) {
+    return service
+        .safe(service.getRequest(
+          endPoint:
+              "${AppConstants.customerList}?q=$query&page=$nextPage&page_size=10",
+        ))
+        .thenRight(service.checkHttpStatus)
+        .thenRight(service.parseJson)
+        .mapRight((right) => CustomerListModel.fromJson(right));
   }
 }

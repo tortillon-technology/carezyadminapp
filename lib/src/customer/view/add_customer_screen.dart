@@ -1,4 +1,3 @@
-import 'package:carezyadminapp/res/constants/app_constants.dart';
 import 'package:carezyadminapp/res/styles/color_palette.dart';
 import 'package:carezyadminapp/src/customer/view/widget/enter_customer_details.dart';
 import 'package:carezyadminapp/src/customer/view/widget/select_driving_habits.dart';
@@ -8,7 +7,6 @@ import 'package:carezyadminapp/src/customer/view/widget/select_model.dart';
 import 'package:carezyadminapp/src/customer/view_model/customer_view_model.dart';
 import 'package:carezyadminapp/utils/common_widgets/common_app_bar.dart';
 import 'package:carezyadminapp/utils/common_widgets/primary_button.dart';
-import 'package:carezyadminapp/utils/helpers/common_functions.dart';
 import 'package:carezyadminapp/utils/helpers/extensions.dart';
 import 'package:carezyadminapp/utils/helpers/hex_color.dart';
 import 'package:flutter/material.dart';

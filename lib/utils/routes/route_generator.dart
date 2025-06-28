@@ -1,9 +1,12 @@
+import 'package:carezyadminapp/src/customer/view/customer_details_screen.dart';
 import 'package:carezyadminapp/src/services/view_model/add_service_view_model.dart';
 import 'package:carezyadminapp/utils/routes/route_constants.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../src/auth/view/signin_screen.dart';
 import '../../src/customer/view/add_customer_screen.dart';
+import '../../src/customer/view/customer_management_screen.dart';
+import '../../src/garage/view/garage_management_screen.dart';
 import '../../src/home/view/home_screen.dart';
 import '../../src/services/view/add_service_screen.dart';
 import '../../src/services/view/search_customer_screen.dart';
@@ -26,9 +29,18 @@ class RouteGenerator {
             RouteConstants.routeSignInScreen, const SignInScreen());
       case RouteConstants.routeHomeScreen:
         return _buildRoute(RouteConstants.routeHomeScreen, const HomeScreen());
+      //
+      case RouteConstants.routeCustomerManagementScreen:
+        return _buildRoute(RouteConstants.routeCustomerManagementScreen,
+            const CustomerManagementScreen());
       case RouteConstants.routeAddCustomerScreen:
         return _buildRoute(
             RouteConstants.routeAddCustomerScreen, const AddCustomerScreen());
+      //
+      case RouteConstants.routeCustomerDetailsScreen:
+        return _buildRoute(RouteConstants.routeCustomerDetailsScreen,
+            const CustomerDetailsScreen());
+      //
       case RouteConstants.routeServiceRecordsScreen:
         return _buildRoute(RouteConstants.routeServiceRecordsScreen,
             const ServiceRecordsScreen());
@@ -42,6 +54,10 @@ class RouteGenerator {
               viewModel: args as AddServiceViewModel,
             ));
 
+      //garage GarageManagementScreen
+      case RouteConstants.routeGarageManagementScreen:
+        return _buildRoute(RouteConstants.routeGarageManagementScreen,
+            GarageManagementScreen());
       default:
         return _buildRoute(RouteConstants.routeEmpty, const EmptyScreen());
     }

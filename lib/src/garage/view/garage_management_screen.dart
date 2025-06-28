@@ -10,24 +10,23 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../generated/assets.dart';
-import '../../../res/constants/string_constants.dart';
 import '../../../utils/common_widgets/common_app_bar.dart';
 import '../../../utils/helpers/common_functions.dart';
 
-class ServiceRecordsScreen extends StatefulWidget {
-  const ServiceRecordsScreen({super.key});
+class GarageManagementScreen extends StatefulWidget {
+  const GarageManagementScreen({super.key});
 
   @override
-  State<ServiceRecordsScreen> createState() => _ServiceRecordsScreenState();
+  State<GarageManagementScreen> createState() => _GarageManagementScreenState();
 }
 
-class _ServiceRecordsScreenState extends State<ServiceRecordsScreen> {
+class _GarageManagementScreenState extends State<GarageManagementScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: HexColor("#F4F4F4"),
       appBar: CommonAppBar(
-        titleText: Strings.serviceRecords,
+        titleText: "Garage Management",
         systemOverlay: homeSystemOverlay,
         textStyle: BaiFontPalette.fWhite_20_600,
         iconBgColor: HexColor("#F5F5F5").withValues(alpha: 0.26),
@@ -43,7 +42,7 @@ class _ServiceRecordsScreenState extends State<ServiceRecordsScreen> {
             11.verticalSpace,
             CommonTextFormFieldWithValidator(
               radius: 10.r,
-              hintText: "Search  pho.no/service number",
+              hintText: "Search Garage Name/ Reg.No",
               suffix: Padding(
                 padding: EdgeInsets.only(right: 18.w),
                 child: SvgPicture.asset(
@@ -55,7 +54,7 @@ class _ServiceRecordsScreenState extends State<ServiceRecordsScreen> {
             ),
             18.verticalSpace,
             Text(
-              'Recent Services',
+              'Garages',
               style: BaiFontPalette.fBlack_18_600,
             ),
             10.verticalSpace,
@@ -68,37 +67,45 @@ class _ServiceRecordsScreenState extends State<ServiceRecordsScreen> {
                     100,
                     (index) {
                       bool isLast = index == 99;
-                      return Container(
-                        padding: EdgeInsets.all(16.w),
-                        margin: EdgeInsets.only(bottom: isLast ? 0 : 8.h),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10.r),
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "SRV-2024-001",
-                                    style: PlusJakartaFontPalette.fBlack_14_600,
-                                  ),
-                                  4.verticalSpace,
-                                  Text(
-                                    "Tesla EV Model 3",
-                                    style:
-                                        PlusJakartaFontPalette.f6E6E6E_12_500,
-                                  ),
-                                ],
+                      return InkWell(
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () {
+                          
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(16.w),
+                          margin: EdgeInsets.only(bottom: isLast ? 0 : 8.h),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10.r),
+                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "M.R.T Workshop",
+                                      style:
+                                          PlusJakartaFontPalette.fBlack_14_600,
+                                    ),
+                                    4.verticalSpace,
+                                    Text(
+                                      "Tesla EV Model 3",
+                                      style:
+                                          PlusJakartaFontPalette.f6E6E6E_12_500,
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                            Text(
-                              "Apr 28 2025",
-                              style: PlusJakartaFontPalette.fBlack_12_600,
-                            )
-                          ],
+                              Text(
+                                "12A168",
+                                style: PlusJakartaFontPalette.f6E6E6E_14_500,
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     },
@@ -116,15 +123,12 @@ class _ServiceRecordsScreenState extends State<ServiceRecordsScreen> {
           PrimaryButton(
             width: 210.w,
             height: 60.h,
-            text: "Add New Service",
+            text: "Add New Garage",
             icon: Icon(
               Icons.add,
               color: Colors.white,
             ),
-            onPressed: () {
-              Navigator.pushNamed(
-                  context, RouteConstants.routeAddServiceScreen);
-            },
+            onPressed: () {},
           )
         ],
       ),

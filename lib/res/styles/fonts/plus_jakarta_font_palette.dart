@@ -21,6 +21,12 @@ class PlusJakartaFontPalette {
       fontWeight: FontWeight.w400,
       color: ColorPalette.black);
 
+  static TextStyle get f6E6E6E_12_500 => TextStyle(
+      fontFamily: fontFamily,
+      fontSize: 12.sp,
+      fontWeight: FontWeight.w500,
+      color: HexColor("#6E6E6E"));
+
   static TextStyle get fBlack_12_600 => TextStyle(
       fontFamily: fontFamily,
       fontSize: 12.sp,
@@ -40,6 +46,12 @@ class PlusJakartaFontPalette {
       fontSize: 14.sp,
       fontWeight: FontWeight.w400,
       color: ColorPalette.black);
+  static TextStyle get f6E6E6E_14_500 => TextStyle(
+        fontFamily: fontFamily,
+        fontSize: 14.sp,
+        fontWeight: FontWeight.w500,
+        color: HexColor("#6E6E6E"),
+      );
   static TextStyle get fBlack_14_600 => TextStyle(
       fontFamily: fontFamily,
       fontSize: 14.sp,

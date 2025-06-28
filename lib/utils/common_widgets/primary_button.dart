@@ -18,6 +18,8 @@ class PrimaryButton extends StatefulWidget {
   final Color? backgroundColor;
   final Color? textColor;
   final Color? borderColor;
+  final Color? splashColor;
+  final Color? highlightColor;
   final double? borderRadius;
   final double? width;
   final double? height;
@@ -45,6 +47,8 @@ class PrimaryButton extends StatefulWidget {
     this.borderWidth,
     this.elevation = 0.0,
     this.textStyle,
+    this.highlightColor,
+    this.splashColor,
     this.padding = const EdgeInsets.symmetric(horizontal: 24),
   });
 
@@ -77,7 +81,9 @@ class _PrimaryButtonState extends State<PrimaryButton> {
                 SizedBox(width: 8.w),
               ],
               Text(widget.text,
-                  style: widget.textStyle ?? BaiFontPalette.fWhite_16_600),
+                  style: widget.textStyle ??
+                      BaiFontPalette.fWhite_16_600.copyWith(
+                          color: widget.textColor ?? ColorPalette.white)),
             ],
           );
 
@@ -85,9 +91,10 @@ class _PrimaryButtonState extends State<PrimaryButton> {
       color: Colors.transparent,
       borderRadius: BorderRadius.circular(widget.borderRadius ?? 12.r),
       child: InkWell(
-        splashColor:
+        splashColor: widget.splashColor ??
             Colors.white.mimicOpacityColor(0.2), // Better ripple effect
-        highlightColor: Colors.white.mimicOpacityColor(0.1), // On press hold
+        highlightColor: widget.highlightColor ??
+            Colors.white.mimicOpacityColor(0.1), // On press hold
         borderRadius: BorderRadius.circular(widget.borderRadius ?? 12.r),
         onTap: disabled ? null : widget.onPressed,
         child: AnimatedOpacity(

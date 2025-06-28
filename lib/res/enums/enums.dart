@@ -26,3 +26,11 @@ enum LightSelection{
   notChanged,
   lampReplace,
 }
+
+enum SearchLoader {
+  loading,
+  error,
+  noSearchData,
+  noData,
+  loaded,
+}

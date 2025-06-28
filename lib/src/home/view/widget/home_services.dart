@@ -1,3 +1,4 @@
+import 'package:carezyadminapp/data/local/shared_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -15,8 +16,13 @@ class HomeServices extends StatelessWidget {
     {
       "svg": Assets.svgCustomerManagement,
       "title": Strings.customerManagement,
+      "route": RouteConstants.routeCustomerManagementScreen,
     },
-    {"svg": Assets.svgGarageManagement, "title": Strings.garageManagement},
+    {
+      "svg": Assets.svgGarageManagement,
+      "title": Strings.garageManagement,
+      "route": RouteConstants.routeGarageManagementScreen
+    },
     {
       "svg": Assets.svgServiceRecords,
       "title": Strings.serviceRecords,
@@ -47,6 +53,14 @@ class HomeServices extends StatelessWidget {
             onTap: () {
               if (services[index]['route'] != null) {
                 Navigator.pushNamed(context, services[index]['route']);
+              } else {
+                SharedService.instance
+                    .clearData(allowList: {accessTokenKey, refreshTokenKey});
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  RouteConstants.routeSignInScreen,
+                  (route) => false,
+                );
               }
             },
             borderRadius: BorderRadius.circular(16.r),
