@@ -18,8 +18,6 @@ class EngineCompartment extends StatefulWidget {
 }
 
 class _EngineCompartmentState extends State<EngineCompartment> {
-  final oilLifeController = TextEditingController();
-  final nextOilChangeODOlController = TextEditingController();
   final noOfEngineMountsController = TextEditingController();
 
   @override
@@ -64,20 +62,24 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Oil Life (km)",
+                          "Remaining Oil (km)",
                           style: PlusJakartaFontPalette.f1C1C1C_14_600,
                         ),
                         16.verticalSpace,
                         CommonTextFormFieldWithValidator(
-                          hintText: "Enter oil life (km)",
-                          controller: oilLifeController,
+                          hintText: "Remaining",
+                          controller: provider.remainingOilController,
                           inputAction: TextInputAction.next,
                           inputType: TextInputType.number,
                           inputFormatters: [
                             TextInputFormats.digitsFormatter,
                           ],
                           onChanged: (String data) {
-                            provider.oilLife = data;
+                            provider.remainingOil = data;
+                          },
+                          onTap: () {
+                            provider.nextOilChangeODOlController.clear();
+                            provider.nextOilChangeODO = null;
                           },
                         ),
                       ],
@@ -95,7 +97,7 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                         16.verticalSpace,
                         CommonTextFormFieldWithValidator(
                           hintText: "ODO Reading",
-                          controller: nextOilChangeODOlController,
+                          controller: provider.nextOilChangeODOlController,
                           inputAction: TextInputAction.done,
                           inputType: TextInputType.number,
                           inputFormatters: [
@@ -120,6 +122,76 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                   });
                 },
               ),
+              // Newly Added
+              26.verticalSpace,
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Remaining Oil Filter",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "Remaining",
+                          controller: provider.remainingOilFilterController,
+                          inputAction: TextInputAction.next,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            if (data.isNotEmpty) {
+                              provider.remainingOilFilter = data;
+                              provider.nextOilFilterChangeODOlController.text =
+                                  (int.parse(data) +
+                                          int.parse(provider
+                                                  .currentOodometerReading ??
+                                              '0'))
+                                      .toString();
+                            } else {
+                              provider.remainingOilFilter = null;
+                              provider.nextOilFilterChangeODOlController
+                                  .clear();
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  16.horizontalSpace,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Next service on",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "ODO Reading",
+                          controller:
+                              provider.nextOilFilterChangeODOlController,
+                          inputAction: TextInputAction.done,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            provider.nextOilFilterChangeODO = data;
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              //------
+
               26.verticalSpace,
               StatusSelector(
                 title: "Air Filter",
@@ -131,6 +203,74 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                 },
               ),
               26.verticalSpace,
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Remaining Air Filter",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "Remaining",
+                          controller: provider.remainingAirFilterController,
+                          inputAction: TextInputAction.next,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            if (data.isNotEmpty) {
+                              provider.remainingAirFilter = data;
+                              provider.nextAirFilterChangeODOlController.text =
+                                  (int.parse(data) +
+                                          int.parse(provider
+                                                  .currentOodometerReading ??
+                                              '0'))
+                                      .toString();
+                            } else {
+                              provider.remainingAirFilter = null;
+                              provider.nextAirFilterChangeODOlController
+                                  .clear();
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  16.horizontalSpace,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Next service on",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "ODO Reading",
+                          controller:
+                              provider.nextAirFilterChangeODOlController,
+                          inputAction: TextInputAction.done,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            provider.nextAirFilterChangeODO = data;
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              //------
+              26.verticalSpace,
               StatusSelector(
                 title: "AC Filter",
                 selection: provider.acFilter,
@@ -140,6 +280,73 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                   });
                 },
               ),
+              //
+              26.verticalSpace,
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Remaining AC Filter",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "Remaining",
+                          controller: provider.remainingAcFilterController,
+                          inputAction: TextInputAction.next,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            if (data.isNotEmpty) {
+                              provider.remainingAcFilter = data;
+                              provider.nextAcFilterChangeODOlController.text =
+                                  (int.parse(data) +
+                                          int.parse(provider
+                                                  .currentOodometerReading ??
+                                              '0'))
+                                      .toString();
+                            } else {
+                              provider.remainingAcFilter = null;
+                              provider.nextAcFilterChangeODOlController.clear();
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  16.horizontalSpace,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Next service on",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "ODO Reading",
+                          controller: provider.nextAcFilterChangeODOlController,
+                          inputAction: TextInputAction.done,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            provider.nextAirFilterChangeODO = data;
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              //
               26.verticalSpace,
               StatusSelector(
                 title: "Spark Plug",
@@ -151,6 +358,73 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                 },
               ),
               26.verticalSpace,
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Remaining Spark Plug",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "Remaining",
+                          controller: provider.remainingSparkPlugController,
+                          inputAction: TextInputAction.next,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            if (data.isNotEmpty) {
+                              provider.remainingSparkPlug = data;
+                              provider.nextSparkPlugChangeODOlController.text =
+                                  (int.parse(data) +
+                                          int.parse(provider
+                                                  .currentOodometerReading ??
+                                              '0'))
+                                      .toString();
+                            } else {
+                              provider.remainingSparkPlug = null;
+                              provider.nextSparkPlugChangeODOlController
+                                  .clear();
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  16.horizontalSpace,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Next service on",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "ODO Reading",
+                          controller:
+                              provider.nextSparkPlugChangeODOlController,
+                          inputAction: TextInputAction.done,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            provider.nextSparkPlugChangeODO = data;
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              26.verticalSpace,
               StatusSelector(
                 title: "Ignition Coil",
                 selection: provider.ignitionCoil,
@@ -159,6 +433,73 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                     provider.ignitionCoil = selection;
                   });
                 },
+              ),
+              26.verticalSpace,
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Remaining Ignition Coil",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "Remaining",
+                          controller: provider.remainingIgnitionCoilController,
+                          inputAction: TextInputAction.next,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            if (data.isNotEmpty) {
+                              provider.remainingIgnitionCoil = data;
+                              provider.nextIgnitionCoilChangeODOlController
+                                  .text = (int.parse(data) +
+                                      int.parse(
+                                          provider.currentOodometerReading ??
+                                              '0'))
+                                  .toString();
+                            } else {
+                              provider.remainingIgnitionCoil = null;
+                              provider.nextIgnitionCoilChangeODOlController
+                                  .clear();
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  16.horizontalSpace,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Next service on",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "ODO Reading",
+                          controller:
+                              provider.nextIgnitionCoilChangeODOlController,
+                          inputAction: TextInputAction.done,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            provider.nextIgnitionCoilChangeODO = data;
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
               26.verticalSpace,
               StatusSelector(
@@ -181,6 +522,71 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                 },
               ),
               26.verticalSpace,
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Remaining Plug Seal",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "Remaining",
+                          controller: provider.remainingPlugSealController,
+                          inputAction: TextInputAction.next,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            if (data.isNotEmpty) {
+                              provider.remainingPlugSeal = data;
+                              provider.nextPlugSealChangeODOlController.text =
+                                  (int.parse(data) +
+                                          int.parse(provider
+                                                  .currentOodometerReading ??
+                                              '0'))
+                                      .toString();
+                            } else {
+                              provider.remainingPlugSeal = null;
+                              provider.nextPlugSealChangeODOlController.clear();
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  16.horizontalSpace,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Next service on",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "ODO Reading",
+                          controller: provider.nextPlugSealChangeODOlController,
+                          inputAction: TextInputAction.done,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            provider.nextPlugSealChangeODO = data;
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              26.verticalSpace,
               StatusSelector(
                 title: "Engine Belt",
                 selection: provider.engineBelt,
@@ -189,6 +595,73 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                     provider.engineBelt = selection;
                   });
                 },
+              ),
+              26.verticalSpace,
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Remaining Engine Belt",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "Remaining",
+                          controller: provider.remainingEngineBeltController,
+                          inputAction: TextInputAction.next,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            if (data.isNotEmpty) {
+                              provider.remainingEngineBelt = data;
+                              provider.nextEngineBeltChangeODOlController.text =
+                                  (int.parse(data) +
+                                          int.parse(provider
+                                                  .currentOodometerReading ??
+                                              '0'))
+                                      .toString();
+                            } else {
+                              provider.remainingEngineBelt = null;
+                              provider.nextEngineBeltChangeODOlController
+                                  .clear();
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  16.horizontalSpace,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Next service on",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "ODO Reading",
+                          controller:
+                              provider.nextEngineBeltChangeODOlController,
+                          inputAction: TextInputAction.done,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            provider.nextEngineBeltChangeODO = data;
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
               26.verticalSpace,
               StatusSelector(
@@ -201,6 +674,76 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                 },
               ),
               26.verticalSpace,
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Remaining Engine Belt Tentioner",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "Remaining",
+                          controller:
+                              provider.remainingEngineBeltTentionerController,
+                          inputAction: TextInputAction.next,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            if (data.isNotEmpty) {
+                              provider.remainingEngineBeltTentioner = data;
+                              provider
+                                  .nextEngineBeltTentionerChangeODOlController
+                                  .text = (int.parse(data) +
+                                      int.parse(
+                                          provider.currentOodometerReading ??
+                                              '0'))
+                                  .toString();
+                            } else {
+                              provider.remainingEngineBeltTentioner = null;
+                              provider
+                                  .nextEngineBeltTentionerChangeODOlController
+                                  .clear();
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  16.horizontalSpace,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Next service on",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "ODO Reading",
+                          controller: provider
+                              .nextEngineBeltTentionerChangeODOlController,
+                          inputAction: TextInputAction.done,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            provider.nextEngineBeltTentionerChangeODO = data;
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              26.verticalSpace,
               StatusSelector(
                 title: "IDL Pulley",
                 selection: provider.idlPulley,
@@ -209,6 +752,73 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                     provider.idlPulley = selection;
                   });
                 },
+              ),
+              26.verticalSpace,
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Remaining IDL Pulley",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "Remaining",
+                          controller: provider.remainingIDLPulleyController,
+                          inputAction: TextInputAction.next,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            if (data.isNotEmpty) {
+                              provider.remainingIDLPulley = data;
+                              provider.nextIDLPulleyChangeODOlController.text =
+                                  (int.parse(data) +
+                                          int.parse(provider
+                                                  .currentOodometerReading ??
+                                              '0'))
+                                      .toString();
+                            } else {
+                              provider.remainingIDLPulley = null;
+                              provider.nextIDLPulleyChangeODOlController
+                                  .clear();
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  16.horizontalSpace,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Next service on",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "ODO Reading",
+                          controller:
+                              provider.nextIDLPulleyChangeODOlController,
+                          inputAction: TextInputAction.done,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            provider.nextIDLPulleyChangeODO = data;
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
               26.verticalSpace,
               StatusSelector(
@@ -221,6 +831,73 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                 },
               ),
               26.verticalSpace,
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Remaining Injectors",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "Remaining",
+                          controller: provider.remainingInjectorsController,
+                          inputAction: TextInputAction.next,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            if (data.isNotEmpty) {
+                              provider.remainingInjectors = data;
+                              provider.nextInjectorsChangeODOlController.text =
+                                  (int.parse(data) +
+                                          int.parse(provider
+                                                  .currentOodometerReading ??
+                                              '0'))
+                                      .toString();
+                            } else {
+                              provider.remainingInjectors = null;
+                              provider.nextInjectorsChangeODOlController
+                                  .clear();
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  16.horizontalSpace,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Next service on",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "ODO Reading",
+                          controller:
+                              provider.nextInjectorsChangeODOlController,
+                          inputAction: TextInputAction.done,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            provider.nextInjectorsChangeODO = data;
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              26.verticalSpace,
               StatusSelector(
                 title: "Self Motor",
                 selection: provider.selfMotor,
@@ -229,6 +906,73 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                     provider.selfMotor = selection;
                   });
                 },
+              ),
+              26.verticalSpace,
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Remaining Self Motor",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "Remaining",
+                          controller: provider.remainingSelfMotorController,
+                          inputAction: TextInputAction.next,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            if (data.isNotEmpty) {
+                              provider.remainingSelfMotor = data;
+                              provider.nextSelfMotorChangeODOlController.text =
+                                  (int.parse(data) +
+                                          int.parse(provider
+                                                  .currentOodometerReading ??
+                                              '0'))
+                                      .toString();
+                            } else {
+                              provider.remainingSelfMotor = null;
+                              provider.nextSelfMotorChangeODOlController
+                                  .clear();
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  16.horizontalSpace,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Next service on",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "ODO Reading",
+                          controller:
+                              provider.nextSelfMotorChangeODOlController,
+                          inputAction: TextInputAction.done,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            provider.nextSelfMotorChangeODO = data;
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
               26.verticalSpace,
               StatusSelector(
@@ -240,7 +984,73 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                   });
                 },
               ),
-              //  26.verticalSpace,
+              26.verticalSpace,
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Remaining Engine Mount",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "Remaining",
+                          controller: provider.remainingEngineMotorController,
+                          inputAction: TextInputAction.next,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            if (data.isNotEmpty) {
+                              provider.remainingEngineMotor = data;
+                              provider.nextEngineMotorChangeODOlController
+                                  .text = (int.parse(data) +
+                                      int.parse(
+                                          provider.currentOodometerReading ??
+                                              '0'))
+                                  .toString();
+                            } else {
+                              provider.remainingEngineMotor = null;
+                              provider.nextEngineMotorChangeODOlController
+                                  .clear();
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  16.horizontalSpace,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Next service on",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "ODO Reading",
+                          controller:
+                              provider.nextEngineMotorChangeODOlController,
+                          inputAction: TextInputAction.done,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            provider.nextEngineMotorrChangeODO = data;
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
               26.verticalSpace,
               Text(
                 "Number of Engine Mounts",

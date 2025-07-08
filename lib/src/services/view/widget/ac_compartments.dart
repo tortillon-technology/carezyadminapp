@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 
 import '../../../../res/styles/fonts/plus_jakarta_font_palette.dart';
 import '../../view_model/add_service_view_model.dart';
+import '../../../../utils/common_widgets/common_text_form.dart';
+import '../../../../utils/helpers/text_input_formatters.dart';
 
 class AcCompartments extends StatefulWidget {
   final AddServiceViewModel viewModel;
@@ -50,6 +52,71 @@ class _AcCompartmentsState extends State<AcCompartments> {
                 },
               ),
               26.verticalSpace,
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Remaining AC Gas",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "Remaining",
+                          controller: provider.remainingAcGasController,
+                          inputAction: TextInputAction.next,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            if (data.isNotEmpty) {
+                              provider.remainingAcGas = data;
+                              provider.nextAcGasChangeODOlController.text =
+                                  (int.parse(data) +
+                                          int.parse(provider
+                                                  .currentOodometerReading ??
+                                              '0'))
+                                      .toString();
+                            } else {
+                              provider.remainingAcGas = null;
+                              provider.nextAcGasChangeODOlController.clear();
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  16.horizontalSpace,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Next service on",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "ODO Reading",
+                          controller: provider.nextAcGasChangeODOlController,
+                          inputAction: TextInputAction.done,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            provider.nextAcGasChangeODO = data;
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              26.verticalSpace,
               StatusSelector(
                 title: "Compressor",
                 selection: provider.compressor,
@@ -58,6 +125,73 @@ class _AcCompartmentsState extends State<AcCompartments> {
                     provider.compressor = selection;
                   });
                 },
+              ),
+              26.verticalSpace,
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Remaining Compressor",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "Remaining",
+                          controller: provider.remainingCompressorController,
+                          inputAction: TextInputAction.next,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            if (data.isNotEmpty) {
+                              provider.remainingCompressor = data;
+                              provider.nextCompressorChangeODOlController.text =
+                                  (int.parse(data) +
+                                          int.parse(provider
+                                                  .currentOodometerReading ??
+                                              '0'))
+                                      .toString();
+                            } else {
+                              provider.remainingCompressor = null;
+                              provider.nextCompressorChangeODOlController
+                                  .clear();
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  16.horizontalSpace,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Next service on",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "ODO Reading",
+                          controller:
+                              provider.nextCompressorChangeODOlController,
+                          inputAction: TextInputAction.done,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            provider.nextCompressorChangeODO = data;
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
               26.verticalSpace,
               StatusSelector(
@@ -70,6 +204,73 @@ class _AcCompartmentsState extends State<AcCompartments> {
                 },
               ),
               26.verticalSpace,
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Remaining Condenser",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "Remaining",
+                          controller: provider.remainingCondenserController,
+                          inputAction: TextInputAction.next,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            if (data.isNotEmpty) {
+                              provider.remainingCondenser = data;
+                              provider.nextCondenserChangeODOlController.text =
+                                  (int.parse(data) +
+                                          int.parse(provider
+                                                  .currentOodometerReading ??
+                                              '0'))
+                                      .toString();
+                            } else {
+                              provider.remainingCondenser = null;
+                              provider.nextCondenserChangeODOlController
+                                  .clear();
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  16.horizontalSpace,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Next service on",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "ODO Reading",
+                          controller:
+                              provider.nextCondenserChangeODOlController,
+                          inputAction: TextInputAction.done,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            provider.nextCondenserChangeODO = data;
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              26.verticalSpace,
               StatusSelector(
                 title: "Evaporator",
                 selection: provider.evaporator,
@@ -80,6 +281,73 @@ class _AcCompartmentsState extends State<AcCompartments> {
                 },
               ),
               26.verticalSpace,
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Remaining Evaporator",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "Remaining",
+                          controller: provider.remainingEvaporatorController,
+                          inputAction: TextInputAction.next,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            if (data.isNotEmpty) {
+                              provider.remainingEvaporator = data;
+                              provider.nextEvaporatorChangeODOlController.text =
+                                  (int.parse(data) +
+                                          int.parse(provider
+                                                  .currentOodometerReading ??
+                                              '0'))
+                                      .toString();
+                            } else {
+                              provider.remainingEvaporator = null;
+                              provider.nextEvaporatorChangeODOlController
+                                  .clear();
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  16.horizontalSpace,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Next service on",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "ODO Reading",
+                          controller:
+                              provider.nextEvaporatorChangeODOlController,
+                          inputAction: TextInputAction.done,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            provider.nextEvaporatorChangeODO = data;
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              26.verticalSpace,
               StatusSelector(
                 title: "EX Valve",
                 selection: provider.exValve,
@@ -88,6 +356,71 @@ class _AcCompartmentsState extends State<AcCompartments> {
                     provider.exValve = selection;
                   });
                 },
+              ),
+              26.verticalSpace,
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Remaining EX Valve",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "Remaining",
+                          controller: provider.remainingExValveController,
+                          inputAction: TextInputAction.next,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            if (data.isNotEmpty) {
+                              provider.remainingExValve = data;
+                              provider.nextExValveChangeODOlController.text =
+                                  (int.parse(data) +
+                                          int.parse(provider
+                                                  .currentOodometerReading ??
+                                              '0'))
+                                      .toString();
+                            } else {
+                              provider.remainingExValve = null;
+                              provider.nextExValveChangeODOlController.clear();
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  16.horizontalSpace,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Next service on",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "ODO Reading",
+                          controller: provider.nextExValveChangeODOlController,
+                          inputAction: TextInputAction.done,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            provider.nextExValveChangeODO = data;
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ],
           );

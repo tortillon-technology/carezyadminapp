@@ -146,100 +146,102 @@ class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
                   );
                   viewModel.check('');
                 },
-                child: SingleChildScrollView(
-                  controller: _scrollController,
-                  padding: EdgeInsets.symmetric(vertical: 10.h),
-                  child: Consumer<CustomerManageViewModel>(
-                      builder: (context, provider, child) {
-                    return SearchSwitchState(
-                      loader: provider.isLoading,
-                      child: Column(
-                        children: [
-                          ...List.generate(
-                            provider.customerList.length,
-                            (index) {
-                              bool isLast =
-                                  index == provider.customerList.length;
-                              final item = provider.customerList[index];
-                              String customerName = item.customerName ?? "";
-                              String vehicleName = item.vehicleName ?? "";
-                              String lastServiceDate =
-                                  item.lastServiceDate ?? "";
-                              return InkWell(
-                                splashColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                      context,
-                                      RouteConstants
-                                          .routeCustomerDetailsScreen);
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.all(16.w),
-                                  margin:
-                                      EdgeInsets.only(bottom: isLast ? 0 : 8.h),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10.r),
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              customerName
-                                                  .capitalizeEachLetter(),
-                                              style: PlusJakartaFontPalette
-                                                  .fBlack_14_600,
-                                            ),
-                                            4.verticalSpace,
-                                            Text(
-                                              vehicleName,
-                                              style: PlusJakartaFontPalette
-                                                  .f6E6E6E_12_500,
-                                            ),
-                                          ],
+                child: Center(
+                  child: SingleChildScrollView(
+                    controller: _scrollController,
+                    padding: EdgeInsets.symmetric(vertical: 10.h),
+                    child: Consumer<CustomerManageViewModel>(
+                        builder: (context, provider, child) {
+                      return SearchSwitchState(
+                        loader: provider.isLoading,
+                        child: Column(
+                          children: [
+                            ...List.generate(
+                              provider.customerList.length,
+                              (index) {
+                                bool isLast =
+                                    index == provider.customerList.length;
+                                final item = provider.customerList[index];
+                                String customerName = item.customerName ?? "";
+                                String vehicleName = item.vehicleName ?? "";
+                                String lastServiceDate =
+                                    item.lastServiceDate ?? "";
+                                return InkWell(
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () {
+                                    // Navigator.pushNamed(
+                                    //     context,
+                                    //     RouteConstants
+                                    //         .routeCustomerDetailsScreen);
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.all(16.w),
+                                    margin: EdgeInsets.only(
+                                        bottom: isLast ? 0 : 8.h),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10.r),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                customerName
+                                                    .capitalizeEachLetter(),
+                                                style: PlusJakartaFontPalette
+                                                    .fBlack_14_600,
+                                              ),
+                                              4.verticalSpace,
+                                              Text(
+                                                vehicleName,
+                                                style: PlusJakartaFontPalette
+                                                    .f6E6E6E_12_500,
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      if (lastServiceDate.isNotEmpty)
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          children: [
-                                            Text(
-                                              "Last Service",
-                                              style: PlusJakartaFontPalette
-                                                  .fBlack_12_400,
-                                            ),
-                                            Text(
-                                              lastServiceDate,
-                                              style: PlusJakartaFontPalette
-                                                  .fBlack_12_600,
-                                            ),
-                                          ],
-                                        )
-                                    ],
+                                        if (lastServiceDate.isNotEmpty)
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
+                                            children: [
+                                              Text(
+                                                "Last Service",
+                                                style: PlusJakartaFontPalette
+                                                    .fBlack_12_400,
+                                              ),
+                                              Text(
+                                                lastServiceDate,
+                                                style: PlusJakartaFontPalette
+                                                    .fBlack_12_600,
+                                              ),
+                                            ],
+                                          )
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              );
-                            },
-                          ),
-                          if (provider.isPaginating)
-                            SizedBox(
-                              width: context.sw(),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [CircularProgressIndicator()],
-                              ),
+                                );
+                              },
                             ),
-                          100.verticalSpace,
-                        ],
-                      ),
-                    );
-                  }),
+                            if (provider.isPaginating)
+                              SizedBox(
+                                width: context.sw(),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [CircularProgressIndicator()],
+                                ),
+                              ),
+                            100.verticalSpace,
+                          ],
+                        ),
+                      );
+                    }),
+                  ),
                 ),
               ))
             ],
@@ -282,7 +284,10 @@ class SearchSwitchState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return switch (loader) {
-      SearchLoader.loading => const Center(child: CircularProgressIndicator()),
+      SearchLoader.loading => const Center(
+            child: CircularProgressIndicator(
+          color: ColorPalette.fEC0008,
+        )),
       SearchLoader.loaded => child,
       SearchLoader.error => buildError(context, error: "Error"),
       SearchLoader.noSearchData => buildError(context, error: "No search data"),

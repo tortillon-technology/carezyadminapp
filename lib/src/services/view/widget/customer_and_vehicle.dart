@@ -4,22 +4,29 @@ import 'package:carezyadminapp/utils/helpers/hex_color.dart';
 import 'package:carezyadminapp/utils/routes/route_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../generated/assets.dart';
 import '../../../../res/styles/fonts/plus_jakarta_font_palette.dart';
 import '../../../../utils/common_widgets/common_text_form.dart';
 import '../../../../utils/common_widgets/custom_dropdown_button.dart';
+import '../../../../utils/helpers/text_input_formatters.dart';
 import '../../../customer/model/garage_model.dart';
 
-class CustomerAndVehicle extends StatelessWidget {
+class CustomerAndVehicle extends StatefulWidget {
   final AddServiceViewModel viewModel;
   const CustomerAndVehicle({super.key, required this.viewModel});
+
+  @override
+  State<CustomerAndVehicle> createState() => _CustomerAndVehicleState();
+}
+
+class _CustomerAndVehicleState extends State<CustomerAndVehicle> {
+  final nextServiceReadingController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
-      value: viewModel,
+      value: widget.viewModel,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 24.h),
         decoration: BoxDecoration(
@@ -76,7 +83,7 @@ class CustomerAndVehicle extends StatelessWidget {
                   onTap: () {
                     Navigator.pushNamed(
                         context, RouteConstants.routeSearchCustomerScreen,
-                        arguments: viewModel);
+                        arguments: widget.viewModel);
                   },
                   child: Container(
                     height: 60.h,
@@ -100,7 +107,148 @@ class CustomerAndVehicle extends StatelessWidget {
                       ],
                     ),
                   ),
-                )
+                ),
+                //Added
+                if (provider.currentOodometerReading != null)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      20.verticalSpace,
+                      Text(
+                        "Current ODO Reading",
+                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                      ),
+                      16.verticalSpace,
+                      if (provider.isOodoReadingLoading)
+                        Container(
+                          width: context.sw(),
+                          height: 60.h,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16.r),
+                              color: HexColor('#E8E8E8')),
+                        )
+                      else
+                        CommonTextFormFieldWithValidator(
+                          hintText: "Current ODO",
+                          controller: provider.currentODOController,
+                          inputAction: TextInputAction.next,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onTap: () {
+                            provider.nextServiceReading = null;
+                            nextServiceReadingController.clear();
+                          },
+                          onChanged: (String data) {
+                            provider.currentOodometerReading = data;
+                          },
+                        ),
+                      20.verticalSpace,
+                      Text(
+                        "Oil Life (km)",
+                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                      ),
+                      16.verticalSpace,
+                      CommonTextFormFieldWithValidator(
+                        hintText: "Enter oil life (km)",
+                        controller: provider.oilLifeController,
+                        inputAction: TextInputAction.next,
+                        inputType: TextInputType.number,
+                        inputFormatters: [
+                          TextInputFormats.digitsFormatter,
+                        ],
+                        onTap: () {
+                          provider.nextServiceReading = null;
+                          nextServiceReadingController.clear();
+                        },
+                        onChanged: (String data) {
+                          provider.oilLife = data;
+                        },
+                      ),
+                      20.verticalSpace,
+                      Text(
+                        "Next Service Reading",
+                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                      ),
+                      16.verticalSpace,
+                      CommonTextFormFieldWithValidator(
+                        hintText: "Next Service (km)",
+                        controller: nextServiceReadingController,
+                        inputAction: TextInputAction.done,
+                        inputType: TextInputType.number,
+                        inputFormatters: [
+                          TextInputFormats.digitsFormatter,
+                        ],
+                        onChanged: (String data) {
+                          provider.remainingOilController.clear();
+                          provider.remainingOil = null;
+
+                          if (data.isEmpty) {
+                            provider.nextServiceReading = null;
+                            //
+                            provider.nextOilChangeODO = null;
+                            provider.nextOilChangeODOlController.clear();
+                            //
+                          } else {
+                            provider.nextServiceReading = data;
+                            //---
+                            if ((provider.currentOodometerReading?.isNotEmpty ??
+                                    false) &&
+                                (provider.nextServiceReading?.isNotEmpty ??
+                                    false)) {
+                              if ((int.parse(provider.currentOodometerReading
+                                      .toString())) <
+                                  ((int.parse(provider.nextServiceReading
+                                      .toString())))) {
+                                //! 80000 < 85000
+
+                                if (provider.oilLife?.isNotEmpty ?? false) {
+                                  final nextOilChange = ((int.parse(
+                                          provider.nextServiceReading //! 85000
+                                              .toString()))) -
+                                      ((int.parse(provider
+                                          .currentOodometerReading //!80000
+                                          .toString())));
+
+                                  provider.remainingOilController.text =
+                                      '$nextOilChange';
+                                  provider.remainingOil = '$nextOilChange';
+                                  provider.nextOilChangeODO = '$nextOilChange';
+                                  provider.nextOilChangeODOlController.text =
+                                      provider.nextServiceReading ?? '__';
+                                }
+                              }
+
+                              // * correct
+                              if ((int.parse(provider.currentOodometerReading
+                                      .toString())) >
+                                  ((int.parse(provider.nextServiceReading
+                                      .toString())))) {
+                                if (provider.oilLife?.isNotEmpty ?? false) {
+                                  final nextOilChange = ((int.parse(provider
+                                          .currentOodometerReading
+                                          .toString()))) +
+                                      ((int.parse(
+                                          provider.oilLife.toString())));
+                                  provider.nextOilChangeODOlController.text =
+                                      '$nextOilChange';
+                                  provider.nextOilChangeODO = '$nextOilChange';
+                                  provider.remainingOilController.text =
+                                      provider.oilLife ?? '__';
+                                  provider.remainingOil = provider.oilLife;
+                                }
+                              }
+                            }
+                          }
+                          provider.setValuesForAllRemainingFields();
+                          //
+                        },
+                      ),
+                    ],
+                  )
+
+                //--------------
               ],
             );
           },

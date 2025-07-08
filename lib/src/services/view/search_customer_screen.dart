@@ -113,6 +113,8 @@ class _SearchCustomerScreenState extends State<SearchCustomerScreen> {
                                 : null;
                             provider.checkAddButtonEnable();
                             if (provider.selectedCustomer != null) {
+                              provider.getOodoReadingAndOthers(
+                                  provider.selectedCustomer?.id ?? 0);
                               Future.delayed(const Duration(milliseconds: 300),
                                   () {
                                 if (context.mounted) {

@@ -36,30 +36,162 @@ class TyrePressure extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: buildRowItem(
-                    title: "Front Right",
-                    inputAction: TextInputAction.next,
-                    onChange: (data) {
-                      if (data.isEmpty) {
-                        provider.frPressure = null;
-                      } else {
-                        provider.frPressure = data;
-                      }
-                    },
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Front Right",
+                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                      ),
+                      16.verticalSpace,
+                      CommonTextFormFieldWithValidator(
+                        hintText: "Pressure",
+                        onChanged: (data) {
+                          if (data.isEmpty) {
+                            provider.frPressure = null;
+                          } else {
+                            provider.frPressure = data;
+                          }
+                        },
+                        inputAction: TextInputAction.next,
+                        inputType: TextInputType.number,
+                        inputFormatters: [
+                          TextInputFormats.digitsFormatter,
+                        ],
+                      ),
+                      16.verticalSpace,
+                      // Text(
+                      //   "Remaining Front Right",
+                      //   style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                      // ),
+                      // 16.verticalSpace,
+                      // CommonTextFormFieldWithValidator(
+                      //   hintText: "Remaining",
+                      //   controller:
+                      //       provider.remainingTyrePressureFrontRightController,
+                      //   inputAction: TextInputAction.next,
+                      //   inputType: TextInputType.number,
+                      //   inputFormatters: [
+                      //     TextInputFormats.digitsFormatter,
+                      //   ],
+                      //   onChanged: (data) {
+                      //     if (data.isNotEmpty) {
+                      //       provider.remainingTyrePressureFrontRight = data;
+                      //       provider
+                      //           .nextTyrePressureFrontRightChangeODOlController
+                      //           .text = (int.parse(data) +
+                      //               int.parse(
+                      //                   provider.currentOodometerReading ??
+                      //                       '0'))
+                      //           .toString();
+                      //     } else {
+                      //       provider.remainingTyrePressureFrontRight = null;
+                      //       provider
+                      //           .nextTyrePressureFrontRightChangeODOlController
+                      //           .clear();
+                      //     }
+                      //   },
+                      // ),
+                      // 16.verticalSpace,
+                      // Text(
+                      //   "Next service on",
+                      //   style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                      // ),
+                      // 16.verticalSpace,
+                      // CommonTextFormFieldWithValidator(
+                      //   hintText: "ODO Reading",
+                      //   controller: provider
+                      //       .nextTyrePressureFrontRightChangeODOlController,
+                      //   inputAction: TextInputAction.done,
+                      //   inputType: TextInputType.number,
+                      //   inputFormatters: [
+                      //     TextInputFormats.digitsFormatter,
+                      //   ],
+                      //   onChanged: (data) {
+                      //     provider.nextTyrePressureFrontRightChangeODO = data;
+                      //   },
+                      // ),
+                    ],
                   ),
                 ),
                 16.horizontalSpace,
                 Expanded(
-                  child: buildRowItem(
-                    title: "Front Left",
-                    inputAction: TextInputAction.next,
-                    onChange: (data) {
-                      if (data.isEmpty) {
-                        provider.flPressure = null;
-                      } else {
-                        provider.flPressure = data;
-                      }
-                    },
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Front Left",
+                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                      ),
+                      16.verticalSpace,
+                      CommonTextFormFieldWithValidator(
+                        hintText: "Pressure",
+                        onChanged: (data) {
+                          if (data.isEmpty) {
+                            provider.flPressure = null;
+                          } else {
+                            provider.flPressure = data;
+                          }
+                        },
+                        inputAction: TextInputAction.next,
+                        inputType: TextInputType.number,
+                        inputFormatters: [
+                          TextInputFormats.digitsFormatter,
+                        ],
+                      ),
+                      16.verticalSpace,
+                      // Text(
+                      //   "Remaining Front Left",
+                      //   style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                      // ),
+                      // 16.verticalSpace,
+                      // CommonTextFormFieldWithValidator(
+                      //   hintText: "Remaining",
+                      //   controller:
+                      //       provider.remainingTyrePressureFrontLeftController,
+                      //   inputAction: TextInputAction.next,
+                      //   inputType: TextInputType.number,
+                      //   inputFormatters: [
+                      //     TextInputFormats.digitsFormatter,
+                      //   ],
+                      //   onChanged: (data) {
+                      //     if (data.isNotEmpty) {
+                      //       provider.remainingTyrePressureFrontLeft = data;
+                      //       provider
+                      //           .nextTyrePressureFrontLeftChangeODOlController
+                      //           .text = (int.parse(data) +
+                      //               int.parse(
+                      //                   provider.currentOodometerReading ??
+                      //                       '0'))
+                      //           .toString();
+                      //     } else {
+                      //       provider.remainingTyrePressureFrontLeft = null;
+                      //       provider
+                      //           .nextTyrePressureFrontLeftChangeODOlController
+                      //           .clear();
+                      //     }
+                      //   },
+                      // ),
+                      // 16.verticalSpace,
+                      // Text(
+                      //   "Next service on",
+                      //   style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                      // ),
+                      // 16.verticalSpace,
+                      // CommonTextFormFieldWithValidator(
+                      //   hintText: "ODO Reading",
+                      //   controller: provider
+                      //       .nextTyrePressureFrontLeftChangeODOlController,
+                      //   inputAction: TextInputAction.done,
+                      //   inputType: TextInputType.number,
+                      //   inputFormatters: [
+                      //     TextInputFormats.digitsFormatter,
+                      //   ],
+                      //   onChanged: (data) {
+                      //     provider.nextTyrePressureFrontLeftChangeODO = data;
+                      //   },
+                      // ),
+                    ],
                   ),
                 ),
               ],
@@ -68,30 +200,162 @@ class TyrePressure extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: buildRowItem(
-                    title: "Rear Right",
-                    inputAction: TextInputAction.next,
-                    onChange: (data) {
-                      if (data.isEmpty) {
-                        provider.rrPressure = null;
-                      } else {
-                        provider.rrPressure = data;
-                      }
-                    },
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Rear Right",
+                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                      ),
+                      16.verticalSpace,
+                      CommonTextFormFieldWithValidator(
+                        hintText: "Pressure",
+                        onChanged: (data) {
+                          if (data.isEmpty) {
+                            provider.rrPressure = null;
+                          } else {
+                            provider.rrPressure = data;
+                          }
+                        },
+                        inputAction: TextInputAction.next,
+                        inputType: TextInputType.number,
+                        inputFormatters: [
+                          TextInputFormats.digitsFormatter,
+                        ],
+                      ),
+                      // 16.verticalSpace,
+                      // Text(
+                      //   "Remaining Rear Right",
+                      //   style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                      // ),
+                      // 16.verticalSpace,
+                      // CommonTextFormFieldWithValidator(
+                      //   hintText: "Remaining",
+                      //   controller:
+                      //       provider.remainingTyrePressureRearRightController,
+                      //   inputAction: TextInputAction.next,
+                      //   inputType: TextInputType.number,
+                      //   inputFormatters: [
+                      //     TextInputFormats.digitsFormatter,
+                      //   ],
+                      //   onChanged: (data) {
+                      //     if (data.isNotEmpty) {
+                      //       provider.remainingTyrePressureRearRight = data;
+                      //       provider
+                      //           .nextTyrePressureRearRightChangeODOlController
+                      //           .text = (int.parse(data) +
+                      //               int.parse(
+                      //                   provider.currentOodometerReading ??
+                      //                       '0'))
+                      //           .toString();
+                      //     } else {
+                      //       provider.remainingTyrePressureRearRight = null;
+                      //       provider
+                      //           .nextTyrePressureRearRightChangeODOlController
+                      //           .clear();
+                      //     }
+                      //   },
+                      // ),
+                      // 16.verticalSpace,
+                      // Text(
+                      //   "Next service on",
+                      //   style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                      // ),
+                      // 16.verticalSpace,
+                      // CommonTextFormFieldWithValidator(
+                      //   hintText: "ODO Reading",
+                      //   controller: provider
+                      //       .nextTyrePressureRearRightChangeODOlController,
+                      //   inputAction: TextInputAction.done,
+                      //   inputType: TextInputType.number,
+                      //   inputFormatters: [
+                      //     TextInputFormats.digitsFormatter,
+                      //   ],
+                      //   onChanged: (data) {
+                      //     provider.nextTyrePressureRearRightChangeODO = data;
+                      //   },
+                      // ),
+                    ],
                   ),
                 ),
                 16.horizontalSpace,
                 Expanded(
-                  child: buildRowItem(
-                    title: "Rear Left",
-                    inputAction: TextInputAction.done,
-                    onChange: (data) {
-                      if (data.isEmpty) {
-                        provider.rlPressure = null;
-                      } else {
-                        provider.rlPressure = data;
-                      }
-                    },
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Rear Left",
+                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                      ),
+                      16.verticalSpace,
+                      CommonTextFormFieldWithValidator(
+                        hintText: "Pressure",
+                        onChanged: (data) {
+                          if (data.isEmpty) {
+                            provider.rlPressure = null;
+                          } else {
+                            provider.rlPressure = data;
+                          }
+                        },
+                        inputAction: TextInputAction.done,
+                        inputType: TextInputType.number,
+                        inputFormatters: [
+                          TextInputFormats.digitsFormatter,
+                        ],
+                      ),
+                      // 16.verticalSpace,
+                      // Text(
+                      //   "Remaining Rear Left",
+                      //   style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                      // ),
+                      // 16.verticalSpace,
+                      // CommonTextFormFieldWithValidator(
+                      //   hintText: "Remaining",
+                      //   controller:
+                      //       provider.remainingTyrePressureRearLeftController,
+                      //   inputAction: TextInputAction.next,
+                      //   inputType: TextInputType.number,
+                      //   inputFormatters: [
+                      //     TextInputFormats.digitsFormatter,
+                      //   ],
+                      //   onChanged: (data) {
+                      //     if (data.isNotEmpty) {
+                      //       provider.remainingTyrePressureRearLeft = data;
+                      //       provider
+                      //           .nextTyrePressureRearLeftChangeODOlController
+                      //           .text = (int.parse(data) +
+                      //               int.parse(
+                      //                   provider.currentOodometerReading ??
+                      //                       '0'))
+                      //           .toString();
+                      //     } else {
+                      //       provider.remainingTyrePressureRearLeft = null;
+                      //       provider
+                      //           .nextTyrePressureRearLeftChangeODOlController
+                      //           .clear();
+                      //     }
+                      //   },
+                      // ),
+                      // 16.verticalSpace,
+                      // Text(
+                      //   "Next service on",
+                      //   style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                      // ),
+                      // 16.verticalSpace,
+                      // CommonTextFormFieldWithValidator(
+                      //   hintText: "ODO Reading",
+                      //   controller: provider
+                      //       .nextTyrePressureRearLeftChangeODOlController,
+                      //   inputAction: TextInputAction.done,
+                      //   inputType: TextInputType.number,
+                      //   inputFormatters: [
+                      //     TextInputFormats.digitsFormatter,
+                      //   ],
+                      //   onChanged: (data) {
+                      //     provider.nextTyrePressureRearLeftChangeODO = data;
+                      //   },
+                      // ),
+                    ],
                   ),
                 ),
               ],
@@ -99,31 +363,6 @@ class TyrePressure extends StatelessWidget {
           ],
         );
       }),
-    );
-  }
-
-  Widget buildRowItem(
-      {required String title,
-      Function(String d)? onChange,
-      TextInputAction? inputAction}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: PlusJakartaFontPalette.f1C1C1C_14_600,
-        ),
-        16.verticalSpace,
-        CommonTextFormFieldWithValidator(
-          hintText: "Pressure",
-          onChanged: onChange,
-          inputAction: inputAction,
-          inputType: TextInputType.number,
-          inputFormatters: [
-            TextInputFormats.digitsFormatter,
-          ],
-        )
-      ],
     );
   }
 }

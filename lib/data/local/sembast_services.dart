@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:carezyadminapp/data/local/local_base_services.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:sembast/sembast.dart';
 import 'package:sembast/sembast_io.dart';
 
 class SembastServices extends LocalBaseServices {

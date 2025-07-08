@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carezyadminapp/generated/assets.dart';
 import 'package:carezyadminapp/res/styles/fonts/plus_jakarta_font_palette.dart';
 import 'package:carezyadminapp/utils/helpers/common_functions.dart';
 import 'package:carezyadminapp/utils/helpers/hex_color.dart';

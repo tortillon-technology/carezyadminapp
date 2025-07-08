@@ -1,5 +1,6 @@
 import 'package:carezyadminapp/src/customer/model/customer_list_model.dart';
 import 'package:carezyadminapp/src/customer/repo/customer_repo.dart';
+import 'package:carezyadminapp/src/services/model/oodo_model.dart';
 import 'package:either_dart/either.dart';
 
 import '../../../data/remote/network_base_services.dart';
@@ -69,5 +70,16 @@ class CustomerRepoImplements extends CustomerRepo {
         .thenRight(service.checkHttpStatus)
         .thenRight(service.parseJson)
         .mapRight((right) => CustomerListModel.fromJson(right));
+  }
+
+  @override
+  Future<Either<ResponseError, OodoModel>> getOodoReading({required int customerID}) {
+    return service
+        .safe(service.getRequest(
+          endPoint: "${AppConstants.oodoReading}?customer_id=$customerID",
+        ))
+        .thenRight(service.checkHttpStatus)
+        .thenRight(service.parseJson)
+        .mapRight((right) => OodoModel.fromJson(right));
   }
 }

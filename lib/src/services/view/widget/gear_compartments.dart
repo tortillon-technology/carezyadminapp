@@ -65,23 +65,30 @@ class _GearCompartmentsState extends State<GearCompartments> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Oil Life (km)",
+                          "Remaining Gear Oil",
                           style: PlusJakartaFontPalette.f1C1C1C_14_600,
                         ),
                         16.verticalSpace,
                         CommonTextFormFieldWithValidator(
-                          hintText: "Enter oil life (km)",
-                          controller: oilLifeController,
+                          hintText: "Remaining",
+                          controller: provider.remainingGearOilController,
                           inputAction: TextInputAction.next,
                           inputType: TextInputType.number,
                           inputFormatters: [
                             TextInputFormats.digitsFormatter,
                           ],
                           onChanged: (String data) {
-                            if (data.isEmpty) {
-                              provider.gearOilLife = null;
+                            if (data.isNotEmpty) {
+                              provider.remainingGearOil = data;
+                              provider.nextGearOilChangeODOlController.text =
+                                  (int.parse(data) +
+                                          int.parse(provider
+                                                  .currentOodometerReading ??
+                                              '0'))
+                                      .toString();
                             } else {
-                              provider.gearOilLife = data;
+                              provider.remainingGearOil = null;
+                              provider.nextGearOilChangeODOlController.clear();
                             }
                           },
                         ),
@@ -100,18 +107,14 @@ class _GearCompartmentsState extends State<GearCompartments> {
                         16.verticalSpace,
                         CommonTextFormFieldWithValidator(
                           hintText: "ODO Reading",
-                          controller: nextOilChangeODOlController,
+                          controller: provider.nextGearOilChangeODOlController,
                           inputAction: TextInputAction.done,
                           inputType: TextInputType.number,
                           inputFormatters: [
                             TextInputFormats.digitsFormatter,
                           ],
                           onChanged: (String data) {
-                            if (data.isEmpty) {
-                              provider.nextGearOilChangeODO = null;
-                            } else {
-                              provider.nextGearOilChangeODO = data;
-                            }
+                            provider.nextGearOilChangeODO = data;
                           },
                         ),
                       ],
@@ -130,18 +133,6 @@ class _GearCompartmentsState extends State<GearCompartments> {
                 },
               ),
               26.verticalSpace,
-
-              //
-              StatusSelector(
-                title: "4 Wheel Oil",
-                selection: provider.fourWheelOil,
-                onSelection: (selection) {
-                  provider.update(callBack: () {
-                    provider.fourWheelOil = selection;
-                  });
-                },
-              ),
-              26.verticalSpace,
               Row(
                 children: [
                   Expanded(
@@ -149,23 +140,31 @@ class _GearCompartmentsState extends State<GearCompartments> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Oil Life (km)",
+                          "Remaining Gear Filter",
                           style: PlusJakartaFontPalette.f1C1C1C_14_600,
                         ),
                         16.verticalSpace,
                         CommonTextFormFieldWithValidator(
-                          hintText: "Enter oil life (km)",
-                          controller: fourWheelOilLifeController,
+                          hintText: "Remaining",
+                          controller: provider.remainingGearFilterController,
                           inputAction: TextInputAction.next,
                           inputType: TextInputType.number,
                           inputFormatters: [
                             TextInputFormats.digitsFormatter,
                           ],
                           onChanged: (String data) {
-                            if (data.isEmpty) {
-                              provider.fourOilLife = null;
+                            if (data.isNotEmpty) {
+                              provider.remainingGearFilter = data;
+                              provider.nextGearFilterChangeODOlController.text =
+                                  (int.parse(data) +
+                                          int.parse(provider
+                                                  .currentOodometerReading ??
+                                              '0'))
+                                      .toString();
                             } else {
-                              provider.fourOilLife = data;
+                              provider.remainingGearFilter = null;
+                              provider.nextGearFilterChangeODOlController
+                                  .clear();
                             }
                           },
                         ),
@@ -184,18 +183,15 @@ class _GearCompartmentsState extends State<GearCompartments> {
                         16.verticalSpace,
                         CommonTextFormFieldWithValidator(
                           hintText: "ODO Reading",
-                          controller: nextFourWheelOilChangeODOlController,
+                          controller:
+                              provider.nextGearFilterChangeODOlController,
                           inputAction: TextInputAction.done,
                           inputType: TextInputType.number,
                           inputFormatters: [
                             TextInputFormats.digitsFormatter,
                           ],
                           onChanged: (String data) {
-                            if (data.isEmpty) {
-                              provider.nextFourOilChangeODO = null;
-                            } else {
-                              provider.nextFourOilChangeODO = data;
-                            }
+                            provider.nextGearFilterChangeODO = data;
                           },
                         ),
                       ],
@@ -203,7 +199,83 @@ class _GearCompartmentsState extends State<GearCompartments> {
                   ),
                 ],
               ),
-              //
+              26.verticalSpace,
+              StatusSelector(
+                title: "4 Wheel Oil",
+                selection: provider.fourWheelOil,
+                onSelection: (selection) {
+                  provider.update(callBack: () {
+                    provider.fourWheelOil = selection;
+                  });
+                },
+              ),
+              26.verticalSpace,
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Remaining 4 Wheel Oil",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "Remaining",
+                          controller: provider.remainingFourWheelOilController,
+                          inputAction: TextInputAction.next,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            if (data.isNotEmpty) {
+                              provider.remainingFourWheelOil = data;
+                              provider.nextFourWheelOilChangeODOlController
+                                  .text = (int.parse(data) +
+                                      int.parse(
+                                          provider.currentOodometerReading ??
+                                              '0'))
+                                  .toString();
+                            } else {
+                              provider.remainingFourWheelOil = null;
+                              provider.nextFourWheelOilChangeODOlController
+                                  .clear();
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  16.horizontalSpace,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Next service on",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "ODO Reading",
+                          controller:
+                              provider.nextFourWheelOilChangeODOlController,
+                          inputAction: TextInputAction.done,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            provider.nextFourWheelOilChangeODO = data;
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
               26.verticalSpace,
               StatusSelector(
                 title: "Transmission Control Module",
@@ -213,6 +285,76 @@ class _GearCompartmentsState extends State<GearCompartments> {
                     provider.transmissionControlModule = selection;
                   });
                 },
+              ),
+              26.verticalSpace,
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Remaining Transmission Control Oil",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "Remaining",
+                          controller: provider
+                              .remainingTransmissionControlOilController,
+                          inputAction: TextInputAction.next,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            if (data.isNotEmpty) {
+                              provider.remainingTransmissionControlOil = data;
+                              provider
+                                  .nextTransmissionControlOilChangeODOlController
+                                  .text = (int.parse(data) +
+                                      int.parse(
+                                          provider.currentOodometerReading ??
+                                              '0'))
+                                  .toString();
+                            } else {
+                              provider.remainingTransmissionControlOil = null;
+                              provider
+                                  .nextTransmissionControlOilChangeODOlController
+                                  .clear();
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  16.horizontalSpace,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Next service on",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "ODO Reading",
+                          controller: provider
+                              .nextTransmissionControlOilChangeODOlController,
+                          inputAction: TextInputAction.done,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            provider.nextTransmissionControlOilChangeODO = data;
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
               26.verticalSpace,
               StatusSelector(
@@ -225,6 +367,73 @@ class _GearCompartmentsState extends State<GearCompartments> {
                 },
               ),
               26.verticalSpace,
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Remaining Gear Gasket",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "Remaining",
+                          controller: provider.remainingGearGasketController,
+                          inputAction: TextInputAction.next,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            if (data.isNotEmpty) {
+                              provider.remainingGearGasket = data;
+                              provider.nextGearGasketChangeODOlController.text =
+                                  (int.parse(data) +
+                                          int.parse(provider
+                                                  .currentOodometerReading ??
+                                              '0'))
+                                      .toString();
+                            } else {
+                              provider.remainingGearGasket = null;
+                              provider.nextGearGasketChangeODOlController
+                                  .clear();
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  16.horizontalSpace,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Next service on",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "ODO Reading",
+                          controller:
+                              provider.nextGearGasketChangeODOlController,
+                          inputAction: TextInputAction.done,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            provider.nextGearGasketChangeODO = data;
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              26.verticalSpace,
               StatusSelector(
                 title: "Gear Mount",
                 selection: provider.gearMount,
@@ -234,7 +443,73 @@ class _GearCompartmentsState extends State<GearCompartments> {
                   });
                 },
               ),
-              //  26.verticalSpace,
+              26.verticalSpace,
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Remaining Gear Mount",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "Remaining",
+                          controller: provider.remainingGearMountController,
+                          inputAction: TextInputAction.next,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            if (data.isNotEmpty) {
+                              provider.remainingGearMount = data;
+                              provider.nextGearMountChangeODOlController.text =
+                                  (int.parse(data) +
+                                          int.parse(provider
+                                                  .currentOodometerReading ??
+                                              '0'))
+                                      .toString();
+                            } else {
+                              provider.remainingGearMount = null;
+                              provider.nextGearMountChangeODOlController
+                                  .clear();
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  16.horizontalSpace,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Next service on",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "ODO Reading",
+                          controller:
+                              provider.nextGearMountChangeODOlController,
+                          inputAction: TextInputAction.done,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            provider.nextGearMountChangeODO = data;
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
               26.verticalSpace,
               Text(
                 "Number of Gear Mounts",

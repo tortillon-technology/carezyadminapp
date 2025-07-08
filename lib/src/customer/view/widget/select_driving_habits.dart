@@ -1,7 +1,6 @@
 import 'package:carezyadminapp/res/styles/fonts/plus_jakarta_font_palette.dart';
 import 'package:carezyadminapp/utils/helpers/extensions.dart';
 import 'package:carezyadminapp/utils/helpers/hex_color.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
