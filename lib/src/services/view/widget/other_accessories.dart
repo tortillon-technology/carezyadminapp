@@ -458,6 +458,8 @@ class OtherAccessories extends StatelessWidget {
                         Text(
                           "Remaining Wiper Blade Rear",
                           style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
                         16.verticalSpace,
                         CommonTextFormFieldWithValidator(

@@ -735,6 +735,8 @@ class AddServiceViewModel extends AutoDisposeViewModel with Helper {
     remainingWiperBladeRearController.text = remainingOil ?? '';
     remainingCenterLockController.text = remainingOil ?? '';
     remainingWindowLifterController.text = remainingOil ?? '';
+    frontDifferentialOilLifeController.text = remainingOil ?? '';
+    rearDifferentialOilLifeController.text = remainingOil ?? '';
 
     if ((remainingOil?.isNotEmpty ?? false) &&
         (currentOodometerReading?.isNotEmpty ?? false)) {
@@ -820,6 +822,8 @@ class AddServiceViewModel extends AutoDisposeViewModel with Helper {
       nextWiperBladeRearChangeODOlController.text = value;
       nextCenterLockChangeODOlController.text = value;
       nextWindowLifterChangeODOlController.text = value;
+      nextFrontDifferentialOilChangeODOlController.text = value;
+      nextRearDifferentialOilChangeODOlController.text = value;
     }
     notifyListeners();
   }
@@ -857,7 +861,8 @@ class AddServiceViewModel extends AutoDisposeViewModel with Helper {
       (right) {
         final isSuccess = right.status ?? false;
         if (right.results?.data != null) {
-          currentOodometerReading = '80000';
+          currentOodometerReading =
+              right.results?.data?.currentKilometer ?? '0';
           currentODOController.text = currentOodometerReading ?? '__';
           // right.results?.data?.currentKilometer ?? '0';
         }
@@ -905,76 +910,143 @@ class AddServiceViewModel extends AutoDisposeViewModel with Helper {
               "component": 1,
               "status": getSelection(selection: engineOil),
               "oil_life": oilLife ?? "",
-              "next_service_odo": nextOilChangeODO ?? ""
+              "remaining_km": remainingOil ?? "",
+              "next_service_odo": nextOilChangeODO ?? "",
             },
           if (oilFilter != null)
-            {"component": 2, "status": getSelection(selection: oilFilter)},
+            {
+              "component": 2,
+              "status": getSelection(selection: oilFilter),
+              "remaining_km": remainingOilFilter ?? "",
+              "next_service_odo": nextOilFilterChangeODO ?? "",
+            },
           if (airFilter != null)
-            {"component": 3, "status": getSelection(selection: airFilter)},
+            {
+              "component": 3,
+              "status": getSelection(selection: airFilter),
+              "remaining_km": remainingAirFilter ?? "",
+              "next_service_odo": nextAirFilterChangeODO ?? "",
+            },
           if (acFilter != null)
-            {"component": 4, "status": getSelection(selection: acFilter),},
+            {
+              "component": 4,
+              "status": getSelection(selection: acFilter),
+              "remaining_km": remainingAcFilter ?? '',
+              "next_service_odo": nextAcFilterChangeODO ?? ''
+            },
           if (sparkPlug != null)
-            {"component": 5, "status": getSelection(selection: sparkPlug)},
+            {
+              "component": 5,
+              "status": getSelection(selection: sparkPlug),
+              "remaining_km": remainingSparkPlug ?? '',
+              "next_service_odo": nextSparkPlugChangeODO ?? ''
+            },
           if (ignitionCoil != null)
-            {"component": 6, "status": getSelection(selection: ignitionCoil)},
+            {
+              "component": 6,
+              "status": getSelection(selection: ignitionCoil),
+              "remaining_km": remainingIgnitionCoil ?? '',
+              "next_service_odo": nextIgnitionCoilChangeODO ?? ''
+            },
           if (valveCowerGasket != null)
             {
               "component": 7,
-              "status": getSelection(selection: valveCowerGasket)
+              "status": getSelection(selection: valveCowerGasket),
+              "remaining_km": remainingValveCowerGasket ?? '',
+              "next_service_odo": nextValveCowerGasketChangeODO ?? ''
             },
           if (plugSeal != null)
-            {"component": 8, "status": getSelection(selection: plugSeal)},
+            {
+              "component": 8,
+              "status": getSelection(selection: plugSeal),
+              "remaining_km": remainingPlugSeal ?? '',
+              "next_service_odo": nextPlugSealChangeODO ?? ''
+            },
           if (engineBelt != null)
-            {"component": 9, "status": getSelection(selection: engineBelt)},
+            {
+              "component": 9,
+              "status": getSelection(selection: engineBelt),
+              "remaining_km": remainingEngineBelt ?? '',
+              "next_service_odo": nextEngineBeltChangeODO ?? ''
+            },
           if (engineBeltTentioner != null)
             {
               "component": 10,
-              "status": getSelection(selection: engineBeltTentioner)
+              "status": getSelection(selection: engineBeltTentioner),
+              "remaining_km": remainingEngineBeltTentioner ?? '',
+              "next_service_odo": nextEngineBeltTentionerChangeODO ?? ''
             },
           if (idlPulley != null)
-            {"component": 11, "status": getSelection(selection: idlPulley)},
+            {
+              "component": 11,
+              "status": getSelection(selection: idlPulley),
+              "remaining_km": remainingIDLPulley ?? '',
+              "next_service_odo": nextIDLPulleyChangeODO ?? ''
+            },
           if (injectors != null)
-            {"component": 12, "status": getSelection(selection: injectors)},
+            {
+              "component": 12,
+              "status": getSelection(selection: injectors),
+              "remaining_km": remainingInjectors ?? '',
+              "next_service_odo": nextInjectorsChangeODO ?? ''
+            },
           if (selfMotor != null)
-            {"component": 13, "status": getSelection(selection: selfMotor)},
+            {
+              "component": 13,
+              "status": getSelection(selection: selfMotor),
+              "remaining_km": remainingSelfMotor ?? '',
+              "next_service_odo": nextSelfMotorChangeODO ?? ''
+            },
           if (engineMount != null)
             {
               "component": 14,
               "status": getSelection(selection: engineMount),
-              "no_of_mounts": numberOfEngineMounts ?? ''
+              "no_of_mounts": numberOfEngineMounts ?? '',
             },
         ],
-
-
         "gear": [
           if (gearOil != null)
             {
               "component": 1,
               "status": getSelection(selection: gearOil),
-              "oil_life": oilLife ?? '',
-              "next_service_odo": nextOilChangeODO ?? ""
+              "remaining_km": remainingGearOil ?? '',
+              "next_service_odo": nextGearOilChangeODO ?? ""
             },
           if (gearFilter != null)
-            {"component": 2, "status": getSelection(selection: gearFilter)},
+            {
+              "component": 2,
+              "status": getSelection(selection: gearFilter),
+              "remaining_km": remainingGearFilter ?? '',
+              "next_service_odo": nextGearFilterChangeODO ?? ''
+            },
           if (gearGasket != null)
-            {"component": 3, "status": getSelection(selection: gearGasket)},
+            {
+              "component": 3,
+              "status": getSelection(selection: gearGasket),
+              "remaining_km": remainingGearGasket ?? '',
+              "next_service_odo": nextGearGasketChangeODO ?? ''
+            },
           if (fourWheelOil != null)
             {
               "component": 4,
               "status": getSelection(selection: fourWheelOil),
-              "oil_life": fourOilLife ?? '',
-              "next_service_odo": nextFourOilChangeODO ?? ""
+              "next_service_odo": nextFourWheelOilChangeODO ?? "",
+              "remaining_km": remainingFourWheelOil ?? '',
             },
           if (transmissionControlModule != null)
             {
               "component": 5,
-              "status": getSelection(selection: transmissionControlModule)
+              "status": getSelection(selection: transmissionControlModule),
+              "remaining_km": remainingTransmissionControlOil ?? '',
+              "next_service_odo": nextTransmissionControlOilChangeODO ?? ''
             },
           if (gearMount != null)
             {
               "component": 6,
               "status": getSelection(selection: gearMount),
-              "no_of_mounts": noOfGearMounts ?? ''
+              "no_of_mounts": noOfGearMounts ?? '',
+              "remaining_km": remainingGearMount ?? '',
+              "next_service_odo": nextGearMountChangeODO ?? ''
             },
         ],
         "differential": [
@@ -982,29 +1054,41 @@ class AddServiceViewModel extends AutoDisposeViewModel with Helper {
             {
               "component": 1,
               "status": getSelection(selection: frontDifferentialOil),
-              "oil_life": frontDifferentialOilLife ?? '',
+              "remaining_km": frontDifferentialOilLife ?? '',
               "next_service_odo": nextFrontDifferentialOilChangeODO ?? ""
             },
           if (rearDifferentialOil != null)
             {
               "component": 2,
               "status": getSelection(selection: rearDifferentialOil),
-              "oil_life": rearDifferentialOilLife ?? '',
-              "next_service_odo": nextRearDifferentialOilChangeODO ?? ""
+              "remaining_km": rearDifferentialOilLife ?? '',
+              "next_service_odo": nextRearDifferentialOilChangeODO ?? "",
             },
           if (differentialBushes != null)
             {
               "component": 3,
-              "status": getSelection(selection: differentialBushes)
+              "status": getSelection(selection: differentialBushes),
+              "remaining_km": remainingDifferentialBushes ?? '',
+              "next_service_odo": nextDifferentialBushesChangeODO ?? ''
             },
           if (shaftStatus != null)
-            {"component": 4, "status": getSelection(selection: shaftStatus)},
+            {
+              "component": 4,
+              "status": getSelection(selection: shaftStatus),
+              "remaining_km": remainingShaftStatus ?? '',
+              "next_service_odo": nextShaftStatusChangeODO ?? ''
+            },
           if (shaftSeals != null)
-            {"component": 5, "status": getSelection(selection: shaftSeals)}
+            {
+              "component": 5,
+              "status": getSelection(selection: shaftSeals),
+              "remaining_km": remainingShaftSeals ?? '',
+              "next_service_odo": nextShaftSealsChangeODO ?? ''
+            }
         ],
         "break": [
           {
-            "component": 1, 
+            "component": 1,
             "status": getSelection(selection: flBreakDisc),
             "thickness": flbdPercentage ?? ""
           },
@@ -1045,71 +1129,282 @@ class AddServiceViewModel extends AutoDisposeViewModel with Helper {
           },
         ],
         "suspension": [
-          {"component": 1, "status": getSuspensionSelection(selection: flla)},
-          {"component": 2, "status": getSuspensionSelection(selection: frla)},
-          {"component": 3, "status": getSuspensionSelection(selection: rlla)},
-          {"component": 4, "status": getSuspensionSelection(selection: rrla)},
-          {"component": 5, "status": getSuspensionSelection(selection: uafl)},
-          {"component": 6, "status": getSuspensionSelection(selection: uafr)},
-          {"component": 7, "status": getSuspensionSelection(selection: tar)},
-          {"component": 8, "status": getSuspensionSelection(selection: abli)},
-          {"component": 9, "status": getSuspensionSelection(selection: abri)},
-          {"component": 10, "status": getSuspensionSelection(selection: abro)},
-          {"component": 11, "status": getSuspensionSelection(selection: ablo)},
-          {"component": 12, "status": getSuspensionSelection(selection: lrfl)},
-          {"component": 13, "status": getSuspensionSelection(selection: lrfr)},
-          {"component": 14, "status": getSuspensionSelection(selection: lrrl)},
-          {"component": 15, "status": getSuspensionSelection(selection: lrrr)},
-          {"component": 16, "status": getSuspensionSelection(selection: brbf)},
-          {"component": 17, "status": getSuspensionSelection(selection: brbr)},
-        ],
-        "ac": [
-          {"component": 1, "status": getSelection(selection: acGas)},
-          {"component": 2, "status": getSelection(selection: compressor)},
-          {"component": 3, "status": getSelection(selection: condenser)},
-          {"component": 4, "status": getSelection(selection: evaporator)},
-          {"component": 5, "status": getSelection(selection: exValve)}
-        ],
-        "steering": [
-          {"component": 1, "status": getSelection(selection: sbl)},
-          {"component": 2, "status": getSelection(selection: sbr)},
-          {"component": 3, "status": getSelection(selection: sel)},
-          {"component": 4, "status": getSelection(selection: ser)},
-          {"component": 5, "status": getSelection(selection: bjl)},
-          {"component": 6, "status": getSelection(selection: bjr)},
-        ],
-        "light": [
-          {"component": 1, "status": getLampSelection(selection: headLight)},
-          {"component": 2, "status": getLampSelection(selection: parkLight)},
-          {"component": 3, "status": getLampSelection(selection: indicators)},
+          {
+            "component": 1,
+            "status": getSuspensionSelection(selection: flla),
+            "remaining_km": remainingFrontLeftLowerArm ?? '',
+            "next_service_odo": nextFrontLeftLowerArmChangeODO ?? ''
+          },
+          {
+            "component": 2,
+            "status": getSuspensionSelection(selection: frla),
+            "remaining_km": remainingFrontRightLowerArm ?? '',
+            "next_service_odo": nextFrontRightLowerArmChangeODO ?? ''
+          },
+          {
+            "component": 3,
+            "status": getSuspensionSelection(selection: rlla),
+            "remaining_km": remainingRearLeftLowerArm ?? '',
+            "next_service_odo": nextRearLeftLowerArmChangeODO ?? ''
+          },
           {
             "component": 4,
-            "status": getLampSelection(selection: reverseGearLight)
+            "status": getSuspensionSelection(selection: rrla),
+            "remaining_km": remainingRearRightLowerArm ?? '',
+            "next_service_odo": nextRearRightLowerArmChangeODO ?? ''
           },
-          {"component": 5, "status": getLampSelection(selection: dimBright)},
-          {"component": 6, "status": getLampSelection(selection: fogLamps)},
+          {
+            "component": 5,
+            "status": getSuspensionSelection(selection: uafl),
+            "remaining_km": remainingUpperArmFrontLeft ?? '',
+            "next_service_odo": nextUpperArmFrontLeftChangeODO ?? ''
+          },
+          {
+            "component": 6,
+            "status": getSuspensionSelection(selection: uafr),
+            "remaining_km": remainingUpperArmFrontRight ?? '',
+            "next_service_odo": nextUpperArmFrontRightChangeODO ?? ''
+          },
+          {
+            "component": 7,
+            "status": getSuspensionSelection(selection: tar),
+            "remaining_km": remainingTrailorArmRear ?? '',
+            "next_service_odo": nextTrailorArmRearChangeODO ?? ''
+          },
+          {
+            "component": 8,
+            "status": getSuspensionSelection(selection: abli),
+            "remaining_km": remainingAxleBootLeftInner ?? '',
+            "next_service_odo": nextAxleBootLeftInnerChangeODO ?? ''
+          },
+          {
+            "component": 9,
+            "status": getSuspensionSelection(selection: abri),
+            "remaining_km": remainingAxleBootRightInner ?? '',
+            "next_service_odo": nextAxleBootRightInnerChangeODO ?? ''
+          },
+          {
+            "component": 10,
+            "status": getSuspensionSelection(selection: abro),
+            "remaining_km": remainingAxleBootRightOuter ?? '',
+            "next_service_odo": nextAxleBootRightOuterChangeODO ?? ''
+          },
+          {
+            "component": 11,
+            "status": getSuspensionSelection(selection: ablo),
+            "remaining_km": remainingAxleBootLeftOuter ?? '',
+            "next_service_odo": nextAxleBootLeftOuterChangeODO ?? ''
+          },
+          {
+            "component": 12,
+            "status": getSuspensionSelection(selection: lrfl),
+            "remaining_km": remainingLinkRodFrontLeft ?? '',
+            "next_service_odo": nextLinkRodFrontLeftChangeODO ?? ''
+          },
+          {
+            "component": 13,
+            "status": getSuspensionSelection(selection: lrfr),
+            "remaining_km": remainingLinkRodFrontRight ?? '',
+            "next_service_odo": nextLinkRodFrontRightChangeODO ?? ''
+          },
+          {
+            "component": 14,
+            "status": getSuspensionSelection(selection: lrrl),
+            "remaining_km": remainingLinkRodRearLeft ?? '',
+            "next_service_odo": nextLinkRodRearLeftChangeODO ?? ''
+          },
+          {
+            "component": 15,
+            "status": getSuspensionSelection(selection: lrrr),
+            "remaining_km": remainingLinkRodRearRight ?? '',
+            "next_service_odo": nextLinkRodRearRightChangeODO ?? ''
+          },
+          {
+            "component": 16,
+            "status": getSuspensionSelection(selection: brbf),
+            "remaining_km": remainingBalanceRodBushFront ?? '',
+            "next_service_odo": nextBalanceRodBushFrontChangeODO ?? ''
+          },
+          {
+            "component": 17,
+            "status": getSuspensionSelection(selection: brbr),
+            "remaining_km": remainingBalanceRodBushRear ?? '',
+            "next_service_odo": nextBalanceRodBushRearChangeODO ?? ''
+          },
+        ],
+        "ac": [
+          {
+            "component": 1,
+            "status": getSelection(selection: acGas),
+            "remaining_km": remainingAcGas ?? '',
+            "next_service_odo": nextAcGasChangeODO ?? ''
+          },
+          {
+            "component": 2,
+            "status": getSelection(selection: compressor),
+            "remaining_km": remainingCompressor ?? '',
+            "next_service_odo": nextCompressorChangeODO ?? ''
+          },
+          {
+            "component": 3,
+            "status": getSelection(selection: condenser),
+            "remaining_km": remainingCondenser ?? '',
+            "next_service_odo": nextCondenserChangeODO ?? ''
+          },
+          {
+            "component": 4,
+            "status": getSelection(selection: evaporator),
+            "remaining_km": remainingEvaporator ?? '',
+            "next_service_odo": nextEvaporatorChangeODO ?? ''
+          },
+          {
+            "component": 5,
+            "status": getSelection(selection: exValve),
+            "remaining_km": remainingExValve ?? '',
+            "next_service_odo": nextExValveChangeODO ?? ''
+          },
+        ],
+        "steering": [
+          {
+            "component": 1,
+            "status": getSelection(selection: sbl),
+            "remaining_km": remainingSteeringBootLeft ?? '',
+            "next_service_odo": nextSteeringBootLeftChangeODO ?? ''
+          },
+          {
+            "component": 2,
+            "status": getSelection(selection: sbr),
+            "remaining_km": remainingSteeringBootRight ?? '',
+            "next_service_odo": nextSteeringBootRightChangeODO ?? ''
+          },
+          {
+            "component": 3,
+            "status": getSelection(selection: sel),
+            "remaining_km": remainingSteeringEndLeft ?? '',
+            "next_service_odo": nextSteeringEndLeftChangeODO ?? ''
+          },
+          {
+            "component": 4,
+            "status": getSelection(selection: ser),
+            "remaining_km": remainingSteeringEndRight ?? '',
+            "next_service_odo": nextSteeringEndRightChangeODO ?? ''
+          },
+          {
+            "component": 5,
+            "status": getSelection(selection: bjl),
+            "remaining_km": remainingBallJointLeft ?? '',
+            "next_service_odo": nextBallJointLeftChangeODO ?? ''
+          },
+          {
+            "component": 6,
+            "status": getSelection(selection: bjr),
+            "remaining_km": remainingBallJointRight ?? '',
+            "next_service_odo": nextBallJointRightChangeODO ?? ''
+          },
+        ],
+        "light": [
+          {
+            "component": 1,
+            "status": getLampSelection(selection: headLight),
+            "remaining_km": remainingHeadLight ?? '',
+            "next_service_odo": nextHeadLightChangeODO ?? ''
+          },
+          {
+            "component": 2,
+            "status": getLampSelection(selection: parkLight),
+            "remaining_km": remainingParkLight ?? '',
+            "next_service_odo": nextParkLightChangeODO ?? ''
+          },
+          {
+            "component": 3,
+            "status": getLampSelection(selection: indicators),
+            "remaining_km": remainingIndicators ?? '',
+            "next_service_odo": nextIndicatorsChangeODO ?? ''
+          },
+          {
+            "component": 4,
+            "status": getLampSelection(selection: reverseGearLight),
+            "remaining_km": remainingReverseGear ?? '',
+            "next_service_odo": nextReverseGearChangeODO ?? ''
+          },
+          {
+            "component": 5,
+            "status": getLampSelection(selection: dimBright),
+            "remaining_km": remainingDimBright ?? '',
+            "next_service_odo": nextDimBrightChangeODO ?? ''
+          },
+          {
+            "component": 6,
+            "status": getLampSelection(selection: fogLamps),
+            "remaining_km": remainingFogLamps ?? '',
+            "next_service_odo": nextFogLampsChangeODO ?? ''
+          },
         ],
         "fuel": [
-          {"component": 1, "status": getSelection(selection: fuelPump)},
-          {"component": 2, "status": getSelection(selection: fuelFilter)},
-          {"component": 3, "status": getSelection(selection: canister)},
-          {"component": 4, "status": getSelection(selection: fuelTank)},
+          {
+            "component": 1,
+            "status": getSelection(selection: fuelPump),
+            "remaining_km": remainingFuelPump ?? '',
+            "next_service_odo": nextFuelPumpChangeODO ?? ''
+          },
+          {
+            "component": 2,
+            "status": getSelection(selection: fuelFilter),
+            "remaining_km": remainingFuelFilter ?? '',
+            "next_service_odo": nextFuelFilterChangeODO ?? ''
+          },
+          {
+            "component": 3,
+            "status": getSelection(selection: canister),
+            "remaining_km": remainingCanister ?? '',
+            "next_service_odo": nextCanisterChangeODO ?? ''
+          },
+          {
+            "component": 4,
+            "status": getSelection(selection: fuelTank),
+            "remaining_km": remainingFuelTank ?? '',
+            "next_service_odo": nextFuelTankChangeODO ?? ''
+          },
         ],
         "other": [
           {
             "component": 1,
             "status": getSelection(selection: centerLock),
-            "remarks": clRemarks ?? ""
+            "remarks": clRemarks ?? "",
+            "remaining_km": remainingCenterLock ?? '',
+            "next_service_odo": nextCenterLockChangeODO ?? ''
           },
           {
             "component": 2,
             "status": getSelection(selection: windowLifter),
-            "remarks": wlRemarks ?? ""
+            "remarks": wlRemarks ?? "",
+            "remaining_km": remainingWindowLifter ?? '',
+            "next_service_odo": nextWindowLifterChangeODO ?? ''
           },
-          {"component": 3, "status": getSelection(selection: alignment)},
-          {"component": 4, "status": getSelection(selection: wheelBalance)},
-          {"component": 5, "status": getSelection(selection: wiperBladeFront)},
-          {"component": 6, "status": getSelection(selection: wiperBladeRear)},
+          {
+            "component": 3,
+            "status": getSelection(selection: alignment),
+            "remaining_km": remainingAlignment ?? '',
+            "next_service_odo": nextAlignmentChangeODO ?? ''
+          },
+          {
+            "component": 4,
+            "status": getSelection(selection: wheelBalance),
+            "remaining_km": remainingWheelBalance ?? '',
+            "next_service_odo": nextWheelBalanceChangeODO ?? ''
+          },
+          {
+            "component": 5,
+            "status": getSelection(selection: wiperBladeFront),
+            "remaining_km": remainingWiperBladeFront ?? '',
+            "next_service_odo": nextWiperBladeFrontChangeODO ?? ''
+          },
+          {
+            "component": 6,
+            "status": getSelection(selection: wiperBladeRear),
+            "remaining_km": remainingWiperBladeRear ?? '',
+            "next_service_odo": nextWiperBladeRearChangeODO ?? ''
+          },
           {
             "component": 7,
             "front_right": frPressure,

@@ -368,7 +368,7 @@ class SuspensionSystem extends StatelessWidget {
                     children: [
                       Text(
                         "Remaining Upper Arm Front Left",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        style: PlusJakartaFontPalette.f1C1C1C_14_600,         
                       ),
                       16.verticalSpace,
                       CommonTextFormFieldWithValidator(
