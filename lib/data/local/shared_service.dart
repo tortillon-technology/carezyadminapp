@@ -1,7 +1,8 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-const String accessTokenKey="access";
-const String refreshTokenKey="refesh";
+const String accessTokenKey = "access";
+const String refreshTokenKey = "refesh";
+
 class SharedService {
   SharedService._();
 

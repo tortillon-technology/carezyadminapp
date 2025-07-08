@@ -25,6 +25,7 @@ class StatusSelector extends StatefulWidget {
     this.showPercentage = false,
     this.controller,
   });
+
   @override
   State<StatusSelector> createState() => _StatusSelectorState();
 }

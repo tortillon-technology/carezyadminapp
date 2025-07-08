@@ -17,6 +17,7 @@ import '../../../utils/helpers/hex_color.dart';
 
 class SearchCustomerScreen extends StatefulWidget {
   final AddServiceViewModel viewModel;
+
   const SearchCustomerScreen({super.key, required this.viewModel});
 
   @override

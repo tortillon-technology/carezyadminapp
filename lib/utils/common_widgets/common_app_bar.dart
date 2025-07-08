@@ -18,6 +18,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Color? iconColor;
   final SystemUiOverlayStyle? systemOverlay;
   final double? textSpace;
+
   const CommonAppBar({
     super.key,
     this.actions,

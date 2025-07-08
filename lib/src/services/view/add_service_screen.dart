@@ -18,6 +18,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:toastification/toastification.dart';
 import 'package:tuple/tuple.dart';
+
 import '../../../res/constants/string_constants.dart';
 import '../../../res/styles/color_palette.dart';
 import '../../../res/styles/fonts/bai_font_palette.dart';

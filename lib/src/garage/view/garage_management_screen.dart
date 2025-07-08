@@ -4,7 +4,6 @@ import 'package:carezyadminapp/res/styles/fonts/plus_jakarta_font_palette.dart';
 import 'package:carezyadminapp/utils/common_widgets/common_text_form.dart';
 import 'package:carezyadminapp/utils/common_widgets/primary_button.dart';
 import 'package:carezyadminapp/utils/helpers/hex_color.dart';
-import 'package:carezyadminapp/utils/routes/route_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -70,9 +69,7 @@ class _GarageManagementScreenState extends State<GarageManagementScreen> {
                       return InkWell(
                         splashColor: Colors.transparent,
                         highlightColor: Colors.transparent,
-                        onTap: () {
-                          
-                        },
+                        onTap: () {},
                         child: Container(
                           padding: EdgeInsets.all(16.w),
                           margin: EdgeInsets.only(bottom: isLast ? 0 : 8.h),

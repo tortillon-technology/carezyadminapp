@@ -17,6 +17,7 @@ class SuspensionStatusSelector extends StatefulWidget {
     required this.title,
     this.onSelection,
   });
+
   @override
   State<SuspensionStatusSelector> createState() =>
       _SuspensionStatusSelectorState();

@@ -11,6 +11,7 @@ import '../../../../utils/common_widgets/custom_dropdown_button.dart';
 
 class SelectGarage extends StatefulWidget {
   final CustomerViewModel viewModel;
+
   const SelectGarage({super.key, required this.viewModel});
 
   @override

@@ -11,5 +11,7 @@ class AppConstants {
   static String garages = "garages/garages-list";
   static String getCustomer = "/vehicles/search-customer";
   static String customerList = "/customer/customers-list";
+  static String serviceList = "/vehicles/services";
+  static String serviceDetails = "/vehicles/vehicle-service-details";
   static String oodoReading = "vehicles/odoo-reading";
 }

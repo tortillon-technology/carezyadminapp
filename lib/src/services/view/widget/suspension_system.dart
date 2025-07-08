@@ -5,12 +5,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../res/styles/fonts/plus_jakarta_font_palette.dart';
-import '../../view_model/add_service_view_model.dart';
 import '../../../../utils/common_widgets/common_text_form.dart';
 import '../../../../utils/helpers/text_input_formatters.dart';
+import '../../view_model/add_service_view_model.dart';
 
 class SuspensionSystem extends StatelessWidget {
   final AddServiceViewModel viewModel;
+
   const SuspensionSystem({super.key, required this.viewModel});
 
   @override
@@ -368,7 +369,7 @@ class SuspensionSystem extends StatelessWidget {
                     children: [
                       Text(
                         "Remaining Upper Arm Front Left",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,         
+                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
                       ),
                       16.verticalSpace,
                       CommonTextFormFieldWithValidator(

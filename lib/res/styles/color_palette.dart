@@ -15,8 +15,8 @@ class ColorPalette {
   static const f616161 = Color(0xFF616161);
   static const fDDE2E4 = Color(0xFFDDE2E4);
   static const fFAFAFA = Color(0xFFFAFAFA);
-  static const f707070 =Color(0XFF707070);
-  static const fEC0008 =Color(0XFFEC0008);
-  static const fEAEAEA =Color(0XFFEAEAEA);
-  static const f6E6E6E =Color(0XFF6E6E6E);
+  static const f707070 = Color(0XFF707070);
+  static const fEC0008 = Color(0XFFEC0008);
+  static const fEAEAEA = Color(0XFFEAEAEA);
+  static const f6E6E6E = Color(0XFF6E6E6E);
 }

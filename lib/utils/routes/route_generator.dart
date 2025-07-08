@@ -1,5 +1,6 @@
 import 'package:carezyadminapp/src/customer/view/customer_details_screen.dart';
 import 'package:carezyadminapp/src/services/view_model/add_service_view_model.dart';
+import 'package:carezyadminapp/src/services/view_model/service_view_model.dart';
 import 'package:carezyadminapp/utils/routes/route_constants.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -10,6 +11,7 @@ import '../../src/garage/view/garage_management_screen.dart';
 import '../../src/home/view/home_screen.dart';
 import '../../src/services/view/add_service_screen.dart';
 import '../../src/services/view/search_customer_screen.dart';
+import '../../src/services/view/service_details_screen.dart';
 import '../../src/services/view/service_records_screen.dart';
 import '../../src/splash/view/splash_screen.dart';
 import '../common_widgets/empty_screen.dart';
@@ -44,6 +46,12 @@ class RouteGenerator {
       case RouteConstants.routeServiceRecordsScreen:
         return _buildRoute(RouteConstants.routeServiceRecordsScreen,
             const ServiceRecordsScreen());
+      case RouteConstants.routeServiceDetailsScreen:
+        return _buildRoute(
+            RouteConstants.routeServiceDetailsScreen,
+            ServiceDetailsScreen(
+              viewModel: args as ServiceViewModel,
+            ));
       case RouteConstants.routeAddServiceScreen:
         return _buildRoute(
             RouteConstants.routeAddServiceScreen, const AddServiceScreen());

@@ -11,7 +11,9 @@ import '../../../../utils/routes/route_constants.dart';
 
 class SearchCustomer extends StatelessWidget {
   final AddServiceViewModel viewModel;
+
   const SearchCustomer({super.key, required this.viewModel});
+
   @override
   Widget build(BuildContext context) {
     return Container(

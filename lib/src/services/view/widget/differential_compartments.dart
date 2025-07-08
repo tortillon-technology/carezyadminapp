@@ -11,6 +11,7 @@ import '../../view_model/add_service_view_model.dart';
 
 class DifferentialCompartments extends StatefulWidget {
   final AddServiceViewModel viewModel;
+
   const DifferentialCompartments({super.key, required this.viewModel});
 
   @override

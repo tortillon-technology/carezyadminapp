@@ -14,6 +14,7 @@ import '../../../customer/model/garage_model.dart';
 
 class CustomerAndVehicle extends StatefulWidget {
   final AddServiceViewModel viewModel;
+
   const CustomerAndVehicle({super.key, required this.viewModel});
 
   @override

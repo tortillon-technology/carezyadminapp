@@ -6,11 +6,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../res/styles/fonts/plus_jakarta_font_palette.dart';
-import '../../view_model/add_service_view_model.dart';
 import '../../../../utils/helpers/text_input_formatters.dart';
+import '../../view_model/add_service_view_model.dart';
 
 class OtherAccessories extends StatelessWidget {
   final AddServiceViewModel viewModel;
+
   const OtherAccessories({super.key, required this.viewModel});
 
   @override

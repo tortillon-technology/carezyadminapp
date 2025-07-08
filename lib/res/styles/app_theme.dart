@@ -4,14 +4,13 @@ import 'package:carezyadminapp/res/styles/color_palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-
 class AppTheme {
   static ThemeData get themeData => ThemeData(
       scaffoldBackgroundColor: Colors.black,
       primarySwatch: materialPrimary,
       highlightColor: ColorPalette.primaryColor.withValues(alpha: 0.03),
       splashColor: ColorPalette.primaryColor.withValues(alpha: 0.06),
-      fontFamily:"Bai Jamjuree",
+      fontFamily: "Bai Jamjuree",
       useMaterial3: true,
       colorScheme: ColorScheme.fromSeed(seedColor: ColorPalette.primaryColor),
       pageTransitionsTheme: const PageTransitionsTheme(

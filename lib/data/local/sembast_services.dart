@@ -18,7 +18,7 @@ class SembastServices extends LocalBaseServices {
   Future<void> getUserData() async {
     // var store = intMapStoreFactory.store('user_details');
     // var record = await store.find(db);
-    return ;
+    return;
   }
 
   @override

@@ -12,6 +12,7 @@ import '../model/vehicle_model.dart';
 
 class CustomerRepoImplements extends CustomerRepo {
   final service = getIt.get<NetWorkBaseServices>();
+
   @override
   Future<Either<ResponseError, dynamic>> addCustomer(
       {required Map<String, dynamic> params}) {
@@ -73,7 +74,8 @@ class CustomerRepoImplements extends CustomerRepo {
   }
 
   @override
-  Future<Either<ResponseError, OodoModel>> getOodoReading({required int customerID}) {
+  Future<Either<ResponseError, OodoModel>> getOodoReading(
+      {required int customerID}) {
     return service
         .safe(service.getRequest(
           endPoint: "${AppConstants.oodoReading}?customer_id=$customerID",

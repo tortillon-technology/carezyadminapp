@@ -15,15 +15,15 @@ class CustomDropdown<T> extends StatelessWidget {
   final String? selectedLabel;
   final String? errorText;
   final String? title;
-  const CustomDropdown({
-    super.key,
-    required this.items,
-    required this.itemBuilder,
-    required this.onSelected,
-    this.selectedLabel,
-    this.errorText,
-    this.title
-  });
+
+  const CustomDropdown(
+      {super.key,
+      required this.items,
+      required this.itemBuilder,
+      required this.onSelected,
+      this.selectedLabel,
+      this.errorText,
+      this.title});
 
   void _openBottomSheet(BuildContext context) {
     showModalBottomSheet(
@@ -168,6 +168,7 @@ class CustomDropdown<T> extends StatelessWidget {
 class CustomDropdownItem extends StatelessWidget {
   final String? label;
   final bool isSelected;
+
   const CustomDropdownItem({super.key, this.isSelected = false, this.label});
 
   @override

@@ -12,11 +12,15 @@ abstract class CustomerRepo {
       {required Map<String, dynamic> params});
 
   Future<Either<ResponseError, BrandsModel>> getCarBrands();
+
   Future<Either<ResponseError, VehicleModel>> getCarModel(
       {required String brandId});
+
   Future<Either<ResponseError, GarageModel>> getGarages();
+
   Future<Either<ResponseError, OodoModel>> getOodoReading(
       {required int customerID});
+
   Future<Either<ResponseError, CustomerListModel>> getCustomerList({
     required String query,
     required int nextPage,

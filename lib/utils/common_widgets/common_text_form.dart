@@ -51,6 +51,7 @@ class CommonTextFormFieldWithValidator extends StatefulWidget {
   final double? radius;
   final double? width;
   final Color? borderColor;
+
   const CommonTextFormFieldWithValidator({
     super.key,
     this.hintText = '',

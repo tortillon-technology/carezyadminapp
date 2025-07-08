@@ -31,6 +31,7 @@ SystemUiOverlayStyle get systemOverlayStyle => const SystemUiOverlayStyle(
       systemNavigationBarDividerColor: ColorPalette.white,
       systemNavigationBarColor: ColorPalette.white,
     );
+
 SystemUiOverlayStyle get homeSystemOverlay => const SystemUiOverlayStyle(
       statusBarIconBrightness: Brightness.light,
       statusBarColor: ColorPalette.primaryColor,

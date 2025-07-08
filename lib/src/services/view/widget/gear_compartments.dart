@@ -11,6 +11,7 @@ import '../../view_model/add_service_view_model.dart';
 
 class GearCompartments extends StatefulWidget {
   final AddServiceViewModel viewModel;
+
   const GearCompartments({super.key, required this.viewModel});
 
   @override

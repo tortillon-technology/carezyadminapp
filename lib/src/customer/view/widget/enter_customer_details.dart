@@ -1,4 +1,3 @@
-
 import 'package:carezyadminapp/res/constants/string_constants.dart';
 import 'package:carezyadminapp/res/styles/fonts/bai_font_palette.dart';
 import 'package:carezyadminapp/src/customer/view_model/customer_view_model.dart';
@@ -10,6 +9,7 @@ import 'package:provider/provider.dart';
 
 class EnterCustomerDetails extends StatefulWidget {
   final CustomerViewModel viewModel;
+
   const EnterCustomerDetails({super.key, required this.viewModel});
 
   @override

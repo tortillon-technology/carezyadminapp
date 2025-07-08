@@ -91,10 +91,11 @@ class _PrimaryButtonState extends State<PrimaryButton> {
       color: Colors.transparent,
       borderRadius: BorderRadius.circular(widget.borderRadius ?? 12.r),
       child: InkWell(
-        splashColor: widget.splashColor ??
-            Colors.white.mimicOpacityColor(0.2), // Better ripple effect
-        highlightColor: widget.highlightColor ??
-            Colors.white.mimicOpacityColor(0.1), // On press hold
+        splashColor: widget.splashColor ?? Colors.white.mimicOpacityColor(0.2),
+        // Better ripple effect
+        highlightColor:
+            widget.highlightColor ?? Colors.white.mimicOpacityColor(0.1),
+        // On press hold
         borderRadius: BorderRadius.circular(widget.borderRadius ?? 12.r),
         onTap: disabled ? null : widget.onPressed,
         child: AnimatedOpacity(

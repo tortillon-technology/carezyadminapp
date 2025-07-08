@@ -26,6 +26,7 @@ class TextInputFormats {
       CurrencyFormatter();
 
   static TextInputFormatter get alphabetsFormatter => AlphabetInputFormatter();
+
   static TextInputFormatter get noLeadingZero => NoLeadingZeroFormatter();
 }
 
@@ -175,9 +176,9 @@ class RangeInputFormatter extends TextInputFormatter {
 
   @override
   TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue,
-      TextEditingValue newValue,
-      ) {
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     final String text = newValue.text;
 
     if (text.isEmpty) return newValue;
@@ -196,9 +197,9 @@ class RangeInputFormatter extends TextInputFormatter {
 class NoLeadingZeroFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue,
-      TextEditingValue newValue,
-      ) {
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     final text = newValue.text;
 
     // Allow empty input

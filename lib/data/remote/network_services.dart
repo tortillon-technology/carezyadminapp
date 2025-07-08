@@ -25,7 +25,8 @@ class NetworkServices extends NetWorkBaseServices {
   }
 
   @override
-  Future<BaseResponse> getRequest({required String endPoint}) async {
+  Future<BaseResponse> getRequest(
+      {required String endPoint, Map<String, dynamic>? parameters}) async {
     if (!(await isInternetAvailable())) {
       throw ApiExceptions.noInternet();
     }
@@ -37,8 +38,9 @@ class NetworkServices extends NetWorkBaseServices {
       } else {
         dio.options.headers["Authorization"] = '';
       }
-      Response response =
-          await dio.get(endPoint).timeout(kReceiveTimeOut, onTimeout: () {
+      Response response = await dio
+          .get(endPoint, data: parameters)
+          .timeout(kReceiveTimeOut, onTimeout: () {
         throw ApiExceptions.oops();
       });
       log("Response : /// ${response.data}");

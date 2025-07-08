@@ -9,19 +9,18 @@ enum LoaderState {
   serverError
 }
 
-
-enum Selection{
+enum Selection {
   changed,
   notChanged,
 }
 
-enum SuspensionSelection{
+enum SuspensionSelection {
   changed,
   notChanged,
   bush,
 }
 
-enum LightSelection{
+enum LightSelection {
   changed,
   notChanged,
   lampReplace,

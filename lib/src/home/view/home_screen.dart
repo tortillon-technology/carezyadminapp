@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: HexColor("#F2F2F2"),
       appBar: AppBar(
         backgroundColor: ColorPalette.primaryColor,
-        systemOverlayStyle:homeSystemOverlay,
+        systemOverlayStyle: homeSystemOverlay,
         title: Image.asset(
           Assets.pngProCareSplashLogo,
           width: 140.w,

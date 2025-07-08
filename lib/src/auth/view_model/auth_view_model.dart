@@ -38,8 +38,8 @@ class AuthViewModel extends AutoDisposeViewModel with Helper {
     notifyListeners();
   }
 
-      // "username": "alfik@gmail.com",
-      // "password": "12345"
+  // "username": "alfik@gmail.com",
+  // "password": "12345"
 
   Future<bool?> signIn() async {
     updateLoader(true);
@@ -82,5 +82,6 @@ class AuthViewModel extends AutoDisposeViewModel with Helper {
 
 mixin Helper {
   bool isSignInLoading = false;
+
   updateLoader(bool value);
 }

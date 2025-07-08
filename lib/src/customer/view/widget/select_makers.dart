@@ -12,6 +12,7 @@ import '../../view_model/customer_view_model.dart';
 
 class SelectMakers extends StatefulWidget {
   final CustomerViewModel viewModel;
+
   const SelectMakers({super.key, required this.viewModel});
 
   @override

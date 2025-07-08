@@ -2,11 +2,16 @@ import 'package:either_dart/either.dart';
 
 abstract class NetWorkBaseServices {
   Either<ResponseError, BaseResponse> getStatus(BaseResponse response);
+
   Future<Either<ResponseError, BaseResponse>> safe(
       Future<BaseResponse> request);
+
   Either<ResponseError, BaseResponse> checkHttpStatus(BaseResponse response);
+
   Future<Either<ResponseError, dynamic>> parseJson(BaseResponse response);
-  Future<BaseResponse> getRequest({required String endPoint});
+
+  Future<BaseResponse> getRequest(
+      {required String endPoint, Map<String, dynamic>? parameters});
 
   Future<BaseResponse> postRequest(
       {required String endPoint, Map<String, dynamic>? parameters});
@@ -15,6 +20,7 @@ abstract class NetWorkBaseServices {
 class BaseResponse {
   int? statusCode;
   dynamic data;
+
   BaseResponse({this.statusCode, this.data});
 }
 

@@ -1,16 +1,22 @@
 import 'package:carezyadminapp/services/get_it.dart';
-import 'package:carezyadminapp/src/customer/model/customer_list_model.dart';
+import 'package:carezyadminapp/src/services/repo/service_repo.dart';
 import 'package:either_dart/either.dart';
 
 import '../../../res/enums/enums.dart';
 import '../../../utils/helpers/auto_dispose_view_model.dart';
-import '../repo/customer_repo.dart';
+import '../model/service_details_model.dart';
+import '../model/service_list_model.dart';
 
-class CustomerManageViewModel extends AutoDisposeViewModel with Helper {
-  final repo = getIt.get<CustomerRepo>();
-  List<Customer> customerList = [];
+class ServiceViewModel extends AutoDisposeViewModel with Helper {
+  final repo = getIt.get<ServiceRepo>();
+
+  ServiceDetailsModel? serviceDetails;
+
+  List<Service> serviceList = [];
   int nextPage = 1;
   int totalItems = 0;
+
+  String id = '';
 
   bool hasSearchQuery = false;
 
@@ -19,45 +25,64 @@ class CustomerManageViewModel extends AutoDisposeViewModel with Helper {
     notifyListeners();
   }
 
-  Future<bool?> getCustomerList({
+  Future<bool?> getServiceList({
     String? query,
     bool isPaginating = false,
     bool isSearch = false,
   }) async {
     if (isSearch && !isPaginating) {
-      customerList = [];
+      serviceList = [];
       totalItems = 0;
       nextPage = 1;
     }
     updateLoader(isLoad: SearchLoader.loading, isPaginate: isPaginating);
 
     return await repo
-        .getCustomerList(nextPage: nextPage, query: query ?? "")
+        .getServiceList(nextPage: nextPage, query: query ?? "")
         .fold(
       (left) {
         updateLoader(isLoad: SearchLoader.error);
         return false;
       },
       (right) {
-        final temp = right.results?.data?.customers ?? [];
+        final temp = right.data?.services ?? [];
         if (isSearch && nextPage == 1 && temp.isEmpty) {
           updateLoader(isLoad: SearchLoader.noSearchData);
         } else if (!isSearch && temp.isEmpty && nextPage == 1) {
           updateLoader(isLoad: SearchLoader.noData);
         } else {
-          totalItems = right.results?.data?.pagination?.totalItems ?? 0;
-          customerList.addAll(temp);
+          totalItems = right.data?.pagination?.totalCount ?? 0;
+          serviceList.addAll(temp);
 
-          if (totalItems != customerList.length) {
+          if (totalItems != serviceList.length) {
             nextPage++;
           }
           updateLoader(isLoad: SearchLoader.loaded);
         }
-        final isSuccess = right.status ?? false;
+        final isSuccess = right.success ?? false;
         return isSuccess;
       },
     ).catchError((e) {
       updateLoader(isLoad: SearchLoader.error);
+      return false;
+    });
+  }
+
+  Future<bool?> getServiceDetails() async {
+    serviceDetails = null;
+    updateServiceDetailsLoader(LoaderState.loading);
+    return await repo.getServiceDetails(id: id).fold(
+      (left) {
+        updateServiceDetailsLoader(LoaderState.error);
+        return false;
+      },
+      (right) {
+        serviceDetails = right;
+        updateServiceDetailsLoader(LoaderState.loaded);
+        return true;
+      },
+    ).catchError((e) {
+      updateServiceDetailsLoader(LoaderState.error);
       return false;
     });
   }
@@ -75,11 +100,20 @@ class CustomerManageViewModel extends AutoDisposeViewModel with Helper {
     }
     notifyListeners();
   }
+
+  @override
+  updateServiceDetailsLoader(LoaderState state) {
+    loaderState = state;
+    notifyListeners();
+  }
 }
 
 mixin Helper {
   SearchLoader isLoading = SearchLoader.loading;
+  LoaderState loaderState = LoaderState.loading;
   bool isPaginating = false;
 
   updateLoader({required SearchLoader isLoad, bool isPaginate});
+
+  updateServiceDetailsLoader(LoaderState state);
 }

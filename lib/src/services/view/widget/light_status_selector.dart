@@ -17,6 +17,7 @@ class LightStatusSelector extends StatefulWidget {
     required this.title,
     this.onSelection,
   });
+
   @override
   State<LightStatusSelector> createState() => _LightStatusSelectorState();
 }
