@@ -906,6 +906,7 @@ class AddServiceViewModel extends AutoDisposeViewModel with Helper {
   Map<String, dynamic> get params => {
         "customer_id": selectedCustomer?.id,
         "garage": selectedGarage?.id,
+        "current_kilometer": currentOodometerReading,
         "engine": [
           if (engineOil != null)
             {
@@ -913,7 +914,7 @@ class AddServiceViewModel extends AutoDisposeViewModel with Helper {
               "status": getSelection(selection: engineOil),
               "oil_life": oilLife ?? "",
               "remaining_km": remainingOil ?? "",
-              "next_service_odo":  nextOilChangeODO ?? "",
+              "next_service_odo": nextOilChangeODO ?? "",
             },
           if (oilFilter != null)
             {
@@ -930,9 +931,9 @@ class AddServiceViewModel extends AutoDisposeViewModel with Helper {
             {
               "component": 3,
               "status": getSelection(selection: airFilter),
-              "remaining_km": remainingAirFilterController.text.isEmpty
-                  ? remainingAirFilter
-                  : remainingAirFilterController.text,
+              "remaining_km": (remainingAirFilter?.isEmpty ?? false)
+                  ? remainingAirFilterController.text
+                  : remainingAirFilter,
               "next_service_odo": nextAirFilterChangeODOlController.text.isEmpty
                   ? nextAirFilterChangeODO
                   : nextAirFilterChangeODOlController.text,
