@@ -512,6 +512,74 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                 },
               ),
               26.verticalSpace,
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Remaining Valve Cower Gasket",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "Remaining",
+                          controller:
+                              provider.remainingValveCowerGasketController,
+                          inputAction: TextInputAction.next,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            if (data.isNotEmpty) {
+                              provider.remainingValveCowerGasket = data;
+                              provider.nextValveCowerGasketChangeODOlController
+                                  .text = (int.parse(data) +
+                                      int.parse(
+                                          provider.currentOodometerReading ??
+                                              '0'))
+                                  .toString();
+                            } else {
+                              provider.remainingValveCowerGasket = null;
+                              provider.nextValveCowerGasketChangeODOlController
+                                  .clear();
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  16.horizontalSpace,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Next service on",
+                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                        ),
+                        16.verticalSpace,
+                        CommonTextFormFieldWithValidator(
+                          hintText: "ODO Reading",
+                          controller:
+                              provider.nextValveCowerGasketChangeODOlController,
+                          inputAction: TextInputAction.done,
+                          inputType: TextInputType.number,
+                          inputFormatters: [
+                            TextInputFormats.digitsFormatter,
+                          ],
+                          onChanged: (String data) {
+                            provider.nextValveCowerGasketChangeODO = data;
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              26.verticalSpace,
               StatusSelector(
                 title: "Plug Seal",
                 selection: provider.plugSeal,

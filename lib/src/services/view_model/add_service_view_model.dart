@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:carezyadminapp/src/customer/model/garage_model.dart';
 import 'package:carezyadminapp/src/customer/repo/customer_repo.dart';
 import 'package:carezyadminapp/src/services/model/customer_model.dart';
@@ -911,91 +913,144 @@ class AddServiceViewModel extends AutoDisposeViewModel with Helper {
               "status": getSelection(selection: engineOil),
               "oil_life": oilLife ?? "",
               "remaining_km": remainingOil ?? "",
-              "next_service_odo": nextOilChangeODO ?? "",
+              "next_service_odo":  nextOilChangeODO ?? "",
             },
           if (oilFilter != null)
             {
               "component": 2,
               "status": getSelection(selection: oilFilter),
-              "remaining_km": remainingOilFilter ?? "",
-              "next_service_odo": nextOilFilterChangeODO ?? "",
+              "remaining_km": remainingOilFilterController.text.isEmpty
+                  ? remainingOilFilter
+                  : remainingOilFilterController.text,
+              "next_service_odo": nextOilFilterChangeODOlController.text.isEmpty
+                  ? nextOilFilterChangeODO
+                  : nextOilFilterChangeODOlController.text,
             },
           if (airFilter != null)
             {
               "component": 3,
               "status": getSelection(selection: airFilter),
-              "remaining_km": remainingAirFilter ?? "",
-              "next_service_odo": nextAirFilterChangeODO ?? "",
+              "remaining_km": remainingAirFilterController.text.isEmpty
+                  ? remainingAirFilter
+                  : remainingAirFilterController.text,
+              "next_service_odo": nextAirFilterChangeODOlController.text.isEmpty
+                  ? nextAirFilterChangeODO
+                  : nextAirFilterChangeODOlController.text,
             },
           if (acFilter != null)
             {
               "component": 4,
               "status": getSelection(selection: acFilter),
-              "remaining_km": remainingAcFilter ?? '',
-              "next_service_odo": nextAcFilterChangeODO ?? ''
+              "remaining_km": remainingAcFilterController.text.isEmpty
+                  ? remainingAcFilter
+                  : remainingAcFilterController.text,
+              "next_service_odo": nextAcFilterChangeODOlController.text.isEmpty
+                  ? nextAcFilterChangeODO
+                  : nextAcFilterChangeODOlController.text,
             },
           if (sparkPlug != null)
             {
               "component": 5,
               "status": getSelection(selection: sparkPlug),
-              "remaining_km": remainingSparkPlug ?? '',
-              "next_service_odo": nextSparkPlugChangeODO ?? ''
+              "remaining_km": remainingSparkPlugController.text.isEmpty
+                  ? remainingSparkPlug
+                  : remainingSparkPlugController.text,
+              "next_service_odo": nextSparkPlugChangeODOlController.text.isEmpty
+                  ? nextSparkPlugChangeODO
+                  : nextSparkPlugChangeODOlController.text,
             },
           if (ignitionCoil != null)
             {
               "component": 6,
               "status": getSelection(selection: ignitionCoil),
-              "remaining_km": remainingIgnitionCoil ?? '',
-              "next_service_odo": nextIgnitionCoilChangeODO ?? ''
+              "remaining_km": remainingIgnitionCoilController.text.isEmpty
+                  ? remainingIgnitionCoil
+                  : remainingIgnitionCoilController.text,
+              "next_service_odo":
+                  nextIgnitionCoilChangeODOlController.text.isEmpty
+                      ? nextIgnitionCoilChangeODO
+                      : nextIgnitionCoilChangeODOlController.text,
             },
           if (valveCowerGasket != null)
             {
               "component": 7,
               "status": getSelection(selection: valveCowerGasket),
-              "remaining_km": remainingValveCowerGasket ?? '',
-              "next_service_odo": nextValveCowerGasketChangeODO ?? ''
+              "remaining_km": remainingValveCowerGasketController.text.isEmpty
+                  ? remainingValveCowerGasket
+                  : remainingValveCowerGasketController.text,
+              "next_service_odo":
+                  nextValveCowerGasketChangeODOlController.text.isEmpty
+                      ? nextValveCowerGasketChangeODO
+                      : nextValveCowerGasketChangeODOlController.text,
             },
           if (plugSeal != null)
             {
               "component": 8,
               "status": getSelection(selection: plugSeal),
-              "remaining_km": remainingPlugSeal ?? '',
-              "next_service_odo": nextPlugSealChangeODO ?? ''
+              "remaining_km": remainingPlugSealController.text.isEmpty
+                  ? remainingPlugSeal
+                  : remainingPlugSealController.text,
+              "next_service_odo": nextPlugSealChangeODOlController.text.isEmpty
+                  ? nextPlugSealChangeODO
+                  : nextPlugSealChangeODOlController.text,
             },
           if (engineBelt != null)
             {
               "component": 9,
               "status": getSelection(selection: engineBelt),
-              "remaining_km": remainingEngineBelt ?? '',
-              "next_service_odo": nextEngineBeltChangeODO ?? ''
+              "remaining_km": remainingEngineBeltController.text.isEmpty
+                  ? remainingEngineBelt
+                  : remainingEngineBeltController.text,
+              "next_service_odo":
+                  nextEngineBeltChangeODOlController.text.isEmpty
+                      ? nextEngineBeltChangeODO
+                      : nextEngineBeltChangeODOlController.text,
             },
           if (engineBeltTentioner != null)
             {
               "component": 10,
               "status": getSelection(selection: engineBeltTentioner),
-              "remaining_km": remainingEngineBeltTentioner ?? '',
-              "next_service_odo": nextEngineBeltTentionerChangeODO ?? ''
+              "remaining_km":
+                  remainingEngineBeltTentionerController.text.isEmpty
+                      ? remainingEngineBeltTentioner
+                      : remainingEngineBeltTentionerController.text,
+              "next_service_odo":
+                  nextEngineBeltTentionerChangeODOlController.text.isEmpty
+                      ? nextEngineBeltTentionerChangeODO
+                      : nextEngineBeltTentionerChangeODOlController.text,
             },
           if (idlPulley != null)
             {
               "component": 11,
               "status": getSelection(selection: idlPulley),
-              "remaining_km": remainingIDLPulley ?? '',
-              "next_service_odo": nextIDLPulleyChangeODO ?? ''
+              "remaining_km": remainingIDLPulleyController.text.isEmpty
+                  ? remainingIDLPulley
+                  : remainingIDLPulleyController.text,
+              "next_service_odo": nextIDLPulleyChangeODOlController.text.isEmpty
+                  ? nextIDLPulleyChangeODO
+                  : nextIDLPulleyChangeODOlController.text,
             },
           if (injectors != null)
             {
               "component": 12,
               "status": getSelection(selection: injectors),
-              "remaining_km": remainingInjectors ?? '',
-              "next_service_odo": nextInjectorsChangeODO ?? ''
+              "remaining_km": remainingInjectorsController.text.isEmpty
+                  ? remainingInjectors
+                  : remainingInjectorsController.text,
+              "next_service_odo": nextInjectorsChangeODOlController.text.isEmpty
+                  ? nextInjectorsChangeODO
+                  : nextInjectorsChangeODOlController.text,
             },
           if (selfMotor != null)
             {
               "component": 13,
               "status": getSelection(selection: selfMotor),
-              "remaining_km": remainingSelfMotor ?? '',
-              "next_service_odo": nextSelfMotorChangeODO ?? ''
+              "remaining_km": remainingSelfMotorController.text.isEmpty
+                  ? remainingSelfMotor
+                  : remainingSelfMotorController.text,
+              "next_service_odo": nextSelfMotorChangeODOlController.text.isEmpty
+                  ? nextSelfMotorChangeODO
+                  : nextSelfMotorChangeODOlController.text,
             },
           if (engineMount != null)
             {
@@ -1009,44 +1064,73 @@ class AddServiceViewModel extends AutoDisposeViewModel with Helper {
             {
               "component": 1,
               "status": getSelection(selection: gearOil),
-              "remaining_km": remainingGearOil ?? '',
-              "next_service_odo": nextGearOilChangeODO ?? ""
+              "remaining_km": remainingGearOilController.text.isEmpty
+                  ? remainingGearOil
+                  : remainingGearOilController.text,
+              "next_service_odo": nextGearOilChangeODOlController.text.isEmpty
+                  ? nextGearOilChangeODO
+                  : nextGearOilChangeODOlController.text,
             },
           if (gearFilter != null)
             {
               "component": 2,
               "status": getSelection(selection: gearFilter),
-              "remaining_km": remainingGearFilter ?? '',
-              "next_service_odo": nextGearFilterChangeODO ?? ''
+              "remaining_km": remainingGearFilterController.text.isEmpty
+                  ? remainingGearFilter
+                  : remainingGearFilterController.text,
+              "next_service_odo":
+                  nextGearFilterChangeODOlController.text.isEmpty
+                      ? nextGearFilterChangeODO
+                      : nextGearFilterChangeODOlController.text,
             },
           if (gearGasket != null)
             {
               "component": 3,
               "status": getSelection(selection: gearGasket),
-              "remaining_km": remainingGearGasket ?? '',
-              "next_service_odo": nextGearGasketChangeODO ?? ''
+              "remaining_km": remainingGearGasketController.text.isEmpty
+                  ? remainingGearGasket
+                  : remainingGearGasketController.text,
+              "next_service_odo":
+                  nextGearGasketChangeODOlController.text.isEmpty
+                      ? nextGearGasketChangeODO
+                      : nextGearGasketChangeODOlController.text,
             },
           if (fourWheelOil != null)
             {
               "component": 4,
               "status": getSelection(selection: fourWheelOil),
-              "next_service_odo": nextFourWheelOilChangeODO ?? "",
-              "remaining_km": remainingFourWheelOil ?? '',
+              "next_service_odo":
+                  nextFourWheelOilChangeODOlController.text.isEmpty
+                      ? nextFourWheelOilChangeODO
+                      : nextFourWheelOilChangeODOlController.text,
+              "remaining_km": remainingFourWheelOilController.text.isEmpty
+                  ? remainingFourWheelOil
+                  : remainingFourWheelOilController.text,
             },
           if (transmissionControlModule != null)
             {
               "component": 5,
               "status": getSelection(selection: transmissionControlModule),
-              "remaining_km": remainingTransmissionControlOil ?? '',
-              "next_service_odo": nextTransmissionControlOilChangeODO ?? ''
+              "remaining_km":
+                  remainingTransmissionControlOilController.text.isEmpty
+                      ? remainingTransmissionControlOil
+                      : remainingTransmissionControlOilController.text,
+              "next_service_odo":
+                  nextTransmissionControlOilChangeODOlController.text.isEmpty
+                      ? nextTransmissionControlOilChangeODO
+                      : nextTransmissionControlOilChangeODOlController.text,
             },
           if (gearMount != null)
             {
               "component": 6,
               "status": getSelection(selection: gearMount),
               "no_of_mounts": noOfGearMounts ?? '',
-              "remaining_km": remainingGearMount ?? '',
-              "next_service_odo": nextGearMountChangeODO ?? ''
+              "remaining_km": remainingGearMountController.text.isEmpty
+                  ? remainingGearMount
+                  : remainingGearMountController.text,
+              "next_service_odo": nextGearMountChangeODOlController.text.isEmpty
+                  ? nextGearMountChangeODO
+                  : nextGearMountChangeODOlController.text,
             },
         ],
         "differential": [
@@ -1054,36 +1138,61 @@ class AddServiceViewModel extends AutoDisposeViewModel with Helper {
             {
               "component": 1,
               "status": getSelection(selection: frontDifferentialOil),
-              "remaining_km": frontDifferentialOilLife ?? '',
-              "next_service_odo": nextFrontDifferentialOilChangeODO ?? ""
+              "remaining_km": frontDifferentialOilLifeController.text.isEmpty
+                  ? frontDifferentialOilLife
+                  : frontDifferentialOilLifeController.text,
+              "next_service_odo":
+                  nextFrontDifferentialOilChangeODOlController.text.isEmpty
+                      ? nextFrontDifferentialOilChangeODO
+                      : nextFrontDifferentialOilChangeODOlController.text,
             },
           if (rearDifferentialOil != null)
             {
               "component": 2,
               "status": getSelection(selection: rearDifferentialOil),
-              "remaining_km": rearDifferentialOilLife ?? '',
-              "next_service_odo": nextRearDifferentialOilChangeODO ?? "",
+              "remaining_km": rearDifferentialOilLifeController.text.isEmpty
+                  ? rearDifferentialOilLife
+                  : rearDifferentialOilLifeController.text,
+              "next_service_odo":
+                  nextRearDifferentialOilChangeODOlController.text.isEmpty
+                      ? nextRearDifferentialOilChangeODO
+                      : nextRearDifferentialOilChangeODOlController.text,
             },
           if (differentialBushes != null)
             {
               "component": 3,
               "status": getSelection(selection: differentialBushes),
-              "remaining_km": remainingDifferentialBushes ?? '',
-              "next_service_odo": nextDifferentialBushesChangeODO ?? ''
+              "remaining_km": remainingDifferentialBushesController.text.isEmpty
+                  ? remainingDifferentialBushes
+                  : remainingDifferentialBushesController.text,
+              "next_service_odo":
+                  nextDifferentialBushesChangeODOlController.text.isEmpty
+                      ? nextDifferentialBushesChangeODO
+                      : nextDifferentialBushesChangeODOlController.text,
             },
           if (shaftStatus != null)
             {
               "component": 4,
               "status": getSelection(selection: shaftStatus),
-              "remaining_km": remainingShaftStatus ?? '',
-              "next_service_odo": nextShaftStatusChangeODO ?? ''
+              "remaining_km": remainingShaftStatusController.text.isEmpty
+                  ? remainingShaftStatus
+                  : remainingShaftStatusController.text,
+              "next_service_odo":
+                  nextShaftStatusChangeODOlController.text.isEmpty
+                      ? nextShaftStatusChangeODO
+                      : nextShaftStatusChangeODOlController.text,
             },
           if (shaftSeals != null)
             {
               "component": 5,
               "status": getSelection(selection: shaftSeals),
-              "remaining_km": remainingShaftSeals ?? '',
-              "next_service_odo": nextShaftSealsChangeODO ?? ''
+              "remaining_km": remainingShaftSealsController.text.isEmpty
+                  ? remainingShaftSeals
+                  : remainingShaftSealsController.text,
+              "next_service_odo":
+                  nextShaftSealsChangeODOlController.text.isEmpty
+                      ? nextShaftSealsChangeODO
+                      : nextShaftSealsChangeODOlController.text,
             }
         ],
         "break": [
@@ -1132,238 +1241,413 @@ class AddServiceViewModel extends AutoDisposeViewModel with Helper {
           {
             "component": 1,
             "status": getSuspensionSelection(selection: flla),
-            "remaining_km": remainingFrontLeftLowerArm ?? '',
-            "next_service_odo": nextFrontLeftLowerArmChangeODO ?? ''
+            "remaining_km": remainingFrontLeftLowerArmController.text.isEmpty
+                ? remainingFrontLeftLowerArm
+                : remainingFrontLeftLowerArmController.text,
+            "next_service_odo":
+                nextFrontLeftLowerArmChangeODOlController.text.isEmpty
+                    ? nextFrontLeftLowerArmChangeODO
+                    : nextFrontLeftLowerArmChangeODOlController.text,
           },
           {
             "component": 2,
             "status": getSuspensionSelection(selection: frla),
-            "remaining_km": remainingFrontRightLowerArm ?? '',
-            "next_service_odo": nextFrontRightLowerArmChangeODO ?? ''
+            "remaining_km": remainingFrontRightLowerArmController.text.isEmpty
+                ? remainingFrontRightLowerArm
+                : remainingFrontRightLowerArmController.text,
+            "next_service_odo":
+                nextFrontRightLowerArmChangeODOlController.text.isEmpty
+                    ? nextFrontRightLowerArmChangeODO
+                    : nextFrontRightLowerArmChangeODOlController.text,
           },
           {
             "component": 3,
             "status": getSuspensionSelection(selection: rlla),
-            "remaining_km": remainingRearLeftLowerArm ?? '',
-            "next_service_odo": nextRearLeftLowerArmChangeODO ?? ''
+            "remaining_km": remainingRearLeftLowerArmController.text.isEmpty
+                ? remainingRearLeftLowerArm
+                : remainingRearLeftLowerArmController.text,
+            "next_service_odo":
+                nextRearLeftLowerArmChangeODOlController.text.isEmpty
+                    ? nextRearLeftLowerArmChangeODO
+                    : nextRearLeftLowerArmChangeODOlController.text,
           },
           {
             "component": 4,
             "status": getSuspensionSelection(selection: rrla),
-            "remaining_km": remainingRearRightLowerArm ?? '',
-            "next_service_odo": nextRearRightLowerArmChangeODO ?? ''
+            "remaining_km": remainingRearRightLowerArmController.text.isEmpty
+                ? remainingRearRightLowerArm
+                : remainingRearRightLowerArmController.text,
+            "next_service_odo":
+                nextRearRightLowerArmChangeODOlController.text.isEmpty
+                    ? nextRearRightLowerArmChangeODO
+                    : nextRearRightLowerArmChangeODOlController.text,
           },
           {
             "component": 5,
             "status": getSuspensionSelection(selection: uafl),
-            "remaining_km": remainingUpperArmFrontLeft ?? '',
-            "next_service_odo": nextUpperArmFrontLeftChangeODO ?? ''
+            "remaining_km": remainingUpperArmFrontLeftController.text.isEmpty
+                ? remainingUpperArmFrontLeft
+                : remainingUpperArmFrontLeftController.text,
+            "next_service_odo":
+                nextUpperArmFrontLeftChangeODOlController.text.isEmpty
+                    ? nextUpperArmFrontLeftChangeODO
+                    : nextUpperArmFrontLeftChangeODOlController.text,
           },
           {
             "component": 6,
             "status": getSuspensionSelection(selection: uafr),
-            "remaining_km": remainingUpperArmFrontRight ?? '',
-            "next_service_odo": nextUpperArmFrontRightChangeODO ?? ''
+            "remaining_km": remainingUpperArmFrontRightController.text.isEmpty
+                ? remainingUpperArmFrontRight
+                : remainingUpperArmFrontRightController.text,
+            "next_service_odo":
+                nextUpperArmFrontRightChangeODOlController.text.isEmpty
+                    ? nextUpperArmFrontRightChangeODO
+                    : nextUpperArmFrontRightChangeODOlController.text,
           },
           {
             "component": 7,
             "status": getSuspensionSelection(selection: tar),
-            "remaining_km": remainingTrailorArmRear ?? '',
-            "next_service_odo": nextTrailorArmRearChangeODO ?? ''
+            "remaining_km": remainingTrailorArmRearController.text.isEmpty
+                ? remainingTrailorArmRear
+                : remainingTrailorArmRearController.text,
+            "next_service_odo":
+                nextTrailorArmRearChangeODOlController.text.isEmpty
+                    ? nextTrailorArmRearChangeODO
+                    : nextTrailorArmRearChangeODOlController.text,
           },
           {
             "component": 8,
             "status": getSuspensionSelection(selection: abli),
-            "remaining_km": remainingAxleBootLeftInner ?? '',
-            "next_service_odo": nextAxleBootLeftInnerChangeODO ?? ''
+            "remaining_km": remainingAxleBootLeftInnerController.text.isEmpty
+                ? remainingAxleBootLeftInner
+                : remainingAxleBootLeftInnerController.text,
+            "next_service_odo":
+                nextAxleBootLeftInnerChangeODOlController.text.isEmpty
+                    ? nextAxleBootLeftInnerChangeODO
+                    : nextAxleBootLeftInnerChangeODOlController.text,
           },
           {
             "component": 9,
             "status": getSuspensionSelection(selection: abri),
-            "remaining_km": remainingAxleBootRightInner ?? '',
-            "next_service_odo": nextAxleBootRightInnerChangeODO ?? ''
+            "remaining_km": remainingAxleBootRightInnerController.text.isEmpty
+                ? remainingAxleBootRightInner
+                : remainingAxleBootRightInnerController.text,
+            "next_service_odo":
+                nextAxleBootRightInnerChangeODOlController.text.isEmpty
+                    ? nextAxleBootRightInnerChangeODO
+                    : nextAxleBootRightInnerChangeODOlController.text,
           },
           {
             "component": 10,
             "status": getSuspensionSelection(selection: abro),
-            "remaining_km": remainingAxleBootRightOuter ?? '',
-            "next_service_odo": nextAxleBootRightOuterChangeODO ?? ''
+            "remaining_km": remainingAxleBootRightOuterController.text.isEmpty
+                ? remainingAxleBootRightOuter
+                : remainingAxleBootRightOuterController.text,
+            "next_service_odo":
+                nextAxleBootRightOuterChangeODOlController.text.isEmpty
+                    ? nextAxleBootRightOuterChangeODO
+                    : nextAxleBootRightOuterChangeODOlController.text,
           },
           {
             "component": 11,
             "status": getSuspensionSelection(selection: ablo),
-            "remaining_km": remainingAxleBootLeftOuter ?? '',
-            "next_service_odo": nextAxleBootLeftOuterChangeODO ?? ''
+            "remaining_km": remainingAxleBootLeftOuterController.text.isEmpty
+                ? remainingAxleBootLeftOuter
+                : remainingAxleBootLeftOuterController.text,
+            "next_service_odo":
+                nextAxleBootLeftOuterChangeODOlController.text.isEmpty
+                    ? nextAxleBootLeftOuterChangeODO
+                    : nextAxleBootLeftOuterChangeODOlController.text,
           },
           {
             "component": 12,
             "status": getSuspensionSelection(selection: lrfl),
-            "remaining_km": remainingLinkRodFrontLeft ?? '',
-            "next_service_odo": nextLinkRodFrontLeftChangeODO ?? ''
+            "remaining_km": remainingLinkRodFrontLeftController.text.isEmpty
+                ? remainingLinkRodFrontLeft
+                : remainingLinkRodFrontLeftController.text,
+            "next_service_odo":
+                nextLinkRodFrontLeftChangeODOlController.text.isEmpty
+                    ? nextLinkRodFrontLeftChangeODO
+                    : nextLinkRodFrontLeftChangeODOlController.text,
           },
           {
             "component": 13,
             "status": getSuspensionSelection(selection: lrfr),
-            "remaining_km": remainingLinkRodFrontRight ?? '',
-            "next_service_odo": nextLinkRodFrontRightChangeODO ?? ''
+            "remaining_km": remainingLinkRodFrontRightController.text.isEmpty
+                ? remainingLinkRodFrontRight
+                : remainingLinkRodFrontRightController.text,
+            "next_service_odo":
+                nextLinkRodFrontRightChangeODOlController.text.isEmpty
+                    ? nextLinkRodFrontRightChangeODO
+                    : nextLinkRodFrontRightChangeODOlController.text,
           },
           {
             "component": 14,
             "status": getSuspensionSelection(selection: lrrl),
-            "remaining_km": remainingLinkRodRearLeft ?? '',
-            "next_service_odo": nextLinkRodRearLeftChangeODO ?? ''
+            "remaining_km": remainingLinkRodRearLeftController.text.isEmpty
+                ? remainingLinkRodRearLeft
+                : remainingLinkRodRearLeftController.text,
+            "next_service_odo":
+                nextLinkRodRearLeftChangeODOlController.text.isEmpty
+                    ? nextLinkRodRearLeftChangeODO
+                    : nextLinkRodRearLeftChangeODOlController.text,
           },
           {
             "component": 15,
             "status": getSuspensionSelection(selection: lrrr),
-            "remaining_km": remainingLinkRodRearRight ?? '',
-            "next_service_odo": nextLinkRodRearRightChangeODO ?? ''
+            "remaining_km": remainingLinkRodRearRightController.text.isEmpty
+                ? remainingLinkRodRearRight
+                : remainingLinkRodRearRightController.text,
+            "next_service_odo":
+                nextLinkRodRearRightChangeODOlController.text.isEmpty
+                    ? nextLinkRodRearRightChangeODO
+                    : nextLinkRodRearRightChangeODOlController.text,
           },
           {
             "component": 16,
             "status": getSuspensionSelection(selection: brbf),
-            "remaining_km": remainingBalanceRodBushFront ?? '',
-            "next_service_odo": nextBalanceRodBushFrontChangeODO ?? ''
+            "remaining_km": remainingBalanceRodBushFrontController.text.isEmpty
+                ? remainingBalanceRodBushFront
+                : remainingBalanceRodBushFrontController.text,
+            "next_service_odo":
+                nextBalanceRodBushFrontChangeODOlController.text.isEmpty
+                    ? nextBalanceRodBushFrontChangeODO
+                    : nextBalanceRodBushFrontChangeODOlController.text,
           },
           {
             "component": 17,
             "status": getSuspensionSelection(selection: brbr),
-            "remaining_km": remainingBalanceRodBushRear ?? '',
-            "next_service_odo": nextBalanceRodBushRearChangeODO ?? ''
+            "remaining_km": remainingBalanceRodBushRearController.text.isEmpty
+                ? remainingBalanceRodBushRear
+                : remainingBalanceRodBushRearController.text,
+            "next_service_odo":
+                nextBalanceRodBushRearChangeODOlController.text.isEmpty
+                    ? nextBalanceRodBushRearChangeODO
+                    : nextBalanceRodBushRearChangeODOlController.text,
           },
         ],
         "ac": [
           {
             "component": 1,
             "status": getSelection(selection: acGas),
-            "remaining_km": remainingAcGas ?? '',
-            "next_service_odo": nextAcGasChangeODO ?? ''
+            "remaining_km": remainingAcGasController.text.isEmpty
+                ? remainingAcGas
+                : remainingAcGasController.text,
+            "next_service_odo": nextAcGasChangeODOlController.text.isEmpty
+                ? nextAcGasChangeODO
+                : nextAcGasChangeODOlController.text,
           },
           {
             "component": 2,
             "status": getSelection(selection: compressor),
-            "remaining_km": remainingCompressor ?? '',
-            "next_service_odo": nextCompressorChangeODO ?? ''
+            "remaining_km": remainingCompressorController.text.isEmpty
+                ? remainingCompressor
+                : remainingCompressorController.text,
+            "next_service_odo": nextCompressorChangeODOlController.text.isEmpty
+                ? nextCompressorChangeODO
+                : nextCompressorChangeODOlController.text,
           },
           {
             "component": 3,
             "status": getSelection(selection: condenser),
-            "remaining_km": remainingCondenser ?? '',
-            "next_service_odo": nextCondenserChangeODO ?? ''
+            "remaining_km": remainingCondenserController.text.isEmpty
+                ? remainingCondenser
+                : remainingCondenserController.text,
+            "next_service_odo": nextCondenserChangeODOlController.text.isEmpty
+                ? nextCondenserChangeODO
+                : nextCondenserChangeODOlController.text,
           },
           {
             "component": 4,
             "status": getSelection(selection: evaporator),
-            "remaining_km": remainingEvaporator ?? '',
-            "next_service_odo": nextEvaporatorChangeODO ?? ''
+            "remaining_km": remainingEvaporatorController.text.isEmpty
+                ? remainingEvaporator
+                : remainingEvaporatorController.text,
+            "next_service_odo": nextEvaporatorChangeODOlController.text.isEmpty
+                ? nextEvaporatorChangeODO
+                : nextEvaporatorChangeODOlController.text,
           },
           {
             "component": 5,
             "status": getSelection(selection: exValve),
-            "remaining_km": remainingExValve ?? '',
-            "next_service_odo": nextExValveChangeODO ?? ''
+            "remaining_km": remainingExValveController.text.isEmpty
+                ? remainingExValve
+                : remainingExValveController.text,
+            "next_service_odo": nextExValveChangeODOlController.text.isEmpty
+                ? nextExValveChangeODO
+                : nextExValveChangeODOlController.text,
           },
         ],
         "steering": [
           {
             "component": 1,
             "status": getSelection(selection: sbl),
-            "remaining_km": remainingSteeringBootLeft ?? '',
-            "next_service_odo": nextSteeringBootLeftChangeODO ?? ''
+            "remaining_km": remainingSteeringBootLeftController.text.isEmpty
+                ? remainingSteeringBootLeft
+                : remainingSteeringBootLeftController.text,
+            "next_service_odo":
+                nextSteeringBootLeftChangeODOlController.text.isEmpty
+                    ? nextSteeringBootLeftChangeODO
+                    : nextSteeringBootLeftChangeODOlController.text,
           },
           {
             "component": 2,
             "status": getSelection(selection: sbr),
-            "remaining_km": remainingSteeringBootRight ?? '',
-            "next_service_odo": nextSteeringBootRightChangeODO ?? ''
+            "remaining_km": remainingSteeringBootRightController.text.isEmpty
+                ? remainingSteeringBootRight
+                : remainingSteeringBootRightController.text,
+            "next_service_odo":
+                nextSteeringBootRightChangeODOlController.text.isEmpty
+                    ? nextSteeringBootRightChangeODO
+                    : nextSteeringBootRightChangeODOlController.text,
           },
           {
             "component": 3,
             "status": getSelection(selection: sel),
-            "remaining_km": remainingSteeringEndLeft ?? '',
-            "next_service_odo": nextSteeringEndLeftChangeODO ?? ''
+            "remaining_km": remainingSteeringEndLeftController.text.isEmpty
+                ? remainingSteeringEndLeft
+                : remainingSteeringEndLeftController.text,
+            "next_service_odo":
+                nextSteeringEndLeftChangeODOlController.text.isEmpty
+                    ? nextSteeringEndLeftChangeODO
+                    : nextSteeringEndLeftChangeODOlController.text,
           },
           {
             "component": 4,
             "status": getSelection(selection: ser),
-            "remaining_km": remainingSteeringEndRight ?? '',
-            "next_service_odo": nextSteeringEndRightChangeODO ?? ''
+            "remaining_km": remainingSteeringEndRightController.text.isEmpty
+                ? remainingSteeringEndRight
+                : remainingSteeringEndRightController.text,
+            "next_service_odo":
+                nextSteeringEndRightChangeODOlController.text.isEmpty
+                    ? nextSteeringEndRightChangeODO
+                    : nextSteeringEndRightChangeODOlController.text,
           },
           {
             "component": 5,
             "status": getSelection(selection: bjl),
-            "remaining_km": remainingBallJointLeft ?? '',
-            "next_service_odo": nextBallJointLeftChangeODO ?? ''
+            "remaining_km": remainingBallJointLeftController.text.isEmpty
+                ? remainingBallJointLeft
+                : remainingBallJointLeftController.text,
+            "next_service_odo":
+                nextBallJointLeftChangeODOlController.text.isEmpty
+                    ? nextBallJointLeftChangeODO
+                    : nextBallJointLeftChangeODOlController.text,
           },
           {
             "component": 6,
             "status": getSelection(selection: bjr),
-            "remaining_km": remainingBallJointRight ?? '',
-            "next_service_odo": nextBallJointRightChangeODO ?? ''
+            "remaining_km": remainingBallJointRightController.text.isEmpty
+                ? remainingBallJointRight
+                : remainingBallJointRightController.text,
+            "next_service_odo":
+                nextBallJointRightChangeODOlController.text.isEmpty
+                    ? nextBallJointRightChangeODO
+                    : nextBallJointRightChangeODOlController.text,
           },
         ],
         "light": [
           {
             "component": 1,
             "status": getLampSelection(selection: headLight),
-            "remaining_km": remainingHeadLight ?? '',
-            "next_service_odo": nextHeadLightChangeODO ?? ''
+            "remaining_km": remainingHeadLightController.text.isEmpty
+                ? remainingHeadLight
+                : remainingHeadLightController.text,
+            "next_service_odo": nextHeadLightChangeODOlController.text.isEmpty
+                ? nextHeadLightChangeODO
+                : nextHeadLightChangeODOlController.text,
           },
           {
             "component": 2,
             "status": getLampSelection(selection: parkLight),
-            "remaining_km": remainingParkLight ?? '',
-            "next_service_odo": nextParkLightChangeODO ?? ''
+            "remaining_km": remainingParkLightController.text.isEmpty
+                ? remainingParkLight
+                : remainingParkLightController.text,
+            "next_service_odo": nextParkLightChangeODOlController.text.isEmpty
+                ? nextParkLightChangeODO
+                : nextParkLightChangeODOlController.text,
           },
           {
             "component": 3,
             "status": getLampSelection(selection: indicators),
-            "remaining_km": remainingIndicators ?? '',
-            "next_service_odo": nextIndicatorsChangeODO ?? ''
+            "remaining_km": remainingIndicatorsController.text.isEmpty
+                ? remainingIndicators
+                : remainingIndicatorsController.text,
+            "next_service_odo": nextIndicatorsChangeODOlController.text.isEmpty
+                ? nextIndicatorsChangeODO
+                : nextIndicatorsChangeODOlController.text,
           },
           {
             "component": 4,
             "status": getLampSelection(selection: reverseGearLight),
-            "remaining_km": remainingReverseGear ?? '',
-            "next_service_odo": nextReverseGearChangeODO ?? ''
+            "remaining_km": remainingReverseGearController.text.isEmpty
+                ? remainingReverseGear
+                : remainingReverseGearController.text,
+            "next_service_odo": nextReverseGearChangeODOlController.text.isEmpty
+                ? nextReverseGearChangeODO
+                : nextReverseGearChangeODOlController.text,
           },
           {
             "component": 5,
             "status": getLampSelection(selection: dimBright),
-            "remaining_km": remainingDimBright ?? '',
-            "next_service_odo": nextDimBrightChangeODO ?? ''
+            "remaining_km": remainingDimBrightController.text.isEmpty
+                ? remainingDimBright
+                : remainingDimBrightController.text,
+            "next_service_odo": nextDimBrightChangeODOlController.text.isEmpty
+                ? nextDimBrightChangeODO
+                : nextDimBrightChangeODOlController.text,
           },
           {
             "component": 6,
             "status": getLampSelection(selection: fogLamps),
-            "remaining_km": remainingFogLamps ?? '',
-            "next_service_odo": nextFogLampsChangeODO ?? ''
+            "remaining_km": remainingFogLampsController.text.isEmpty
+                ? remainingFogLamps
+                : remainingFogLampsController.text,
+            "next_service_odo": nextFogLampsChangeODOlController.text.isEmpty
+                ? nextFogLampsChangeODO
+                : nextFogLampsChangeODOlController.text,
           },
         ],
         "fuel": [
           {
             "component": 1,
             "status": getSelection(selection: fuelPump),
-            "remaining_km": remainingFuelPump ?? '',
-            "next_service_odo": nextFuelPumpChangeODO ?? ''
+            "remaining_km": remainingFuelPumpController.text.isEmpty
+                ? remainingFuelPump
+                : remainingFuelPumpController.text,
+            "next_service_odo": nextFuelPumpChangeODOlController.text.isEmpty
+                ? nextFuelPumpChangeODO
+                : nextFuelPumpChangeODOlController.text,
           },
           {
             "component": 2,
             "status": getSelection(selection: fuelFilter),
-            "remaining_km": remainingFuelFilter ?? '',
-            "next_service_odo": nextFuelFilterChangeODO ?? ''
+            "remaining_km": remainingFuelFilterController.text.isEmpty
+                ? remainingFuelFilter
+                : remainingFuelFilterController.text,
+            "next_service_odo": nextFuelFilterChangeODOlController.text.isEmpty
+                ? nextFuelFilterChangeODO
+                : nextFuelFilterChangeODOlController.text,
           },
           {
             "component": 3,
             "status": getSelection(selection: canister),
-            "remaining_km": remainingCanister ?? '',
-            "next_service_odo": nextCanisterChangeODO ?? ''
+            "remaining_km": remainingCanisterController.text.isEmpty
+                ? remainingCanister
+                : remainingCanisterController.text,
+            "next_service_odo": nextCanisterChangeODOlController.text.isEmpty
+                ? nextCanisterChangeODO
+                : nextCanisterChangeODOlController.text,
           },
           {
             "component": 4,
             "status": getSelection(selection: fuelTank),
-            "remaining_km": remainingFuelTank ?? '',
-            "next_service_odo": nextFuelTankChangeODO ?? ''
+            "remaining_km": remainingFuelTankController.text.isEmpty
+                ? remainingFuelTank
+                : remainingFuelTankController.text,
+            "next_service_odo": nextFuelTankChangeODOlController.text.isEmpty
+                ? nextFuelTankChangeODO
+                : nextFuelTankChangeODOlController.text,
           },
         ],
         "other": [
@@ -1371,39 +1655,67 @@ class AddServiceViewModel extends AutoDisposeViewModel with Helper {
             "component": 1,
             "status": getSelection(selection: centerLock),
             "remarks": clRemarks ?? "",
-            "remaining_km": remainingCenterLock ?? '',
-            "next_service_odo": nextCenterLockChangeODO ?? ''
+            "remaining_km": remainingCenterLockController.text.isEmpty
+                ? remainingCenterLock
+                : remainingCenterLockController.text,
+            "next_service_odo": nextCenterLockChangeODOlController.text.isEmpty
+                ? nextCenterLockChangeODO
+                : nextCenterLockChangeODOlController.text,
           },
           {
             "component": 2,
             "status": getSelection(selection: windowLifter),
             "remarks": wlRemarks ?? "",
-            "remaining_km": remainingWindowLifter ?? '',
-            "next_service_odo": nextWindowLifterChangeODO ?? ''
+            "remaining_km": remainingWindowLifterController.text.isEmpty
+                ? remainingWindowLifter
+                : remainingWindowLifterController.text,
+            "next_service_odo":
+                nextWindowLifterChangeODOlController.text.isEmpty
+                    ? nextWindowLifterChangeODO
+                    : nextWindowLifterChangeODOlController.text,
           },
           {
             "component": 3,
             "status": getSelection(selection: alignment),
-            "remaining_km": remainingAlignment ?? '',
-            "next_service_odo": nextAlignmentChangeODO ?? ''
+            "remaining_km": remainingAlignmentController.text.isEmpty
+                ? remainingAlignment
+                : remainingAlignmentController.text,
+            "next_service_odo": nextAlignmentChangeODOlController.text.isEmpty
+                ? nextAlignmentChangeODO
+                : nextAlignmentChangeODOlController.text,
           },
           {
             "component": 4,
             "status": getSelection(selection: wheelBalance),
-            "remaining_km": remainingWheelBalance ?? '',
-            "next_service_odo": nextWheelBalanceChangeODO ?? ''
+            "remaining_km": remainingWheelBalanceController.text.isEmpty
+                ? remainingWheelBalance
+                : remainingWheelBalanceController.text,
+            "next_service_odo":
+                nextWheelBalanceChangeODOlController.text.isEmpty
+                    ? nextWheelBalanceChangeODO
+                    : nextWheelBalanceChangeODOlController.text,
           },
           {
             "component": 5,
             "status": getSelection(selection: wiperBladeFront),
-            "remaining_km": remainingWiperBladeFront ?? '',
-            "next_service_odo": nextWiperBladeFrontChangeODO ?? ''
+            "remaining_km": remainingWiperBladeFrontController.text.isEmpty
+                ? remainingWiperBladeFront
+                : remainingWiperBladeFrontController.text,
+            "next_service_odo":
+                nextWiperBladeFrontChangeODOlController.text.isEmpty
+                    ? nextWiperBladeFrontChangeODO
+                    : nextWiperBladeFrontChangeODOlController.text,
           },
           {
             "component": 6,
             "status": getSelection(selection: wiperBladeRear),
-            "remaining_km": remainingWiperBladeRear ?? '',
-            "next_service_odo": nextWiperBladeRearChangeODO ?? ''
+            "remaining_km": remainingWiperBladeRearController.text.isEmpty
+                ? remainingWiperBladeRear
+                : remainingWiperBladeRearController.text,
+            "next_service_odo":
+                nextWiperBladeRearChangeODOlController.text.isEmpty
+                    ? nextWiperBladeRearChangeODO
+                    : nextWiperBladeRearChangeODOlController.text,
           },
           {
             "component": 7,
@@ -1417,6 +1729,7 @@ class AddServiceViewModel extends AutoDisposeViewModel with Helper {
 
   Future<bool?> addService() async {
     updateLoader(true);
+    log(params.toString());
     return await repo.addService(params: params).fold(
       (left) {
         updateLoader(false);
