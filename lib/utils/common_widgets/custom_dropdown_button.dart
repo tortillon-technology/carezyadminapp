@@ -15,6 +15,7 @@ class CustomDropdown<T> extends StatelessWidget {
   final String? selectedLabel;
   final String? errorText;
   final String? title;
+  final bool isLoading;
 
   const CustomDropdown(
       {super.key,
@@ -23,6 +24,7 @@ class CustomDropdown<T> extends StatelessWidget {
       required this.onSelected,
       this.selectedLabel,
       this.errorText,
+        this.isLoading = false,
       this.title});
 
   void _openBottomSheet(BuildContext context) {
@@ -159,6 +161,11 @@ class CustomDropdown<T> extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+        if (isLoading) 3.verticalSpace,
+        if (isLoading)
+          LinearProgressIndicator(
+            color: ColorPalette.primaryColor,
           ),
       ],
     );

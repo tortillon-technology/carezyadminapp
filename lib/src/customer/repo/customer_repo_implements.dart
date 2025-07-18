@@ -1,6 +1,9 @@
+import 'package:carezyadminapp/src/customer/model/customer_details_model.dart';
 import 'package:carezyadminapp/src/customer/model/customer_list_model.dart';
+import 'package:carezyadminapp/src/customer/model/health_report_model.dart';
 import 'package:carezyadminapp/src/customer/repo/customer_repo.dart';
 import 'package:carezyadminapp/src/services/model/oodo_model.dart';
+import 'package:dio/dio.dart';
 import 'package:either_dart/either.dart';
 
 import '../../../data/remote/network_base_services.dart';
@@ -83,5 +86,53 @@ class CustomerRepoImplements extends CustomerRepo {
         .thenRight(service.checkHttpStatus)
         .thenRight(service.parseJson)
         .mapRight((right) => OodoModel.fromJson(right));
+  }
+
+  @override
+  Future<Either<ResponseError, dynamic>> uploadPdf(
+      {required FormData formData}) {
+    return service
+        .safe(service.multipartPostRequest(
+          endPoint: AppConstants.uploadReport,
+          formData: formData,
+        ))
+        .thenRight(service.checkHttpStatus)
+        .thenRight(service.parseJson)
+        .mapRight((right) => right);
+  }
+
+  @override
+  Future<Either<ResponseError, CustomerDetails>> getCustomerDetails(
+      {required int customerID}) {
+    return service
+        .safe(service.getRequest(
+          endPoint: "${AppConstants.garage}/$customerID/details",
+        ))
+        .thenRight(service.checkHttpStatus)
+        .thenRight(service.parseJson)
+        .mapRight((right) => CustomerDetails.fromJson(right));
+  }
+
+  @override
+  Future<Either<ResponseError, HealthReport>> getHealthReport(
+      {required int customerID}) {
+    return service
+        .safe(service.getRequest(
+          endPoint: "${AppConstants.healthReportList}$customerID",
+        ))
+        .thenRight(service.checkHttpStatus)
+        .thenRight(service.parseJson)
+        .mapRight((right) => HealthReport.fromJson(right));
+  }
+
+  @override
+  Future<Either<ResponseError, dynamic>> updateProfile(
+      {required Map<String, dynamic> params}) {
+    return service
+        .safe(service.getRequest(
+            endPoint: AppConstants.accessToken, parameters: params))
+        .thenRight(service.checkHttpStatus)
+        .thenRight(service.parseJson)
+        .mapRight((right) => right);
   }
 }

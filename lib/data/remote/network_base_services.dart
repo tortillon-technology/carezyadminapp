@@ -1,4 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:either_dart/either.dart';
+import 'package:flutter/widgets.dart';
 
 abstract class NetWorkBaseServices {
   Either<ResponseError, BaseResponse> getStatus(BaseResponse response);
@@ -15,6 +17,14 @@ abstract class NetWorkBaseServices {
 
   Future<BaseResponse> postRequest(
       {required String endPoint, Map<String, dynamic>? parameters});
+  Future<BaseResponse> patchRequest(
+      {required String endPoint, Map<String, dynamic>? parameters});
+  Future<BaseResponse> deleteRequest(
+      {required String endPoint, Map<String, dynamic>? parameters});
+  Future<BaseResponse> multipartPostRequest(
+      {required String endPoint, FormData? formData});
+        Future<BaseResponse> multipartPatchRequest(
+      {required String endPoint, FormData? formData});
 }
 
 class BaseResponse {

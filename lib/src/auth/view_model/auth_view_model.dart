@@ -60,9 +60,11 @@ class AuthViewModel extends AutoDisposeViewModel with Helper {
         } else {
           final token = right.results?.data?.access;
           final refresh = right.results?.data?.refresh;
+          final id = right.results?.data?.id;
           AppConstants.accessToken = token ?? "";
           SharedService.instance.setData(key: accessTokenKey, value: token);
           SharedService.instance.setData(key: refreshTokenKey, value: refresh);
+          SharedService.instance.setData(key: garageId, value: id.toString());
         }
         return isSuccess;
       },

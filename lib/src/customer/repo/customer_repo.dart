@@ -1,3 +1,6 @@
+import 'package:carezyadminapp/src/customer/model/customer_details_model.dart';
+import 'package:carezyadminapp/src/customer/model/health_report_model.dart';
+import 'package:dio/dio.dart';
 import 'package:either_dart/either.dart';
 
 import '../../../data/remote/network_base_services.dart';
@@ -25,4 +28,19 @@ abstract class CustomerRepo {
     required String query,
     required int nextPage,
   });
+
+  Future<Either<ResponseError, dynamic>> uploadPdf({
+    required FormData formData,
+  });
+
+  Future<Either<ResponseError, CustomerDetails>> getCustomerDetails(
+      {required int customerID});
+
+
+  Future<Either<ResponseError, HealthReport>> getHealthReport(
+      {required int customerID});
+
+
+  Future<Either<ResponseError, dynamic>> updateProfile(
+      {required Map<String, dynamic> params});
 }

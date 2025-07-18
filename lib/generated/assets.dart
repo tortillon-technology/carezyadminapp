@@ -2,54 +2,41 @@
 class Assets {
   Assets._();
 
-  static const String baiJamjureeBaiJamjureeBold =
-      'assets/fonts/bai_jamjuree/BaiJamjuree-Bold.ttf';
-  static const String baiJamjureeBaiJamjureeMedium =
-      'assets/fonts/bai_jamjuree/BaiJamjuree-Medium.ttf';
-  static const String baiJamjureeBaiJamjureeRegular =
-      'assets/fonts/bai_jamjuree/BaiJamjuree-Regular.ttf';
-  static const String baiJamjureeBaiJamjureeSemiBold =
-      'assets/fonts/bai_jamjuree/BaiJamjuree-SemiBold.ttf';
+  static const String baiJamjureeBaiJamjureeBold = 'assets/fonts/bai_jamjuree/BaiJamjuree-Bold.ttf';
+  static const String baiJamjureeBaiJamjureeMedium = 'assets/fonts/bai_jamjuree/BaiJamjuree-Medium.ttf';
+  static const String baiJamjureeBaiJamjureeRegular = 'assets/fonts/bai_jamjuree/BaiJamjuree-Regular.ttf';
+  static const String baiJamjureeBaiJamjureeSemiBold = 'assets/fonts/bai_jamjuree/BaiJamjuree-SemiBold.ttf';
   static const String jpgPlaceHolder = 'assets/images/jpg/place_holder.jpg';
-  static const String plusJakartaSansPlusJakartaSansBold =
-      'assets/fonts/plus_jakarta_sans/PlusJakartaSans-Bold.ttf';
-  static const String plusJakartaSansPlusJakartaSansExtraBold =
-      'assets/fonts/plus_jakarta_sans/PlusJakartaSans-ExtraBold.ttf';
-  static const String plusJakartaSansPlusJakartaSansMedium =
-      'assets/fonts/plus_jakarta_sans/PlusJakartaSans-Medium.ttf';
-  static const String plusJakartaSansPlusJakartaSansRegular =
-      'assets/fonts/plus_jakarta_sans/PlusJakartaSans-Regular.ttf';
-  static const String plusJakartaSansPlusJakartaSansSemiBold =
-      'assets/fonts/plus_jakarta_sans/PlusJakartaSans-SemiBold.ttf';
-  static const String pngProCareRedLogo =
-      'assets/images/png/pro_care_red_logo.png';
-  static const String pngProCareSplashLogo =
-      'assets/images/png/pro_care_splash_logo.png';
-  static const String pngSinginCarLogo =
-      'assets/images/png/singin_car_logo.png';
+  static const String plusJakartaSansPlusJakartaSansBold = 'assets/fonts/plus_jakarta_sans/PlusJakartaSans-Bold.ttf';
+  static const String plusJakartaSansPlusJakartaSansExtraBold = 'assets/fonts/plus_jakarta_sans/PlusJakartaSans-ExtraBold.ttf';
+  static const String plusJakartaSansPlusJakartaSansMedium = 'assets/fonts/plus_jakarta_sans/PlusJakartaSans-Medium.ttf';
+  static const String plusJakartaSansPlusJakartaSansRegular = 'assets/fonts/plus_jakarta_sans/PlusJakartaSans-Regular.ttf';
+  static const String plusJakartaSansPlusJakartaSansSemiBold = 'assets/fonts/plus_jakarta_sans/PlusJakartaSans-SemiBold.ttf';
+  static const String pngProCareRedLogo = 'assets/images/png/pro_care_red_logo.png';
+  static const String pngProCareSplashLogo = 'assets/images/png/pro_care_splash_logo.png';
+  static const String pngSinginCarLogo = 'assets/images/png/singin_car_logo.png';
   static const String pngTesla = 'assets/images/png/tesla.png';
   static const String svgArrowRight = 'assets/images/svg/arrow_right.svg';
   static const String svgBackArrow = 'assets/images/svg/back_arrow.svg';
   static const String svgClose = 'assets/images/svg/close.svg';
-  static const String svgCustomerManagement =
-      'assets/images/svg/customer_management.svg';
+  static const String svgCustomerManagement = 'assets/images/svg/customer_management.svg';
   static const String svgCustomers = 'assets/images/svg/customers.svg';
   static const String svgFile = 'assets/images/svg/file.svg';
-  static const String svgGarageManagement =
-      'assets/images/svg/garage_management.svg';
+  static const String svgGarageManagement = 'assets/images/svg/garage_management.svg';
   static const String svgGarages = 'assets/images/svg/garages.svg';
   static const String svgIosArrowDown = 'assets/images/svg/ios_arrow_down.svg';
+  static const String svgLanguage = 'assets/images/svg/language.svg';
+  static const String svgLogout = 'assets/images/svg/logout.svg';
   static const String svgNotification = 'assets/images/svg/notification.svg';
-  static const String svgNotificationManagement =
-      'assets/images/svg/notification_management.svg';
+  static const String svgNotificationManagement = 'assets/images/svg/notification_management.svg';
+  static const String svgPdf = 'assets/images/svg/pdf.svg';
+  static const String svgProfile = 'assets/images/svg/profile.svg';
   static const String svgSearch = 'assets/images/svg/search.svg';
   static const String svgSearchGrey = 'assets/images/svg/search_grey.svg';
-  static const String svgServiceHistory =
-      'assets/images/svg/service_history.svg';
-  static const String svgServiceRecords =
-      'assets/images/svg/service_records.svg';
+  static const String svgServiceHistory = 'assets/images/svg/service_history.svg';
+  static const String svgServiceRecords = 'assets/images/svg/service_records.svg';
   static const String svgSettings = 'assets/images/svg/settings.svg';
-  static const String svgTodaysServices =
-      'assets/images/svg/todays_services.svg';
+  static const String svgTodaysServices = 'assets/images/svg/todays_services.svg';
   static const String svgTotalServices = 'assets/images/svg/total_services.svg';
+
 }

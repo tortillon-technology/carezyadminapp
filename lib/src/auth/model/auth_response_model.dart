@@ -51,15 +51,18 @@ class Data extends Equatable {
   const Data({
     required this.access,
     required this.refresh,
+    required this.id,
   });
 
   final String? access;
   final String? refresh;
+  final int? id;
 
   factory Data.fromJson(Map<String, dynamic> json) {
     return Data(
       access: json["access"],
       refresh: json["refresh"],
+      id: json["id"],
     );
   }
 

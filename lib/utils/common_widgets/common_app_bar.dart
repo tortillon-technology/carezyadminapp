@@ -41,6 +41,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       leadingWidth: 20.w,
       leading: SizedBox.shrink(),
+      actions: actions,
       title: Row(
         children: [
           InkWell(

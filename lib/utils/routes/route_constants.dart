@@ -11,5 +11,11 @@ class RouteConstants {
   static const String routeSearchCustomerScreen = "/searchCustomerScreen";
   static const String routeGarageManagementScreen = "/garageManagementScreen";
   static const String routeServiceDetailsScreen = "/serviceDetailsScreen";
-  static const String routeEmpty = "/emptyScreen";
+  static const String routeRecoveryVehicleScreen = "/recoveryVehicleScreen";
+  static const String routeRecoveryVehicleDetailsScreen = "/recoveryVehicleDetailsScreen";
+  static const String routeSettingsScreen = "/settingsScreen";
+  static const String routeCreateVehicleRecoveryScreen='/createVehicleRecoveryScreen';
+  static const String routeEditCustomerDetailsScreen= "/editEditCustomerDetailsScreen";
+  static const String routeEditRecoveryVehicleScreen= "/editRecoveryVehicleScreen";
+   static const String routeEmpty = "/emptyScreen";
 }

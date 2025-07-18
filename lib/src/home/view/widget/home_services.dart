@@ -30,13 +30,18 @@ class HomeServices extends StatelessWidget {
     },
     {
       "svg": Assets.svgNotificationManagement,
-      "title": Strings.notificationManagement
+      "title": Strings.notificationManagement,
     },
     {
       "svg": Assets.svgNotificationManagement,
-      "title": Strings.recoveryVehicles
+      "title": Strings.recoveryVehicles,
+      "route": RouteConstants.routeRecoveryVehicleScreen
     },
-    {"svg": Assets.svgSettings, "title": Strings.settings},
+    {
+      "svg": Assets.svgSettings,
+      "title": Strings.settings,
+      'route': RouteConstants.routeSettingsScreen,
+    },
   ];
 
   @override
@@ -54,13 +59,13 @@ class HomeServices extends StatelessWidget {
               if (services[index]['route'] != null) {
                 Navigator.pushNamed(context, services[index]['route']);
               } else {
-                SharedService.instance
-                    .clearData(allowList: {accessTokenKey, refreshTokenKey});
-                Navigator.pushNamedAndRemoveUntil(
-                  context,
-                  RouteConstants.routeSignInScreen,
-                  (route) => false,
-                );
+                // SharedService.instance
+                //     .clearData(allowList: {accessTokenKey, refreshTokenKey});
+                // Navigator.pushNamedAndRemoveUntil(
+                //   context,
+                //   RouteConstants.routeSignInScreen,
+                //   (route) => false,
+                // );
               }
             },
             borderRadius: BorderRadius.circular(16.r),

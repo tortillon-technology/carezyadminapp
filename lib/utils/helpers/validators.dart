@@ -13,6 +13,30 @@ class Validators {
     }
   }
 
+  static String? validateEmailORMobile(String? value, {bool isEmailId = true}) {
+    String emailPattern = r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$';
+    RegExp regex = RegExp(emailPattern);
+    if (value == null || value.isEmpty) {
+      return "Email or Mobile number can not be empty";
+    } else if (!regex.hasMatch(value.trim()) && isEmailId) {
+      return "Please enter a valid Email ID";
+    } else if (!isEmailId && value.length <= 5) {
+      return "Please enter a valid Mobile number";
+    } else {
+      return null;
+    }
+  }
+
+  static String? validateRegNumber(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Vehicle Reg. Number field can not be empty";
+    } else if (value.length < 4) {
+      return "Invalid Vehicle reg. number";
+    } else {
+      return null;
+    }
+  }
+
   static String? validateOTP(String? value) {
     if (value == null || value.isEmpty) {
       return "OTP field can not be empty";
@@ -78,11 +102,31 @@ class Validators {
     }
   }
 
+  static String? validateVehicleName(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Name should not be empty";
+    } else if (value.length < 2) {
+      return "Please enter a valid name";
+    } else {
+      return null;
+    }
+  }
+
   static String? validatePhone(String? value) {
     if (value == null || value.isEmpty) {
       return "Phone number should not be empty";
-    } else if (value.length < 10) {
+    } else if (value.length < 5) {
       return "Please enter a valid phone number";
+    } else {
+      return null;
+    }
+  }
+
+  static String? validateCity(String? value) {
+    if (value == null || value.isEmpty) {
+      return "City should not be empty";
+    } else if (value.length < 2) {
+      return "Please enter a valid city";
     } else {
       return null;
     }
@@ -104,6 +148,15 @@ class Validators {
   static String? validateODOMeter(String? value) {
     if (value == null || value.trim().isEmpty) {
       return 'Odometer reading is required';
+    }
+    return null;
+  }
+
+  static String? validateAddress(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Address is required';
+    } else if (value.length < 6) {
+      return 'Enter a valid address';
     }
     return null;
   }

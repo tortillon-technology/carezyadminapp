@@ -18,6 +18,7 @@ import '../../../utils/common_widgets/common_app_bar.dart';
 import '../../../utils/common_widgets/search_switch_state.dart';
 import '../../../utils/helpers/common_functions.dart';
 import '../view_model/customer_manage_view_model.dart';
+import 'customer_details_screen.dart';
 
 class CustomerManagementScreen extends StatefulWidget {
   const CustomerManagementScreen({super.key});
@@ -163,6 +164,7 @@ class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
                                     index == provider.customerList.length;
                                 final item = provider.customerList[index];
                                 String customerName = item.customerName ?? "";
+                                String customerId = item.customerId.toString();
                                 String vehicleName = item.vehicleName ?? "";
                                 String lastServiceDate =
                                     item.lastServiceDate ?? "";
@@ -170,10 +172,16 @@ class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
                                   splashColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () {
-                                    // Navigator.pushNamed(
-                                    //     context,
-                                    //     RouteConstants
-                                    //         .routeCustomerDetailsScreen);
+                                    Navigator.pushNamed(
+                                      context,
+                                      RouteConstants.routeCustomerDetailsScreen,
+                                      arguments: CustDetailsArguments(
+                                        customerId: customerId,
+                                        callBack: () {
+                                          viewModel.getCustomerList();
+                                        },
+                                      ),
+                                    );
                                   },
                                   child: Container(
                                     padding: EdgeInsets.all(16.w),

@@ -115,62 +115,65 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
                       ),
                     );
                   }),
-              bottomNavigationBar: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    child: Selector<CustomerViewModel, Tuple3<int, bool, bool>>(
-                      selector: (_, selector) => Tuple3(
-                          selector.currentPageIndex,
-                          selector.enableButton,
-                          selector.isLoading),
-                      builder: (context, data, child) {
-                        bool isLast = data.item1 == pages.length - 1;
-                        return PrimaryButton(
-                          text: isLast ? "Create" : "Next",
-                          isLoading: data.item3,
-                          onPressed: data.item2
-                              ? isLast
-                                  ? () async {
-                                      bool? isSuccess =
-                                          await viewModel.addCustomer();
-                                      if ((isSuccess ?? false) &&
-                                          context.mounted) {
-                                        toastification.show(
-                                            title: Text(
-                                              "Customer added successfully",
-                                              style: PlusJakartaFontPalette
-                                                  .fBlack_12_400
-                                                  .copyWith(
-                                                fontSize: 14.sp,
+              bottomNavigationBar: SafeArea(
+                bottom: true,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      child: Selector<CustomerViewModel, Tuple3<int, bool, bool>>(
+                        selector: (_, selector) => Tuple3(
+                            selector.currentPageIndex,
+                            selector.enableButton,
+                            selector.isLoading),
+                        builder: (context, data, child) {
+                          bool isLast = data.item1 == pages.length - 1;
+                          return PrimaryButton(
+                            text: isLast ? "Create" : "Next",
+                            isLoading: data.item3,
+                            onPressed: data.item2
+                                ? isLast
+                                    ? () async {
+                                        bool? isSuccess =
+                                            await viewModel.addCustomer();
+                                        if ((isSuccess ?? false) &&
+                                            context.mounted) {
+                                          toastification.show(
+                                              title: Text(
+                                                "Customer added successfully",
+                                                style: PlusJakartaFontPalette
+                                                    .fBlack_12_400
+                                                    .copyWith(
+                                                  fontSize: 14.sp,
+                                                  color: const Color.fromARGB(
+                                                      255, 35, 214, 109),
+                                                ),
+                                              ),
+                                              autoCloseDuration:
+                                                  const Duration(seconds: 5),
+                                              style: ToastificationStyle.simple,
+                                              alignment: Alignment.bottomCenter,
+                                              type: ToastificationType.success,
+                                              borderSide: BorderSide(
                                                 color: const Color.fromARGB(
                                                     255, 35, 214, 109),
-                                              ),
-                                            ),
-                                            autoCloseDuration:
-                                                const Duration(seconds: 5),
-                                            style: ToastificationStyle.simple,
-                                            alignment: Alignment.bottomCenter,
-                                            type: ToastificationType.success,
-                                            borderSide: BorderSide(
-                                              color: const Color.fromARGB(
-                                                  255, 35, 214, 109),
-                                            ));
-                                        Navigator.pop(context);
+                                              ));
+                                          Navigator.pop(context);
+                                        }
                                       }
-                                    }
-                                  : () {
-                                      viewModel.pageController?.nextPage(
-                                          duration: Duration(milliseconds: 300),
-                                          curve: Curves.linear);
-                                    }
-                              : null,
-                        );
-                      },
-                    ),
-                  )
-                ],
+                                    : () {
+                                        viewModel.pageController?.nextPage(
+                                            duration: Duration(milliseconds: 300),
+                                            curve: Curves.linear);
+                                      }
+                                : null,
+                          );
+                        },
+                      ),
+                    )
+                  ],
+                ),
               ),
             );
           }),

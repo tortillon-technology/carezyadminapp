@@ -30,8 +30,8 @@ class RecentCustomer extends StatelessWidget {
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () {
-                    Navigator.pushNamed(
-                        context, RouteConstants.routeCustomerDetailsScreen);
+                    // Navigator.pushNamed(
+                    //     context, RouteConstants.routeCustomerDetailsScreen);
                   },
                   child: Container(
                     decoration: BoxDecoration(

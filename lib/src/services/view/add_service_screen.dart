@@ -108,51 +108,54 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                 );
               }),
         ),
-        bottomNavigationBar: Selector<AddServiceViewModel, Tuple2<bool, bool>>(
-            selector: (_, selector) =>
-                Tuple2(selector.enableButton, selector.isServiceAdding),
-            builder: (_, data, child) {
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    child: PrimaryButton(
-                      text: "Add",
-                      isLoading: data.item2,
-                      onPressed: data.item1
-                          ? () async {
-                              bool? isSuccess = await viewModel.addService();
-                              if ((isSuccess ?? false) && context.mounted) {
-                                toastification.show(
-                                    title: Text(
-                                      "Service added successfully",
-                                      style: PlusJakartaFontPalette
-                                          .fBlack_12_400
-                                          .copyWith(
-                                        fontSize: 14.sp,
+        bottomNavigationBar: SafeArea(
+          bottom: true,
+          child: Selector<AddServiceViewModel, Tuple2<bool, bool>>(
+              selector: (_, selector) =>
+                  Tuple2(selector.enableButton, selector.isServiceAdding),
+              builder: (_, data, child) {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      child: PrimaryButton(
+                        text: "Add",
+                        isLoading: data.item2,
+                        onPressed: data.item1
+                            ? () async {
+                                bool? isSuccess = await viewModel.addService();
+                                if ((isSuccess ?? false) && context.mounted) {
+                                  toastification.show(
+                                      title: Text(
+                                        "Service added successfully",
+                                        style: PlusJakartaFontPalette
+                                            .fBlack_12_400
+                                            .copyWith(
+                                          fontSize: 14.sp,
+                                          color: const Color.fromARGB(
+                                              255, 35, 214, 109),
+                                        ),
+                                      ),
+                                      autoCloseDuration:
+                                          const Duration(seconds: 5),
+                                      style: ToastificationStyle.simple,
+                                      alignment: Alignment.bottomCenter,
+                                      type: ToastificationType.success,
+                                      borderSide: BorderSide(
                                         color: const Color.fromARGB(
                                             255, 35, 214, 109),
-                                      ),
-                                    ),
-                                    autoCloseDuration:
-                                        const Duration(seconds: 5),
-                                    style: ToastificationStyle.simple,
-                                    alignment: Alignment.bottomCenter,
-                                    type: ToastificationType.success,
-                                    borderSide: BorderSide(
-                                      color: const Color.fromARGB(
-                                          255, 35, 214, 109),
-                                    ));
-                                Navigator.pop(context);
+                                      ));
+                                  Navigator.pop(context);
+                                }
                               }
-                            }
-                          : null,
-                    ),
-                  )
-                ],
-              );
-            }),
+                            : null,
+                      ),
+                    )
+                  ],
+                );
+              }),
+        ),
       ),
     );
   }
