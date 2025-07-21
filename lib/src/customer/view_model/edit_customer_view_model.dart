@@ -1,13 +1,12 @@
-
 import 'package:carezyadminapp/src/customer/repo/customer_repo.dart';
 import 'package:either_dart/either.dart';
 
 import '../../../res/enums/enums.dart';
 import '../../../services/get_it.dart';
 import '../../../utils/helpers/auto_dispose_view_model.dart';
-import '../model/brand_model.dart';
+import '../model/brand_model.dart' as bm;
 import '../model/customer_details_model.dart';
-import '../model/vehicle_model.dart';
+import '../model/vehicle_model.dart' as vm;
 
 class EditCustomerViewModel extends AutoDisposeViewModel {
   final repo = getIt.get<CustomerRepo>();
@@ -21,19 +20,21 @@ class EditCustomerViewModel extends AutoDisposeViewModel {
 
   int initialHash = 0;
 
-  CustomerData? customerDetails;
-
+  CustomerDetails? customerDetails;
+  String? errorMessage;
   String? nameError;
   String? emailError;
   String? phoneError;
   String? regNumberError;
+  String? drivingError;
+  String? vinNumberError;
 
-  List<Brand> brandsList = [];
-  Brand? selectedBrand;
-  List<Model> modelsList = [];
-  Model? selectedModel;
+  List<bm.Brand> brandsList = [];
+  bm.Brand? selectedBrand;
+  List<vm.Model> modelsList = [];
+  vm.Model? selectedModel;
 
-  getCustomerDetails({CustomerData? data}) {
+  getCustomerDetails({CustomerDetails? data}) {
     customerDetails = data;
     initialHash = customerDetails.hashCode;
     checkHasChange();
@@ -86,23 +87,31 @@ class EditCustomerViewModel extends AutoDisposeViewModel {
 
   Future<bool?> updateProfileData() async {
     updateProfileLoader(true);
-    return await repo.updateProfile(params: {
-      // "id": id,
-      // "brand": profileDetails?.brand?.id,
-      // "model": profileDetails?.model?.id,
-      // "name_en": profileDetails?.nameEn,
-      // "name_ar": profileDetails?.nameEn,
-      // "email": profileDetails?.email,
-      // "phone_number": profileDetails?.phoneNumber,
-      // "registration_number": profileDetails?.registrationNumber,
-    }).fold(
+
+    Map<String, dynamic> params = {
+      "id": customerDetails?.id,
+      "brand": customerDetails?.brand?.id,
+      "model": customerDetails?.model?.id,
+      "name_en": customerDetails?.nameEn,
+      "name_ar": customerDetails?.nameEn,
+      "email": customerDetails?.email,
+      "phone_number": customerDetails?.phoneNumber,
+      "registration_number": customerDetails?.registrationNumber,
+      "vin_number": customerDetails?.vinNumber,
+      "weekly_mileage_range": customerDetails?.drivingHabit,
+    };
+
+    return await repo.updateProfile(params: params).fold(
       (left) {
         updateProfileLoader(false);
+        errorMessage = left.message;
+        final Map<String, dynamic> errors = left.response?['errors'] ?? [];
+        emailError = checkValue(errors, 'email');
+        phoneError = checkValue(errors, 'phone_number');
         return false;
       },
       (right) {
         final isSuccess = right?['status'] ?? false;
-
         if (isSuccess ?? false) {
           initialHash = customerDetails.hashCode;
           checkHasChange();
@@ -160,7 +169,8 @@ class EditCustomerViewModel extends AutoDisposeViewModel {
     bool hasError = emailError != null ||
         nameError != null ||
         phoneError != null ||
-        regNumberError != null;
+        regNumberError != null ||
+        vinNumberError != null;
     hasChange = hasError ? false : (initialHash != customerDetails.hashCode);
   }
 }

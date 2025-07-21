@@ -1,15 +1,18 @@
 import 'package:carezyadminapp/src/customer/view/widget/brand_and_model_sheet_selection.dart';
 import 'package:carezyadminapp/src/customer/view_model/edit_customer_view_model.dart';
+import 'package:carezyadminapp/utils/helpers/extensions.dart';
+import 'package:carezyadminapp/utils/helpers/text_input_formatters.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:toastification/toastification.dart';
 
 import '../../../res/enums/enums.dart';
 import '../../../res/styles/color_palette.dart';
 import '../../../res/styles/fonts/bai_font_palette.dart';
 import '../../../res/styles/fonts/plus_jakarta_font_palette.dart';
 import '../../../utils/common_widgets/common_app_bar.dart';
-import '../../../utils/common_widgets/common_switch_state.dart';
 import '../../../utils/common_widgets/common_text_form.dart';
 import '../../../utils/common_widgets/primary_button.dart';
 import '../../../utils/helpers/common_functions.dart';
@@ -18,10 +21,10 @@ import '../../../utils/helpers/validators.dart';
 import '../model/customer_details_model.dart';
 
 class EditCustArguments {
-  final CustomerData? customerData;
+  final CustomerDetails? customerData;
   final Function()? callBack;
 
-  EditCustArguments({ this.customerData, this.callBack});
+  EditCustArguments({this.customerData, this.callBack});
 }
 
 class EditCustomerDetailsScreen extends StatefulWidget {
@@ -40,6 +43,8 @@ class _EditCustomerDetailsScreenState extends State<EditCustomerDetailsScreen> {
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
   final regNumberController = TextEditingController();
+  final drivingHabiitController = TextEditingController();
+  final vinNumberController = TextEditingController();
 
   @override
   void initState() {
@@ -62,11 +67,12 @@ class _EditCustomerDetailsScreenState extends State<EditCustomerDetailsScreen> {
 
   _fetchData() {
     if (viewModel.customerDetails != null) {
-      nameController.text = viewModel.customerDetails?.name ?? '';
+      nameController.text = viewModel.customerDetails?.nameEn ?? '';
       emailController.text = viewModel.customerDetails?.email ?? '';
       phoneController.text = viewModel.customerDetails?.phoneNumber ?? '';
       regNumberController.text =
           viewModel.customerDetails?.registrationNumber ?? '';
+      vinNumberController.text = viewModel.customerDetails?.vinNumber ?? '';
     }
   }
 
@@ -88,10 +94,13 @@ class _EditCustomerDetailsScreenState extends State<EditCustomerDetailsScreen> {
         body: Consumer<EditCustomerViewModel>(
             builder: (context, provider, child) {
           final data = provider.customerDetails;
-          return CommonSwitchState(
-            loader: provider.loaderState,
+          return GestureDetector(
+            onTap: () {
+              FocusManager.instance.primaryFocus?.unfocus();
+            },
             child: SingleChildScrollView(
               padding: EdgeInsets.all(16.w),
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               child: AbsorbPointer(
                 absorbing: provider.updateProfile,
                 child: Column(
@@ -107,13 +116,18 @@ class _EditCustomerDetailsScreenState extends State<EditCustomerDetailsScreen> {
                     ),
                     16.verticalSpace,
                     _buildEditableField(
-                      label: "Name", controller: nameController,
+                      label: "Name",
+                      controller: nameController,
                       error: provider.nameError,
+                      inputType: TextInputType.name,
+                      inputFormatters: [
+                        TextInputFormats.noWhiteSpaceFormatterForInitials
+                      ],
                       onChanged: (data) {
                         provider.update(callback: () {
                           provider.nameError = Validators.validateName(data);
                           if (provider.nameError == null) {
-                            provider.customerDetails?.name = data;
+                            provider.customerDetails?.nameEn = data;
                           }
                         });
                       },
@@ -122,8 +136,12 @@ class _EditCustomerDetailsScreenState extends State<EditCustomerDetailsScreen> {
                     16.verticalSpace,
                     _buildEditableField(
                       label: "Email ID",
+                      inputType: TextInputType.emailAddress,
                       controller: emailController,
                       error: provider.emailError,
+                      inputFormatters: [
+                        TextInputFormats.noWhiteSpaceFormatterForInitials
+                      ],
                       onChanged: (data) {
                         provider.update(callback: () {
                           provider.emailError =
@@ -140,6 +158,8 @@ class _EditCustomerDetailsScreenState extends State<EditCustomerDetailsScreen> {
                       label: "Phone",
                       controller: phoneController,
                       error: provider.phoneError,
+                      inputType: TextInputType.number,
+                      inputFormatters: [TextInputFormats.digitsFormatter],
                       onChanged: (data) {
                         provider.update(callback: () {
                           provider.customerDetails?.phoneNumber = data;
@@ -158,6 +178,10 @@ class _EditCustomerDetailsScreenState extends State<EditCustomerDetailsScreen> {
                       label: "Vehicle Reg. Number",
                       controller: regNumberController,
                       error: provider.regNumberError,
+                      inputType: TextInputType.name,
+                      inputFormatters: [
+                        TextInputFormats.noWhiteSpaceFormatterForInitials
+                      ],
                       onChanged: (data) {
                         provider.update(callback: () {
                           provider.customerDetails?.registrationNumber = data;
@@ -168,8 +192,23 @@ class _EditCustomerDetailsScreenState extends State<EditCustomerDetailsScreen> {
                           }
                         });
                       },
-
-                      /// value: (data?.registrationNumber ?? ""),
+                    ),
+                    16.verticalSpace,
+                    _buildEditableField(
+                      label: "VIN Number",
+                      controller: vinNumberController,
+                      error: provider.vinNumberError,
+                      inputType: TextInputType.name,
+                      inputFormatters: [
+                        TextInputFormats.noWhiteSpaceFormatterForInitials
+                      ],
+                      onChanged: (data) {
+                        provider.update(callback: () {
+                          provider.vinNumberError =
+                              Validators.validateVIN(data);
+                          provider.customerDetails?.vinNumber = data;
+                        });
+                      },
                     ),
                     24.verticalSpace,
                     Text(
@@ -180,7 +219,7 @@ class _EditCustomerDetailsScreenState extends State<EditCustomerDetailsScreen> {
                       ),
                     ),
                     SizedBox(height: 12.h),
-                  /*  InkWell(
+                    InkWell(
                       onTap: () {
                         selectNewVehicle(
                           context: context,
@@ -242,7 +281,47 @@ class _EditCustomerDetailsScreenState extends State<EditCustomerDetailsScreen> {
                           ],
                         ),
                       ),
-                    )*/
+                    ),
+                    16.verticalSpace,
+                    InkWell(
+                      onTap: () {
+                        selectDrivingHabit();
+                      },
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Driving Habit",
+                              style: PlusJakartaFontPalette.fBlack_12_600),
+                          8.verticalSpace,
+                          Container(
+                            width: context.sw(),
+                            height: 60.h,
+                            padding: EdgeInsets.symmetric(horizontal: 16.w),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.r),
+                                color: HexColor('#FAFAFA'),
+                                border: Border.all(
+                                  color: HexColor('#E8E8E8'),
+                                )),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    "${provider.customerDetails?.drivingHabit ?? "0"} Km/week",
+                                    style: PlusJakartaFontPalette.fBlack_14_600,
+                                  ),
+                                ),
+                                Icon(Icons.edit,
+                                    size: 18.sp, color: HexColor('#BDBDBD'))
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    100.verticalSpace,
                   ],
                 ),
               ),
@@ -262,12 +341,53 @@ class _EditCustomerDetailsScreenState extends State<EditCustomerDetailsScreen> {
                       isLoading: provider.updateProfile,
                       onPressed: provider.hasChange
                           ? () async {
-                              // bool? success =
-                              //     await provider.updateProfileData();
-                              // if (success ?? false) {
-                              //   // showCustomToast(
-                              //   //     message: "Profile edit success");
-                              // }
+                              FocusManager.instance.primaryFocus?.unfocus();
+                              bool? success =
+                                  await provider.updateProfileData();
+                              if ((success ?? false) && context.mounted) {
+                                toastification.show(
+                                    title: Text(
+                                      "Customer profile edited successfully",
+                                      style: PlusJakartaFontPalette
+                                          .fBlack_12_400
+                                          .copyWith(
+                                        fontSize: 14.sp,
+                                        color: const Color.fromARGB(
+                                            255, 35, 214, 109),
+                                      ),
+                                    ),
+                                    autoCloseDuration:
+                                        const Duration(seconds: 5),
+                                    style: ToastificationStyle.simple,
+                                    alignment: Alignment.bottomCenter,
+                                    type: ToastificationType.success,
+                                    borderSide: BorderSide(
+                                      color: const Color.fromARGB(
+                                          255, 35, 214, 109),
+                                    ));
+                                widget.arguments.callBack?.call();
+                                Navigator.pop(context);
+                              } else if ((provider.errorMessage ?? "")
+                                  .isNotEmpty) {
+                                toastification.show(
+                                    title: Text(
+                                      provider.errorMessage ?? "",
+                                      style: PlusJakartaFontPalette
+                                          .fBlack_12_400
+                                          .copyWith(
+                                        fontSize: 14.sp,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                    autoCloseDuration:
+                                        const Duration(seconds: 5),
+                                    style: ToastificationStyle.simple,
+                                    alignment: Alignment.bottomCenter,
+                                    type: ToastificationType.error,
+                                    borderSide: BorderSide(
+                                      color: Colors.red,
+                                    ));
+                              }
                             }
                           : null,
                     ),
@@ -278,11 +398,70 @@ class _EditCustomerDetailsScreenState extends State<EditCustomerDetailsScreen> {
     );
   }
 
+  List<String> drivingHabit = ["10-50", "50-100", "100-500", "500-1000"];
+
+  void selectDrivingHabit() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.white,
+      isScrollControlled: true,
+      builder: (_) => ChangeNotifierProvider.value(
+        value: viewModel,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            16.verticalSpace,
+            Text("Select Driving Habit",
+                style: PlusJakartaFontPalette.fBlack_16_600),
+            16.verticalSpace,
+            Consumer<EditCustomerViewModel>(
+                builder: (context, provider, child) {
+              return ListView.builder(
+                itemCount: drivingHabit.length,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  final km = drivingHabit[index];
+
+                  bool isSelected =
+                      provider.customerDetails?.drivingHabit.toString() ==
+                          km.toString();
+                  return ListTile(
+                    title: Text(
+                      "$km Km/week",
+                      style: PlusJakartaFontPalette.fBlack_14_600,
+                    ),
+                    onTap: () {
+                      provider.update(
+                        callback: () {
+                          provider.customerDetails?.drivingHabit = km;
+                        },
+                      );
+                      Navigator.pop(context);
+                    },
+                    trailing: isSelected
+                        ? Icon(
+                            Icons.check,
+                            color: ColorPalette.primaryColor,
+                          )
+                        : null,
+                  );
+                },
+              );
+            }),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _buildEditableField({
     required String label,
     String? error,
     required TextEditingController controller,
     Function(String data)? onChanged,
+    List<TextInputFormatter>? inputFormatters,
+    TextInputType? inputType,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -294,7 +473,9 @@ class _EditCustomerDetailsScreenState extends State<EditCustomerDetailsScreen> {
         CommonTextFormFieldWithValidator(
           filledColor: HexColor('#F9F9F9'),
           // focusedColor: HexColor('#EC0008'),
+          inputType: inputType,
           errorText: error,
+          inputFormatters: inputFormatters,
           controller: controller,
           suffix: Icon(Icons.edit, size: 18.sp, color: HexColor('#BDBDBD')),
           style: PlusJakartaFontPalette.fBlack_14_600,

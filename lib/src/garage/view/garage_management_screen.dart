@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:carezyadminapp/res/styles/color_palette.dart';
 import 'package:carezyadminapp/res/styles/fonts/bai_font_palette.dart';
 import 'package:carezyadminapp/res/styles/fonts/plus_jakarta_font_palette.dart';
+import 'package:carezyadminapp/src/garage/view/garage_details_screen.dart';
 import 'package:carezyadminapp/src/garage/view_model/garage_view_model.dart';
 import 'package:carezyadminapp/utils/common_widgets/common_text_form.dart';
 import 'package:carezyadminapp/utils/common_widgets/primary_button.dart';
@@ -16,6 +17,7 @@ import 'package:provider/provider.dart';
 import '../../../generated/assets.dart';
 import '../../../utils/common_widgets/common_app_bar.dart';
 import '../../../utils/helpers/common_functions.dart';
+import '../../../utils/routes/route_constants.dart';
 
 class GarageManagementScreen extends StatefulWidget {
   const GarageManagementScreen({super.key});
@@ -90,10 +92,8 @@ class _GarageManagementScreenState extends State<GarageManagementScreen> {
           iconColor: Colors.white,
           textSpace: 16,
         ),
-        body: InkWell(
+        body: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0.w),
             child: Column(
@@ -152,6 +152,7 @@ class _GarageManagementScreenState extends State<GarageManagementScreen> {
                             (index) {
                               bool isLast =
                                   index == provider.customerList.length - 1;
+                              final id = provider.customerList[index].id ?? 0;
                               final name =
                                   provider.customerList[index].name ?? "";
                               final location =
@@ -162,7 +163,20 @@ class _GarageManagementScreenState extends State<GarageManagementScreen> {
                               return InkWell(
                                 splashColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    RouteConstants.routeGarageDetailsScreen,
+                                    arguments: GarageArguments(
+                                      id: id,
+                                      callBack: () {
+                                        viewModel.getGarages(
+                                            isPaginating: false,
+                                            isSearch: true);
+                                      },
+                                    ),
+                                  );
+                                },
                                 child: Container(
                                   padding: EdgeInsets.all(16.w),
                                   margin:
@@ -224,7 +238,13 @@ class _GarageManagementScreenState extends State<GarageManagementScreen> {
                 Icons.add,
                 color: Colors.white,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(
+                    context, RouteConstants.routeAddGarageScreen,
+                    arguments: () {
+                  viewModel.getGarages(isPaginating: false, isSearch: true);
+                });
+              },
             )
           ],
         ),

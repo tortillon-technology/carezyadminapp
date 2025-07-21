@@ -89,8 +89,7 @@ class ServiceViewModel extends AutoDisposeViewModel with Helper {
 
   @override
   updateLoader({required SearchLoader isLoad, bool isPaginate = false}) {
-    print(isLoad);
-    print(isPaginate);
+
     isPaginating = isPaginate;
     if (isPaginating) {
       notifyListeners();

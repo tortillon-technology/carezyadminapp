@@ -10,6 +10,7 @@ class RouteConstants {
   static const String routeAddServiceScreen = "/addServiceScreen";
   static const String routeSearchCustomerScreen = "/searchCustomerScreen";
   static const String routeGarageManagementScreen = "/garageManagementScreen";
+   static const String routeGarageDetailsScreen = "/garageDetailsScreen";
   static const String routeServiceDetailsScreen = "/serviceDetailsScreen";
   static const String routeRecoveryVehicleScreen = "/recoveryVehicleScreen";
   static const String routeRecoveryVehicleDetailsScreen = "/recoveryVehicleDetailsScreen";
@@ -17,5 +18,9 @@ class RouteConstants {
   static const String routeCreateVehicleRecoveryScreen='/createVehicleRecoveryScreen';
   static const String routeEditCustomerDetailsScreen= "/editEditCustomerDetailsScreen";
   static const String routeEditRecoveryVehicleScreen= "/editRecoveryVehicleScreen";
+  static const String routeServiceHistoryDetailsScreen= "/serviceHistoryDetailsScreen";
+  static const String routeGarageCustomerDetailsScreen= "/garageCustomerDetailsScreen";
+    static const String routeAddGarageScreen= "/addGarageScreen";
+    static const String routeEditGarageScreen= "/editGarageScreen";
    static const String routeEmpty = "/emptyScreen";
 }

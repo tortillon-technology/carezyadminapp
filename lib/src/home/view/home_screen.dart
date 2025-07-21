@@ -22,7 +22,7 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen>   {
   List<HomeCardModel> cards = [
     HomeCardModel(
       key: 0,
@@ -114,6 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   HomeServices(),
                   RecentCustomer(),
+                  100.verticalSpace,
                 ],
               ),
             )

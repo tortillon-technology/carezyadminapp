@@ -39,6 +39,11 @@ class PlusJakartaFontPalette {
       fontSize: 13.sp,
       fontWeight: FontWeight.w600,
       color: HexColor("#777777"));
+  static TextStyle get f8E2A2E_13_500 => TextStyle(
+      fontFamily: fontFamily,
+      fontSize: 13.sp,
+      fontWeight: FontWeight.w500,
+      color: HexColor("#8E2A2E"));
 
   /*<---14--->*/
 

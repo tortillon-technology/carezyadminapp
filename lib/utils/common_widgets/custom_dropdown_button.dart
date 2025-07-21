@@ -1,4 +1,5 @@
 import 'package:carezyadminapp/res/styles/color_palette.dart';
+import 'package:carezyadminapp/src/customer/model/country_model.dart';
 import 'package:carezyadminapp/utils/helpers/extensions.dart';
 import 'package:carezyadminapp/utils/helpers/hex_color.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ class CustomDropdown<T> extends StatelessWidget {
   final String? errorText;
   final String? title;
   final bool isLoading;
+  final Color? color;
 
   const CustomDropdown(
       {super.key,
@@ -24,7 +26,8 @@ class CustomDropdown<T> extends StatelessWidget {
       required this.onSelected,
       this.selectedLabel,
       this.errorText,
-        this.isLoading = false,
+      this.isLoading = false,
+      this.color,
       this.title});
 
   void _openBottomSheet(BuildContext context) {
@@ -126,7 +129,7 @@ class CustomDropdown<T> extends StatelessWidget {
             width: context.sw(),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16.r),
-                color: HexColor('#FAFAFA'),
+                color: color ?? HexColor('#FAFAFA'),
                 border: Border.all(
                   color: hasError ? HexColor("FF3B30") : HexColor('#E8E8E8'),
                 )),
@@ -208,6 +211,66 @@ class CustomDropdownItem extends StatelessWidget {
           ),
           16.horizontalSpace,
         ],
+      ),
+    );
+  }
+}
+
+class CountryDropdownItem extends StatelessWidget {
+  final CountryModel? country;
+  final bool isSelected;
+
+  const CountryDropdownItem({super.key, this.isSelected = false, this.country});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: context.sw(),
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 5.h),
+        child: Row(
+          children: [
+            16.horizontalSpace,
+            Text(
+              country?.flag ?? "",
+              style: PlusJakartaFontPalette.fBlack_14_600,
+            ),
+            16.horizontalSpace,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    country?.name ?? "",
+                    style: PlusJakartaFontPalette.fBlack_14_600,
+                  ),
+                  Text(
+                    country?.code ?? "",
+                    style: PlusJakartaFontPalette.fWhite_11_500
+                        .copyWith(color: Colors.grey),
+                  ),
+                ],
+              ),
+            ),
+            16.horizontalSpace,
+            Container(
+              width: 24.w,
+              height: 24.h,
+              decoration: BoxDecoration(
+                color:
+                    isSelected ? ColorPalette.primaryColor : Colors.transparent,
+                borderRadius: BorderRadius.circular(6),
+                border: isSelected
+                    ? null
+                    : Border.all(color: HexColor("#6B6B6B"), width: 2.r),
+              ),
+              child: isSelected
+                  ? const Icon(Icons.check, color: Colors.white, size: 16)
+                  : null,
+            ),
+            16.horizontalSpace,
+          ],
+        ),
       ),
     );
   }

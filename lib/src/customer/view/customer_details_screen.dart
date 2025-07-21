@@ -1,4 +1,5 @@
 import 'package:carezyadminapp/generated/assets.dart';
+import 'package:carezyadminapp/res/enums/enums.dart';
 import 'package:carezyadminapp/res/styles/fonts/plus_jakarta_font_palette.dart';
 import 'package:carezyadminapp/src/customer/model/customer_details_model.dart';
 import 'package:carezyadminapp/src/customer/model/health_report_model.dart';
@@ -22,16 +23,15 @@ import 'edit_customer_detail_screen.dart';
 import 'widget/customer_delete_dialog.dart';
 import 'widget/pdf_bottom_sheet_uploader.dart';
 
-
-class CustDetailsArguments{
+class CustDetailsArguments {
   final String customerId;
   final Function()? callBack;
 
-  CustDetailsArguments({this.callBack,required this.customerId});
+  CustDetailsArguments({this.callBack, required this.customerId});
 }
 
 class CustomerDetailsScreen extends StatefulWidget {
-   final CustDetailsArguments arguments;
+  final CustDetailsArguments arguments;
   const CustomerDetailsScreen({super.key, required this.arguments});
 
   @override
@@ -107,251 +107,334 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
           iconColor: Colors.white,
           textSpace: 16,
           actions: [
-            Selector<CustomerDetailsViewModel, bool>(
+            Selector<CustomerDetailsViewModel, LoaderState>(
                 selector: (context, p1) => p1.isLoading,
                 builder: (context, loader, child) {
-                  return AbsorbPointer(
-                    absorbing: loader,
-                    child: PopupMenuButton<String>(
-                      color: Colors.white,
-                      icon: Icon(Icons.more_vert,
-                          color: Colors.white, size: 24.sp),
-                      onSelected: (value) {
-                        if (value == 'edit') {
-                          Navigator.pushNamed(
-                            context,
-                            RouteConstants.routeEditCustomerDetailsScreen,
-                            arguments: EditCustArguments(
-                              customerData:
-                                  viewModel.customerDetails?.results?.data,
-                              callBack: () {},
+                  bool isLoaded = loader == LoaderState.loaded;
+                  return !isLoaded
+                      ? SizedBox.shrink()
+                      : PopupMenuButton<String>(
+                          color: Colors.white,
+                          icon: Icon(Icons.more_vert,
+                              color: Colors.white, size: 24.sp),
+                          onSelected: (value) {
+                            if (value == 'edit') {
+                              Navigator.pushNamed(
+                                context,
+                                RouteConstants.routeEditCustomerDetailsScreen,
+                                arguments: EditCustArguments(
+                                  customerData: viewModel.customerDetails,
+                                  callBack: () {
+                                    widget.arguments.callBack?.call();
+                                    viewModel.getCustomerDetails(
+                                        int.parse(widget.arguments.customerId));
+                                  },
+                                ),
+                              );
+                            } else if (value == 'delete') {
+                              customerDeleteDialog(context, onDelete: () async {
+                                bool? isSuccess = await viewModel.delete(
+                                    int.parse(widget.arguments.customerId));
+                                if ((isSuccess ?? false) && context.mounted) {
+                                  widget.arguments.callBack?.call();
+                                  Navigator.pop(context);
+                                }
+                              });
+                            }
+                          },
+                          itemBuilder: (BuildContext context) => [
+                            PopupMenuItem<String>(
+                              value: 'edit',
+                              child: Text('Edit Details',
+                                  style: TextStyle(fontSize: 14.sp)),
                             ),
-                          );
-                        } else if (value == 'delete') {
-                          customerDeleteDialog(context);
-                        }
-                      },
-                      itemBuilder: (BuildContext context) => [
-                        PopupMenuItem<String>(
-                          value: 'edit',
-                          child: Text('Edit Details',
-                              style: TextStyle(fontSize: 14.sp)),
-                        ),
-                        PopupMenuItem<String>(
-                          value: 'delete',
-                          child:
-                              Text('Delete', style: TextStyle(fontSize: 14.sp)),
-                        ),
-                      ],
-                    ),
-                  );
+                            PopupMenuItem<String>(
+                              value: 'delete',
+                              child: Text('Delete',
+                                  style: TextStyle(fontSize: 14.sp)),
+                            ),
+                          ],
+                        );
                 }),
           ],
         ),
-        body: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 24.h),
-          child: Column(
-            children: [
-              Selector<CustomerDetailsViewModel,
-                      Tuple2<CustomerDetails?, bool>>(
-                  selector: (_, p1) => Tuple2(p1.customerDetails, p1.isLoading),
-                  builder: (_, data, child) {
-                    final details = data.item1?.results?.data;
-                    return data.item2
-                        ? Column(
-                            children: [
-                              ...List.generate(
-                                  5,
-                                  (index) => Padding(
-                                        padding: EdgeInsets.only(bottom: 8.h),
-                                        child: Container(
-                                          height: 76.h,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10.r),
-                                            color: HexColor("#F4F4F4"),
-                                          ),
-                                        ),
-                                      ))
-                            ],
-                          )
-                        : Column(
-                            children: [
-                              buildInfoTile("Name", details?.name),
-                              buildInfoTile("Email", details?.email),
-                              buildInfoTile(
-                                  "Phone Number", details?.phoneNumber),
-                              buildInfoTile("Vehicle", details?.vehicle),
-                              buildInfoTile(
-                                  "Reg No.", details?.registrationNumber),
-                              buildInfoTile("VIN Number", details?.vinNumber),
-                              buildInfoTile(
-                                  "Driving Habits", details?.drivingHabits),
-                            ],
-                          );
-                  }),
-              20.verticalSpace,
-              Selector<CustomerDetailsViewModel, Tuple2<List<Report>, bool>>(
-                selector: (_, p1) => Tuple2(p1.reportList, p1.isReportLoading),
-                builder: (_, data, child) {
-                  final reportList = data.item1;
-                  return data.item2
-                      ? Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Health Reports",
-                                style: BaiFontPalette.fBlack_18_600),
-                            ...List.generate(
-                                5,
-                                (index) => Padding(
-                                      padding: EdgeInsets.only(bottom: 8.h),
-                                      child: Container(
-                                        height: 50.h,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10.r),
-                                          color: HexColor("#F4F4F4"),
-                                        ),
+        body: Selector<CustomerDetailsViewModel, bool>(
+            selector: (_, p1) => p1.isDeleting,
+            builder: (_, isDeleting, child) {
+              return Stack(
+                children: [
+                  SingleChildScrollView(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 16.w, vertical: 24.h),
+                    child: Column(
+                      children: [
+                        Selector<CustomerDetailsViewModel,
+                                Tuple2<CustomerDetails?, LoaderState>>(
+                            selector: (_, p1) =>
+                                Tuple2(p1.customerDetails, p1.isLoading),
+                            builder: (_, data, child) {
+                              final details = data.item1;
+
+                              if (data.item2 == LoaderState.loading) {
+                                return Column(
+                                  children: [
+                                    ...List.generate(
+                                        5,
+                                        (index) => Padding(
+                                              padding:
+                                                  EdgeInsets.only(bottom: 8.h),
+                                              child: Container(
+                                                height: 76.h,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.r),
+                                                  color: HexColor("#F4F4F4"),
+                                                ),
+                                              ),
+                                            ))
+                                  ],
+                                );
+                              } else if (data.item2 == LoaderState.error) {
+                                return SizedBox(
+                                    height: context.sh(size: .7),
+                                    child: Center(
+                                      child: Text(
+                                        "No data",
+                                        style: PlusJakartaFontPalette
+                                            .fBlack_14_600,
                                       ),
-                                    ))
-                          ],
-                        )
-                      : SizedBox(
-                          width: context.sw(),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text("Health Reports",
-                                  style: BaiFontPalette.fBlack_18_600),
-                              16.verticalSpace,
-                              ...List.generate(
-                                reportList.length,
-                                (index) {
-                                  bool isNotLast =
-                                      index != reportList.length - 1;
-                                  final reportName =
-                                      reportList[index].reportName;
-                                  final date = reportList[index].uploadedDate;
-                                  return Container(
-                                    padding: EdgeInsets.all(16.w),
-                                    margin: EdgeInsets.only(
-                                        bottom: isNotLast ? 8.h : 0),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      border: Border.all(
-                                          color: HexColor("#F6E5E5")),
-                                      borderRadius: BorderRadius.circular(16.r),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                          width: 40.w,
-                                          height: 40.w,
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: HexColor('#FFF0E9')),
-                                          alignment: Alignment.center,
-                                          child: SvgPicture.asset(
-                                            Assets.svgPdf,
-                                            width: 16.w,
-                                          ),
-                                        ),
-                                        12.horizontalSpace,
-                                        Column(
+                                    ));
+                              } else {
+                                return Column(
+                                  children: [
+                                    buildInfoTile("Name", details?.nameEn),
+                                    buildInfoTile("Email", details?.email),
+                                    buildInfoTile(
+                                        "Phone Number", details?.phoneNumber),
+                                    buildInfoTile(
+                                        "Vehicle", details?.model?.nameEn),
+                                    buildInfoTile(
+                                        "Reg No.", details?.registrationNumber),
+                                    buildInfoTile(
+                                        "VIN Number", details?.vinNumber),
+                                    buildInfoTile("Driving Habits",
+                                        "${details?.drivingHabit ?? "0"} Km/week"),
+                                  ],
+                                );
+                              }
+                            }),
+                        20.verticalSpace,
+                        Selector<CustomerDetailsViewModel,
+                            Tuple2<List<Report>, bool>>(
+                          selector: (_, p1) =>
+                              Tuple2(p1.reportList, p1.isReportLoading),
+                          builder: (_, data, child) {
+                            final reportList = data.item1;
+                            return data.item2
+                                ? Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      ...List.generate(
+                                          5,
+                                          (index) => Padding(
+                                                padding: EdgeInsets.only(
+                                                    bottom: 8.h),
+                                                child: Container(
+                                                  height: 50.h,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.r),
+                                                    color: HexColor("#F4F4F4"),
+                                                  ),
+                                                ),
+                                              ))
+                                    ],
+                                  )
+                                : reportList.isEmpty
+                                    ? const SizedBox.shrink()
+                                    : SizedBox(
+                                        width: context.sw(),
+                                        child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text(
-                                              reportName ?? '',
-                                              style: PlusJakartaFontPalette
-                                                  .f1C1C1C_14_600
-                                                  .copyWith(
-                                                      fontWeight:
-                                                          FontWeight.w700),
-                                            ),
-                                            Text(
-                                              date ?? '',
-                                              style: PlusJakartaFontPalette
-                                                  .f777777_13_600
-                                                  .copyWith(
-                                                      color:
-                                                          HexColor('#6E6E6E'),
-                                                      fontWeight:
-                                                          FontWeight.w500),
-                                            ),
+                                            Text("Health Reports",
+                                                style: BaiFontPalette
+                                                    .fBlack_18_600),
+                                            16.verticalSpace,
+                                            ...List.generate(
+                                              reportList.length,
+                                              (index) {
+                                                bool isNotLast = index !=
+                                                    reportList.length - 1;
+                                                final reportName =
+                                                    reportList[index]
+                                                        .reportName;
+                                                final date = reportList[index]
+                                                    .uploadedDate;
+                                                return Container(
+                                                  padding: EdgeInsets.all(16.w),
+                                                  margin: EdgeInsets.only(
+                                                      bottom:
+                                                          isNotLast ? 8.h : 0),
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    border: Border.all(
+                                                        color: HexColor(
+                                                            "#F6E5E5")),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            16.r),
+                                                  ),
+                                                  child: Row(
+                                                    children: [
+                                                      Container(
+                                                        width: 40.w,
+                                                        height: 40.w,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                                shape: BoxShape
+                                                                    .circle,
+                                                                color: HexColor(
+                                                                    '#FFF0E9')),
+                                                        alignment:
+                                                            Alignment.center,
+                                                        child: SvgPicture.asset(
+                                                          Assets.svgPdf,
+                                                          width: 16.w,
+                                                        ),
+                                                      ),
+                                                      12.horizontalSpace,
+                                                      Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            reportName ?? '',
+                                                            style: PlusJakartaFontPalette
+                                                                .f1C1C1C_14_600
+                                                                .copyWith(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700),
+                                                          ),
+                                                          Text(
+                                                            date ?? '',
+                                                            style: PlusJakartaFontPalette
+                                                                .f777777_13_600
+                                                                .copyWith(
+                                                                    color: HexColor(
+                                                                        '#6E6E6E'),
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                );
+                                              },
+                                            )
                                           ],
                                         ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              )
-                            ],
+                                      );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  if (isDeleting)
+                    Container(
+                      height: context.sh(),
+                      width: context.sw(),
+                      color: Colors.black38,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: ColorPalette.primaryColor,
+                        ),
+                      ),
+                    )
+                ],
+              );
+            }),
+        bottomNavigationBar: Selector<CustomerDetailsViewModel, LoaderState>(
+            selector: (p0, selector) => selector.isLoading,
+            builder: (context, loader, child) {
+              bool isLoaded = loader == LoaderState.loaded;
+              return isLoaded
+                  ? SafeArea(
+                      bottom: true,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 14.w),
+                            child: PrimaryButton(
+                              text: "Upload Health Report",
+                              borderRadius: 10.r,
+                              icon: Icon(Icons.upload_file_outlined,
+                                  color: Colors.white),
+                              onPressed: () {
+                                showPdfUploadSheet(context);
+                              },
+                            ),
                           ),
-                        );
-                },
-              ),
-            ],
-          ),
-        ),
-        bottomNavigationBar: SafeArea(
-          bottom: true,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 14.w),
-                child: PrimaryButton(
-                  text: "Upload Health Report",
-                  borderRadius: 10.r,
-                  icon: Icon(Icons.upload_file_outlined, color: Colors.white),
-                  onPressed: () {
-                    showPdfUploadSheet(context);
-                  },
-                ),
-              ),
-              13.verticalSpace,
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 14.w),
-                child: PrimaryButton(
-                  text: "Add New Service Entry",
-                  borderRadius: 10.r,
-                  icon: SvgPicture.asset(
-                    Assets.svgFile,
-                    colorFilter:
-                        ColorFilter.mode(ColorPalette.white, BlendMode.srcIn),
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(
-                        context, RouteConstants.routeAddServiceScreen);
-                  },
-                ),
-              ),
-              13.verticalSpace,
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 14.w),
-                child: PrimaryButton(
-                  text: "View Service History",
-                  borderRadius: 10.r,
-                  isOutlined: true,
-                  textColor: ColorPalette.primaryColor,
-                  backgroundColor: Colors.white,
-                  borderColor: ColorPalette.primaryColor,
-                  splashColor:
-                      ColorPalette.primaryColor.mimicOpacityColor(0.06),
-                  highlightColor:
-                      ColorPalette.primaryColor.mimicOpacityColor(0.04),
-                  icon: SvgPicture.asset(
-                    Assets.svgServiceHistory,
-                    colorFilter: ColorFilter.mode(
-                        ColorPalette.primaryColor, BlendMode.srcIn),
-                  ),
-                  onPressed: () {},
-                ),
-              ),
-            ],
-          ),
-        ),
+                          13.verticalSpace,
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 14.w),
+                            child: PrimaryButton(
+                              text: "Add New Service Entry",
+                              borderRadius: 10.r,
+                              icon: SvgPicture.asset(
+                                Assets.svgFile,
+                                colorFilter: ColorFilter.mode(
+                                    ColorPalette.white, BlendMode.srcIn),
+                              ),
+                              onPressed: () {
+                                Navigator.pushNamed(context,
+                                    RouteConstants.routeAddServiceScreen);
+                              },
+                            ),
+                          ),
+                          13.verticalSpace,
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 14.w),
+                            child: PrimaryButton(
+                              text: "View Service History",
+                              borderRadius: 10.r,
+                              isOutlined: true,
+                              textColor: ColorPalette.primaryColor,
+                              backgroundColor: Colors.white,
+                              borderColor: ColorPalette.primaryColor,
+                              splashColor: ColorPalette.primaryColor
+                                  .mimicOpacityColor(0.06),
+                              highlightColor: ColorPalette.primaryColor
+                                  .mimicOpacityColor(0.04),
+                              icon: SvgPicture.asset(
+                                Assets.svgServiceHistory,
+                                colorFilter: ColorFilter.mode(
+                                    ColorPalette.primaryColor, BlendMode.srcIn),
+                              ),
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  RouteConstants
+                                      .routeServiceHistoryDetailsScreen,
+                                  arguments: widget.arguments.customerId,
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : SizedBox.shrink();
+            }),
       ),
     );
   }

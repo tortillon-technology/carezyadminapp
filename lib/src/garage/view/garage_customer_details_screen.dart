@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:carezyadminapp/res/styles/color_palette.dart';
 import 'package:carezyadminapp/res/styles/fonts/bai_font_palette.dart';
 import 'package:carezyadminapp/res/styles/fonts/plus_jakarta_font_palette.dart';
+import 'package:carezyadminapp/src/customer/view/add_customer_screen.dart';
+import 'package:carezyadminapp/src/customer/view/customer_details_screen.dart';
+import 'package:carezyadminapp/src/garage/view_model/garage_customer_view_model.dart';
 import 'package:carezyadminapp/utils/common_widgets/common_text_form.dart';
 import 'package:carezyadminapp/utils/common_widgets/primary_button.dart';
 import 'package:carezyadminapp/utils/helpers/extensions.dart';
@@ -17,19 +20,30 @@ import '../../../generated/assets.dart';
 import '../../../utils/common_widgets/common_app_bar.dart';
 import '../../../utils/common_widgets/search_switch_state.dart';
 import '../../../utils/helpers/common_functions.dart';
-import '../view_model/customer_manage_view_model.dart';
-import 'customer_details_screen.dart';
 
-class CustomerManagementScreen extends StatefulWidget {
-  const CustomerManagementScreen({super.key});
-
-  @override
-  State<CustomerManagementScreen> createState() =>
-      _CustomerManagementScreenState();
+class GarageCustArguments {
+  final int id;
+  final String name;
+  final Function()? callBack;
+  GarageCustArguments({
+    required this.id,
+    required this.name,
+    this.callBack,
+  });
 }
 
-class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
-  late CustomerManageViewModel viewModel;
+class GarageCustomerDetailsScreen extends StatefulWidget {
+  final GarageCustArguments arguments;
+  const GarageCustomerDetailsScreen({super.key, required this.arguments});
+
+  @override
+  State<GarageCustomerDetailsScreen> createState() =>
+      _GarageCustomerDetailsScreenState();
+}
+
+class _GarageCustomerDetailsScreenState
+    extends State<GarageCustomerDetailsScreen> {
+  late GarageCustomerViewModel viewModel;
 
   final searchController = TextEditingController();
   Timer? _debounce;
@@ -37,14 +51,14 @@ class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
 
   @override
   void initState() {
-    viewModel = CustomerManageViewModel();
+    viewModel = GarageCustomerViewModel();
     afterInit(init);
     _scrollController.addListener(_onScroll);
     super.initState();
   }
 
   init() {
-    viewModel.getCustomerList();
+    viewModel.getCustomers(id: widget.arguments.id);
   }
 
   void _onScroll() {
@@ -52,7 +66,8 @@ class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
             _scrollController.position.maxScrollExtent &&
         !viewModel.isPaginating &&
         viewModel.totalItems != viewModel.customerList.length) {
-      viewModel.getCustomerList(
+      viewModel.getCustomers(
+        id: widget.arguments.id,
         isPaginating: true,
         isSearch: searchController.text.isNotEmpty,
         query: searchController.text,
@@ -64,9 +79,10 @@ class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
     viewModel.check(query);
     if (_debounce?.isActive ?? false) _debounce?.cancel();
     _debounce = Timer(const Duration(milliseconds: 500), () {
-      viewModel.getCustomerList(
+      viewModel.getCustomers(
         isPaginating: false,
-        isSearch: query.isNotEmpty,
+        id: widget.arguments.id,
+        isSearch: true,
         query: query,
       );
     });
@@ -86,7 +102,7 @@ class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
       child: Scaffold(
         backgroundColor: HexColor("#F4F4F4"),
         appBar: CommonAppBar(
-          titleText: "Customer Management",
+          titleText: widget.arguments.name.capitalizeEachLetter(),
           systemOverlay: homeSystemOverlay,
           textStyle: BaiFontPalette.fWhite_20_600,
           iconBgColor: HexColor("#F5F5F5").withValues(alpha: 0.26),
@@ -105,7 +121,7 @@ class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
                 hintText: "Search Customer Name/ Reg.No",
                 controller: searchController,
                 onChanged: _onSearchChanged,
-                suffix: Selector<CustomerManageViewModel, bool>(
+                suffix: Selector<GarageCustomerViewModel, bool>(
                     selector: (p0, p1) => p1.hasSearchQuery,
                     builder: (context, hasSearchData, child) {
                       return Padding(
@@ -117,7 +133,8 @@ class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
                                   viewModel.nextPage = 1;
                                   viewModel.totalItems = 0;
                                   viewModel.customerList = [];
-                                  viewModel.getCustomerList();
+                                  viewModel.getCustomers(
+                                      id: widget.arguments.id);
                                   viewModel.check('');
                                 }
                               : null,
@@ -142,15 +159,14 @@ class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
                   viewModel.nextPage = 1;
                   viewModel.totalItems = 0;
                   viewModel.customerList = [];
-                  viewModel.getCustomerList(
-                    query: searchController.text,
-                  );
+                  viewModel.getCustomers(
+                      query: searchController.text, id: widget.arguments.id);
                   viewModel.check('');
                 },
                 child: SingleChildScrollView(
                   controller: _scrollController,
                   padding: EdgeInsets.symmetric(vertical: 10.h),
-                  child: Consumer<CustomerManageViewModel>(
+                  child: Consumer<GarageCustomerViewModel>(
                       builder: (context, provider, child) {
                     return SearchSwitchState(
                       loader: provider.isLoading,
@@ -177,8 +193,9 @@ class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
                                     arguments: CustDetailsArguments(
                                       customerId: customerId,
                                       callBack: () {
-                                        viewModel.getCustomerList(
+                                        viewModel.getCustomers(
                                           isSearch: true,
+                                          id: widget.arguments.id,
                                           isPaginating: false,
                                         );
                                       },
@@ -272,8 +289,21 @@ class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
                 color: Colors.white,
               ),
               onPressed: () {
+                FocusManager.instance.primaryFocus?.unfocus();
                 Navigator.pushNamed(
-                    context, RouteConstants.routeAddCustomerScreen);
+                    context, RouteConstants.routeAddCustomerScreen,
+                    arguments: AddCustArguments(
+                      callBack: () {
+                        viewModel.getCustomers(
+                          id: widget.arguments.id,
+                          isPaginating: false,
+                          isSearch: true,
+                        );
+                        widget.arguments.callBack?.call();
+                      },
+                      garageId: widget.arguments.id,
+                      garageName: widget.arguments.name,
+                    ));
               },
             )
           ],

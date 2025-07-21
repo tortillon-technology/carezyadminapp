@@ -124,6 +124,7 @@ class NetworkServices extends NetWorkBaseServices {
     try {
       log("URL : / ${dio.options.baseUrl}$endPoint");
       log("Headers : // API Key :: ${dio.options.headers["Api-key"]}");
+      log("Params :: $parameters");
       if (AppConstants.accessToken.isNotEmpty) {
         log("Headers : // Token :: ${dio.options.headers["Authorization"] = "Bearer ${AppConstants.accessToken}"}");
       } else {
@@ -146,11 +147,44 @@ class NetworkServices extends NetWorkBaseServices {
   }
 
   @override
+  Future<BaseResponse> putRequest(
+      {required String endPoint, Map<String, dynamic>? parameters}) async {
+    if (!(await isInternetAvailable())) {
+      throw ApiExceptions.noInternet();
+    }
+    try {
+      log("URL : / ${dio.options.baseUrl}$endPoint");
+      log("Headers : // API Key :: ${dio.options.headers["Api-key"]}");
+      log("Params :: $parameters");
+      if (AppConstants.accessToken.isNotEmpty) {
+        log("Headers : // Token :: ${dio.options.headers["Authorization"] = "Bearer ${AppConstants.accessToken}"}");
+      } else {
+        dio.options.headers["Authorization"] = '';
+      }
+      Response response = await dio
+          .put(endPoint, data: parameters)
+          .timeout(kReceiveTimeOut, onTimeout: () {
+        throw ApiExceptions.oops();
+      });
+      log("Response : /// ${response.data}");
+      return BaseResponse(statusCode: response.statusCode, data: response.data);
+    } on DioException catch (error) {
+      return BaseResponse(
+          statusCode: error.response?.statusCode, data: error.response?.data);
+    } catch (e) {
+      log("Error : // $e");
+      throw ApiExceptions.oops();
+    }
+  }
+
+  @override
   Either<ResponseError, BaseResponse> getStatus(BaseResponse response) {
     switch (response.statusCode) {
       case 200:
         return Right(response);
       case 201:
+        return Right(response);
+      case 204:
         return Right(response);
       case 400:
         return Left(ResponseError(

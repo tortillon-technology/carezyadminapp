@@ -30,10 +30,10 @@ class GarageModel extends Equatable {
 
 class Results extends Equatable {
   const Results({
-     this.data,
+    required this.data,
   });
 
-  final List<Garages>? data;
+  final List<Garages> data;
 
   factory Results.fromJson(Map<String, dynamic> json) {
     return Results(
@@ -50,45 +50,54 @@ class Results extends Equatable {
 }
 
 class Garages extends Equatable {
-  const Garages({
-    required this.id,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.deleted,
-    required this.name,
-    required this.email,
-    required this.phoneNumber,
-    required this.whatsappNumber,
-    required this.garageRegistrationNumber,
-    required this.address,
-    required this.city,
-    required this.state,
-    required this.country,
-    required this.pincode,
-    required this.description,
-    required this.garageImages,
+  Garages({
+    this.id,
+    this.images,
+    this.customerCount,
+    this.createdAt,
+    this.updatedAt,
+    this.deleted,
+    this.name,
+    this.email,
+    this.phoneNumber,
+    this.whatsappNumber,
+    this.garageRegistrationNumber,
+    this.address,
+    this.city,
+    this.state,
+    this.country,
+    this.pincode,
+    this.description,
+    this.location,
   });
 
-  final int? id;
-  final DateTime? createdAt;
-  final DateTime? updatedAt;
-  final bool? deleted;
-  final String? name;
-  final String? email;
-  final String? phoneNumber;
-  final String? whatsappNumber;
-  final String? garageRegistrationNumber;
-  final String? address;
-  final String? city;
-  final String? state;
-  final String? country;
-  final String? pincode;
-  final String? description;
-  final String? garageImages;
+  int? id;
+  List<GarageImage>? images;
+  int? customerCount;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  bool? deleted;
+  String? name;
+  String? email;
+  String? phoneNumber;
+  String? whatsappNumber;
+  String? garageRegistrationNumber;
+  String? address;
+  String? city;
+  String? state;
+  String? country;
+  String? pincode;
+  String? description;
+  String? location;
 
   factory Garages.fromJson(Map<String, dynamic> json) {
     return Garages(
       id: json["id"],
+      images: json["images"] == null
+          ? []
+          : List<GarageImage>.from(
+              json["images"]!.map((x) => GarageImage.fromJson(x))),
+      customerCount: json["customer_count"],
       createdAt: DateTime.tryParse(json["created_at"] ?? ""),
       updatedAt: DateTime.tryParse(json["updated_at"] ?? ""),
       deleted: json["deleted"],
@@ -103,13 +112,15 @@ class Garages extends Equatable {
       country: json["country"],
       pincode: json["pincode"],
       description: json["description"],
-      garageImages: json["garage_images"],
+      location: json["location"],
     );
   }
 
   @override
   List<Object?> get props => [
         id,
+        images,
+        customerCount,
         createdAt,
         updatedAt,
         deleted,
@@ -124,6 +135,37 @@ class Garages extends Equatable {
         country,
         pincode,
         description,
-        garageImages,
+        location,
+      ];
+}
+
+class GarageImage extends Equatable {
+  GarageImage({
+    this.id,
+    this.image,
+    this.imageUrl,
+    this.uploadedAt,
+  });
+
+  int? id;
+  String? image;
+  String? imageUrl;
+  DateTime? uploadedAt;
+
+  factory GarageImage.fromJson(Map<String, dynamic> json) {
+    return GarageImage(
+      id: json["id"],
+      image: json["image"],
+      imageUrl: json["image_url"],
+      uploadedAt: DateTime.tryParse(json["uploaded_at"] ?? ""),
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+        id,
+        image,
+        imageUrl,
+        uploadedAt,
       ];
 }

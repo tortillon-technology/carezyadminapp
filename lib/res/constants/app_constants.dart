@@ -14,10 +14,10 @@ class AppConstants {
   static String getCustomer = "vehicles/search-customer";
   static String customerList = "customer/customers-list";
   static String serviceList = "vehicles/services";
-  static String serviceDetails = "xvehicles/vehicle-service-details";
+  static String serviceDetails = "vehicles/vehicle-service-details";
   static String oodoReading = "vehicles/odoo-reading";
   static String uploadReport = "vehicles/add-health-report";
   static String healthReportList = 'vehicles/list-health-report?customer_id=';
   static String recoveryVehicle = 'garages/recovery-vehicles';
-  static String createRecovery = '/garages/recovery-vehicles/';
+  static String createRecovery = 'garages/recovery-vehicles/';
 }

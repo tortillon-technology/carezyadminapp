@@ -21,9 +21,12 @@ abstract class NetWorkBaseServices {
       {required String endPoint, Map<String, dynamic>? parameters});
   Future<BaseResponse> deleteRequest(
       {required String endPoint, Map<String, dynamic>? parameters});
+
+  Future<BaseResponse> putRequest(
+      {required String endPoint, Map<String, dynamic>? parameters});
   Future<BaseResponse> multipartPostRequest(
       {required String endPoint, FormData? formData});
-        Future<BaseResponse> multipartPatchRequest(
+  Future<BaseResponse> multipartPatchRequest(
       {required String endPoint, FormData? formData});
 }
 

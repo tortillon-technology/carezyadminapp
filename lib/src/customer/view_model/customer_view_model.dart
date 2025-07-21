@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 
 import '../../../services/get_it.dart';
 import '../model/vehicle_model.dart';
+import '../view/add_customer_screen.dart';
 
 class CustomerViewModel extends AutoDisposeViewModel with Helper {
   final repo = getIt.get<CustomerRepo>();
@@ -16,6 +17,8 @@ class CustomerViewModel extends AutoDisposeViewModel with Helper {
 
   int currentPageIndex = 0;
   bool enableButton = false;
+
+  AddCustArguments? arguments;
 
   final nameCtrl = TextEditingController();
   final emailCtrl = TextEditingController();
@@ -46,7 +49,8 @@ class CustomerViewModel extends AutoDisposeViewModel with Helper {
   List<Garage> garageList = [];
   Garage? selectedGarage;
 
-  initialize() {
+  initialize(AddCustArguments? args) {
+    arguments = args;
     pageController = PageController();
   }
 
@@ -245,6 +249,16 @@ class CustomerViewModel extends AutoDisposeViewModel with Helper {
       "garage_id": selectedGarage?.id
     }).fold(
       (left) {
+        try {
+          final Map<String, dynamic> errors = left.response?['errors'] ?? [];
+          emailIdErrorText = checkValue(errors, 'email');
+          phoneNumberErrorText = checkValue(errors, 'phone_number');
+          if (emailIdErrorText != null || phoneNumberErrorText != null) {
+            pageController?.animateToPage(0,
+                duration: Duration(milliseconds: 300), curve: Curves.easeIn);
+          }
+        } catch (e) {}
+
         updateLoader(false);
         return false;
       },
@@ -257,6 +271,12 @@ class CustomerViewModel extends AutoDisposeViewModel with Helper {
       updateLoader(false);
       return false;
     });
+  }
+
+  String? checkValue(Map<String, dynamic> data, String key) {
+    final containsKey = data.containsKey(key);
+    List<dynamic> list = containsKey ? data[key] ?? [] : [];
+    return list.isNotEmpty ? list.first : null;
   }
 
   update({required Function() callback}) {

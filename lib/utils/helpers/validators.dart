@@ -1,3 +1,5 @@
+import 'package:carezyadminapp/utils/helpers/extensions.dart';
+
 class Validators {
   static String? validateEmail(
     String? value,
@@ -152,11 +154,11 @@ class Validators {
     return null;
   }
 
-  static String? validateAddress(String? value) {
+  static String? validateCommon(String? value,String title) {
     if (value == null || value.trim().isEmpty) {
-      return 'Address is required';
-    } else if (value.length < 6) {
-      return 'Enter a valid address';
+      return '$title is required';
+    } else if (value.length < 3) {
+      return 'Enter a valid ${title.capitalizeEachLetter()}';
     }
     return null;
   }

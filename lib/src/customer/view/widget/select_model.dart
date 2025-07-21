@@ -21,6 +21,7 @@ class _SelectModelState extends State<SelectModel> {
     return SingleChildScrollView(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Consumer<CustomerViewModel>(builder: (context, provider, child) {
+        print(provider.modelsList);
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

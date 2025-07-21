@@ -18,8 +18,17 @@ import 'package:tuple/tuple.dart';
 import '../../../res/constants/string_constants.dart';
 import '../../../res/styles/fonts/plus_jakarta_font_palette.dart';
 
+class AddCustArguments {
+  final int? garageId;
+  final String? garageName;
+  final Function()? callBack;
+
+  AddCustArguments({this.garageId, this.garageName, this.callBack});
+}
+
 class AddCustomerScreen extends StatefulWidget {
-  const AddCustomerScreen({super.key});
+  final AddCustArguments? arguments;
+  const AddCustomerScreen({super.key, this.arguments});
 
   @override
   State<AddCustomerScreen> createState() => _AddCustomerScreenState();
@@ -31,7 +40,7 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
   @override
   void initState() {
     viewModel = CustomerViewModel();
-    viewModel.initialize();
+    viewModel.initialize(widget.arguments);
 
     super.initState();
   }
@@ -122,7 +131,8 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
                   children: [
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.w),
-                      child: Selector<CustomerViewModel, Tuple3<int, bool, bool>>(
+                      child:
+                          Selector<CustomerViewModel, Tuple3<int, bool, bool>>(
                         selector: (_, selector) => Tuple3(
                             selector.currentPageIndex,
                             selector.enableButton,
@@ -159,12 +169,14 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
                                                 color: const Color.fromARGB(
                                                     255, 35, 214, 109),
                                               ));
+                                          widget.arguments?.callBack?.call();
                                           Navigator.pop(context);
                                         }
                                       }
                                     : () {
                                         viewModel.pageController?.nextPage(
-                                            duration: Duration(milliseconds: 300),
+                                            duration:
+                                                Duration(milliseconds: 300),
                                             curve: Curves.linear);
                                       }
                                 : null,

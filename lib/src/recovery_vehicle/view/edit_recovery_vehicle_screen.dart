@@ -122,7 +122,7 @@ class _EditRecoveryVehicleScreenState extends State<EditRecoveryVehicleScreen> {
                     onChanged: (data) {
                       provider.update(callback: () {
                         provider.addressError =
-                            Validators.validateAddress(data);
+                            Validators.validateCommon(data,"Address");
                         if (provider.addressError == null) {
                           provider.details?.address = data;
                         }

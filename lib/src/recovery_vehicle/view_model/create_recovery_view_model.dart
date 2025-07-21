@@ -110,7 +110,7 @@ class CreateRecoveryViewModel extends AutoDisposeViewModel with Helper {
   }
 
   validateAddress(String name) {
-    addressError = Validators.validateAddress(name);
+    addressError = Validators.validateCommon(name,"Address");
     checkVehicleDetails();
     notifyListeners();
   }

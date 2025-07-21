@@ -102,15 +102,15 @@ class CustomerRepoImplements extends CustomerRepo {
   }
 
   @override
-  Future<Either<ResponseError, CustomerDetails>> getCustomerDetails(
+  Future<Either<ResponseError, CustomerModel>> getCustomerDetails(
       {required int customerID}) {
     return service
         .safe(service.getRequest(
-          endPoint: "${AppConstants.garage}/$customerID/details",
+          endPoint: "customer/customers-detail?customer_id=$customerID",
         ))
         .thenRight(service.checkHttpStatus)
         .thenRight(service.parseJson)
-        .mapRight((right) => CustomerDetails.fromJson(right));
+        .mapRight((right) => CustomerModel.fromJson(right));
   }
 
   @override
@@ -129,8 +129,22 @@ class CustomerRepoImplements extends CustomerRepo {
   Future<Either<ResponseError, dynamic>> updateProfile(
       {required Map<String, dynamic> params}) {
     return service
-        .safe(service.getRequest(
-            endPoint: AppConstants.accessToken, parameters: params))
+        .safe(service.putRequest(
+            endPoint: "customer/customer-profile", parameters: params))
+        .thenRight(service.checkHttpStatus)
+        .thenRight(service.parseJson)
+        .mapRight((right) => right);
+  }
+
+  @override
+  Future<Either<ResponseError, dynamic>> deleteCustomer(
+      {required int customerID}) {
+    return service
+        .safe(service.postRequest(
+            endPoint: "customer/delete-customer-profile",
+            parameters: {
+              "ids": [customerID]
+            }))
         .thenRight(service.checkHttpStatus)
         .thenRight(service.parseJson)
         .mapRight((right) => right);

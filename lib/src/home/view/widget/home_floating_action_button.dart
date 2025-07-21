@@ -52,11 +52,15 @@ class _HomeFloatingActionButtonState extends State<HomeFloatingActionButton>
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           SlideAndTranslateFloatItem(
-            slideAnimation: _slideAnimation,
-            fadeAnimation: _fadeAnimation,
-            title: Strings.garage,
-            icon: Assets.svgGarages,
-          ),
+              slideAnimation: _slideAnimation,
+              fadeAnimation: _fadeAnimation,
+              title: Strings.garage,
+              icon: Assets.svgGarages,
+              onTap: () {
+                _onFabPressed();
+                Navigator.pushNamed(
+                    context, RouteConstants.routeAddGarageScreen);
+              }),
           7.verticalSpace,
           SlideAndTranslateFloatItem(
             slideAnimation: _slideAnimation,

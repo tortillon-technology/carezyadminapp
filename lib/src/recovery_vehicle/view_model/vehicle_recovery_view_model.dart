@@ -23,8 +23,13 @@ class VehicleRecoveryViewModel extends AutoDisposeViewModel with Helper {
       },
       (right) {
         final isSuccess = right.status ?? false;
-        vehiclesList.addAll(right.results?.data ?? []);
-        updateLoader(LoaderState.loaded);
+        final temp = right.results?.data ?? [];
+        if (temp.isNotEmpty) {
+          vehiclesList.addAll(temp);
+          updateLoader(LoaderState.loaded);
+        } else {
+          updateLoader(LoaderState.noData);
+        }
         return isSuccess;
       },
     ).catchError((e) {
@@ -66,7 +71,7 @@ class VehicleRecoveryViewModel extends AutoDisposeViewModel with Helper {
         return isSuccess;
       },
     ).catchError((e) {
-        updateDeleteLoader(false);
+      updateDeleteLoader(false);
       return false;
     });
   }

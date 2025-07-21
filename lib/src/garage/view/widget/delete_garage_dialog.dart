@@ -5,18 +5,17 @@ import '../../../../res/styles/fonts/bai_font_palette.dart';
 import '../../../../utils/common_widgets/primary_button.dart';
 import '../../../../utils/helpers/hex_color.dart';
 
-void customerDeleteDialog(BuildContext context,
-    {required Function() onDelete}) {
+void garageDeleteDialog(BuildContext context, {required Function() onDelete}) {
   showDialog(
     context: context,
     barrierColor: HexColor('#DFD5C5').withValues(alpha: 0.56),
-    builder: (context) => CustomerDeleteDialog(onDelete: onDelete),
+    builder: (context) => DeleteGarageDialog(onDelete: onDelete),
   );
 }
 
-class CustomerDeleteDialog extends StatelessWidget {
+class DeleteGarageDialog extends StatelessWidget {
   final Function() onDelete;
-  const CustomerDeleteDialog({super.key, required this.onDelete});
+  const DeleteGarageDialog({super.key, required this.onDelete});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +28,7 @@ class CustomerDeleteDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              "Are you sure you want\nto delete this customer?",
+              "Are you sure you want\nto delete this garage?",
               textAlign: TextAlign.center,
               style: BaiFontPalette.fBlack_16_600.copyWith(
                 color: HexColor('#2F2F2F'),

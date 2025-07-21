@@ -1,6 +1,7 @@
 import 'package:carezyadminapp/data/remote/network_base_services.dart';
 import 'package:carezyadminapp/src/services/model/customer_model.dart';
 import 'package:carezyadminapp/src/services/model/service_details_model.dart';
+import 'package:carezyadminapp/src/services/model/service_history_model.dart';
 import 'package:carezyadminapp/src/services/model/service_list_model.dart';
 import 'package:carezyadminapp/src/services/repo/service_repo.dart';
 import 'package:either_dart/either.dart';
@@ -58,5 +59,16 @@ class ServiceRepoImplements extends ServiceRepo {
         .thenRight(service.checkHttpStatus)
         .thenRight(service.parseJson)
         .mapRight((right) => ServiceDetailsModel.fromJson(right));
+  }
+
+  @override
+  Future<Either<ResponseError, ServiceHistoryModel>> getServiceHitsory(
+      {required String customerId}) {
+    return service
+        .safe(service.getRequest(
+            endPoint: "vehicles/service-history?customer_id=$customerId"))
+        .thenRight(service.checkHttpStatus)
+        .thenRight(service.parseJson)
+        .mapRight((right) => ServiceHistoryModel.fromJson(right));
   }
 }

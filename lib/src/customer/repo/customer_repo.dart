@@ -33,14 +33,15 @@ abstract class CustomerRepo {
     required FormData formData,
   });
 
-  Future<Either<ResponseError, CustomerDetails>> getCustomerDetails(
+  Future<Either<ResponseError, CustomerModel>> getCustomerDetails(
       {required int customerID});
-
 
   Future<Either<ResponseError, HealthReport>> getHealthReport(
       {required int customerID});
 
-
   Future<Either<ResponseError, dynamic>> updateProfile(
       {required Map<String, dynamic> params});
+
+  Future<Either<ResponseError, dynamic>> deleteCustomer(
+      {required int customerID});
 }

@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-class CustomerDetails extends Equatable {
-  const CustomerDetails({
+class CustomerModel extends Equatable {
+  const CustomerModel({
     required this.status,
     required this.message,
     required this.results,
@@ -11,8 +11,8 @@ class CustomerDetails extends Equatable {
   final String? message;
   final Results? results;
 
-  factory CustomerDetails.fromJson(Map<String, dynamic> json) {
-    return CustomerDetails(
+  factory CustomerModel.fromJson(Map<String, dynamic> json) {
+    return CustomerModel(
       status: json["status"],
       message: json["message"],
       results:
@@ -33,11 +33,12 @@ class Results extends Equatable {
     required this.data,
   });
 
-  final CustomerData? data;
+  final CustomerDetails? data;
 
   factory Results.fromJson(Map<String, dynamic> json) {
     return Results(
-      data: json["data"] == null ? null : CustomerData.fromJson(json["data"]),
+      data:
+          json["data"] == null ? null : CustomerDetails.fromJson(json["data"]),
     );
   }
 
@@ -47,45 +48,103 @@ class Results extends Equatable {
       ];
 }
 
-class CustomerData extends Equatable {
-   CustomerData({
-     this.name,
-     this.email,
-     this.phoneNumber,
-     this.vehicle,
-     this.registrationNumber,
-     this.vinNumber,
-     this.drivingHabits,
+class CustomerDetails extends Equatable {
+  CustomerDetails({
+    this.id,
+    this.nameEn,
+    this.email,
+    this.vinNumber,
+    this.phoneNumber,
+    this.registrationNumber,
+    this.drivingHabit,
+    this.brand,
+    this.model,
   });
 
-   String? name;
-   String? email;
-   String? phoneNumber;
-   String? vehicle;
-   String? registrationNumber;
-   String? vinNumber;
-   String? drivingHabits;
+  int? id;
+  String? nameEn;
+  String? email;
+  String? phoneNumber;
+  String? registrationNumber;
+  String? drivingHabit;
+  String? vinNumber;
+  Brand? brand;
+  Model? model;
 
-  factory CustomerData.fromJson(Map<String, dynamic> json) {
-    return CustomerData(
-      name: json["name"],
+  factory CustomerDetails.fromJson(Map<String, dynamic> json) {
+    return CustomerDetails(
+      id: json["id"],
+      nameEn: json["name_en"],
       email: json["email"],
-      phoneNumber: json["phone_number"],
-      vehicle: json["vehicle"],
-      registrationNumber: json["registration_number"],
       vinNumber: json["vin_number"],
-      drivingHabits: json["driving_habits"],
+      phoneNumber: json["phone_number"],
+      registrationNumber: json["registration_number"],
+      drivingHabit: json["weekly_mileage_range"],
+      brand: json["brand"] == null ? null : Brand.fromJson(json["brand"]),
+      model: json["model"] == null ? null : Model.fromJson(json["model"]),
     );
   }
 
   @override
   List<Object?> get props => [
-        name,
+        id,
+        nameEn,
         email,
         phoneNumber,
-        vehicle,
         registrationNumber,
+        drivingHabit,
+        brand,
+        model,
         vinNumber,
-        drivingHabits,
+      ];
+}
+
+class Brand extends Equatable {
+  Brand({
+    this.id,
+    this.nameEn,
+    this.logo,
+  });
+
+  int? id;
+  String? nameEn;
+  String? logo;
+
+  factory Brand.fromJson(Map<String, dynamic> json) {
+    return Brand(
+      id: json["id"],
+      nameEn: json["name_en"],
+      logo: json["logo"],
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+        id,
+        nameEn,
+        logo,
+      ];
+}
+
+class Model extends Equatable {
+  Model({
+    this.id,
+    this.nameEn,
+  });
+
+  int? id;
+  String? nameEn;
+
+  factory Model.fromJson(Map<String, dynamic> json) {
+    return Model(
+      id: json["id"],
+      nameEn: json["name_en"],
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+        id,
+        nameEn,
       ];
 }

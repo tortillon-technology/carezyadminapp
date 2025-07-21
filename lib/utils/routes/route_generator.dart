@@ -1,7 +1,11 @@
 import 'package:carezyadminapp/src/customer/view/customer_details_screen.dart';
+import 'package:carezyadminapp/src/garage/view/add_garage_screen.dart';
+import 'package:carezyadminapp/src/garage/view/edit_garage_screen.dart';
+import 'package:carezyadminapp/src/garage/view/garage_customer_details_screen.dart';
 import 'package:carezyadminapp/src/recovery_vehicle/view/create_vehicle_recovery_screen.dart';
 import 'package:carezyadminapp/src/recovery_vehicle/view/edit_recovery_vehicle_screen.dart';
 import 'package:carezyadminapp/src/recovery_vehicle/view/recovery_vehicle_screen.dart';
+import 'package:carezyadminapp/src/services/view/service_history_details.dart';
 import 'package:carezyadminapp/src/services/view_model/add_service_view_model.dart';
 import 'package:carezyadminapp/src/services/view_model/service_view_model.dart';
 import 'package:carezyadminapp/src/settings/view/settings_screen.dart';
@@ -12,9 +16,9 @@ import '../../src/auth/view/signin_screen.dart';
 import '../../src/customer/view/add_customer_screen.dart';
 import '../../src/customer/view/customer_management_screen.dart';
 import '../../src/customer/view/edit_customer_detail_screen.dart';
+import '../../src/garage/view/garage_details_screen.dart';
 import '../../src/garage/view/garage_management_screen.dart';
 import '../../src/home/view/home_screen.dart';
-import '../../src/profile/view/edit_garage_profile_screen.dart';
 import '../../src/recovery_vehicle/view/recovery_vehicle_details_screen.dart';
 import '../../src/services/view/add_service_screen.dart';
 import '../../src/services/view/search_customer_screen.dart';
@@ -44,7 +48,29 @@ class RouteGenerator {
             const CustomerManagementScreen());
       case RouteConstants.routeAddCustomerScreen:
         return _buildRoute(
-            RouteConstants.routeAddCustomerScreen, const AddCustomerScreen());
+            RouteConstants.routeAddCustomerScreen,
+            AddCustomerScreen(
+              arguments: args as AddCustArguments?,
+            ));
+
+      case RouteConstants.routeGarageCustomerDetailsScreen:
+        return _buildRoute(
+            RouteConstants.routeGarageCustomerDetailsScreen,
+            GarageCustomerDetailsScreen(
+              arguments: args as GarageCustArguments,
+            ));
+      case RouteConstants.routeAddGarageScreen:
+        return _buildRoute(
+            RouteConstants.routeAddGarageScreen,
+            AddGarageScreen(
+              callback: args as Function()?,
+            ));
+      case RouteConstants.routeEditGarageScreen:
+        return _buildRoute(
+            RouteConstants.routeEditGarageScreen,
+            EditGarageScreen(
+              arguments: args as EditGarageArguments,
+            ));
       //
       case RouteConstants.routeCustomerDetailsScreen:
         return _buildRoute(
@@ -70,6 +96,13 @@ class RouteGenerator {
             RouteConstants.routeSearchCustomerScreen,
             SearchCustomerScreen(
               viewModel: args as AddServiceViewModel,
+            ));
+
+      case RouteConstants.routeServiceHistoryDetailsScreen:
+        return _buildRoute(
+            RouteConstants.routeServiceHistoryDetailsScreen,
+            ServiceHistoryDetailsScreen(
+              id: args as String,
             ));
 
       ///
@@ -110,6 +143,13 @@ class RouteGenerator {
       case RouteConstants.routeGarageManagementScreen:
         return _buildRoute(RouteConstants.routeGarageManagementScreen,
             GarageManagementScreen());
+
+      case RouteConstants.routeGarageDetailsScreen:
+        return _buildRoute(
+            RouteConstants.routeGarageDetailsScreen,
+            GarageDetailsScreen(
+              arguments: args as GarageArguments,
+            ));
       default:
         return _buildRoute(RouteConstants.routeEmpty, const EmptyScreen());
     }

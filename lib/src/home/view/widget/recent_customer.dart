@@ -1,6 +1,7 @@
 import 'package:carezyadminapp/res/constants/string_constants.dart';
 import 'package:carezyadminapp/res/styles/fonts/bai_font_palette.dart';
 import 'package:carezyadminapp/res/styles/fonts/plus_jakarta_font_palette.dart';
+import 'package:carezyadminapp/src/customer/view/customer_details_screen.dart';
 import 'package:carezyadminapp/utils/helpers/extensions.dart';
 import 'package:carezyadminapp/utils/helpers/hex_color.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,13 @@ class RecentCustomer extends StatelessWidget {
                 return InkWell(
                   onTap: () {
                     // Navigator.pushNamed(
-                    //     context, RouteConstants.routeCustomerDetailsScreen);
+                    //   context,
+                    //   RouteConstants.routeCustomerDetailsScreen,
+                    //   arguments: CustDetailsArguments(
+                    //     customerId: "8",
+                    //     callBack: () {},
+                    //   ),
+                    // );
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -75,7 +82,7 @@ class RecentCustomer extends StatelessWidget {
                 );
               },
               separatorBuilder: (context, index) => 8.verticalSpace,
-              itemCount: 20)
+              itemCount: 4)
         ],
       ),
     );

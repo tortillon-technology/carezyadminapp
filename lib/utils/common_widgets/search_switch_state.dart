@@ -20,10 +20,19 @@ class SearchSwitchState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return switch (loader) {
-      SearchLoader.loading => const Center(
-            child: CircularProgressIndicator(
-          color: ColorPalette.fEC0008,
-        )),
+      SearchLoader.loading => SizedBox(
+          width: context.sw(),
+          height: context.sh(size: 0.5),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(
+                color: ColorPalette.fEC0008,
+              ),
+            ],
+          ),
+        ),
       SearchLoader.loaded => child,
       SearchLoader.error => buildError(context, error: "Error"),
       SearchLoader.noSearchData => buildError(context, error: "No search data"),

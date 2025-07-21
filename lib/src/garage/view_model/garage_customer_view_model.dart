@@ -1,13 +1,13 @@
+import 'package:carezyadminapp/res/enums/enums.dart';
 import 'package:carezyadminapp/services/get_it.dart';
-import 'package:carezyadminapp/src/customer/model/customer_list_model.dart';
+import 'package:carezyadminapp/utils/helpers/auto_dispose_view_model.dart';
 import 'package:either_dart/either.dart';
 
-import '../../../res/enums/enums.dart';
-import '../../../utils/helpers/auto_dispose_view_model.dart';
-import '../repo/customer_repo.dart';
+import '../../customer/model/customer_list_model.dart';
+import '../repo/garage_repo.dart';
 
-class CustomerManageViewModel extends AutoDisposeViewModel with Helper {
-  final repo = getIt.get<CustomerRepo>();
+class GarageCustomerViewModel extends AutoDisposeViewModel with Helper {
+  final repo = getIt.get<GarageRepo>();
   List<Customer> customerList = [];
   int nextPage = 1;
   int totalItems = 0;
@@ -19,12 +19,13 @@ class CustomerManageViewModel extends AutoDisposeViewModel with Helper {
     notifyListeners();
   }
 
-  Future<bool?> getCustomerList({
+  Future<bool?> getCustomers({
     String? query,
+    required int id,
     bool isPaginating = false,
     bool isSearch = false,
   }) async {
-    if (isSearch && !isPaginating) {
+    if (!isPaginating) {
       customerList = [];
       totalItems = 0;
       nextPage = 1;
@@ -32,7 +33,8 @@ class CustomerManageViewModel extends AutoDisposeViewModel with Helper {
     updateLoader(isLoad: SearchLoader.loading, isPaginate: isPaginating);
 
     return await repo
-        .getCustomerList(nextPage: nextPage, query: query ?? "")
+        .getGarageCustomers(
+            garageId: id, nextPage: nextPage, query: query ?? "")
         .fold(
       (left) {
         updateLoader(isLoad: SearchLoader.error);

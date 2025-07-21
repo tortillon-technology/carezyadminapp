@@ -1,3 +1,4 @@
+import 'package:carezyadminapp/src/services/model/service_history_model.dart';
 import 'package:either_dart/either.dart';
 
 import '../../../data/remote/network_base_services.dart';
@@ -19,4 +20,7 @@ abstract class ServiceRepo {
     required String query,
     required int nextPage,
   });
+
+    Future<Either<ResponseError, ServiceHistoryModel>> getServiceHitsory(
+      {required String customerId});
 }

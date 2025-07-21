@@ -196,9 +196,8 @@ class _CommonTextFormFieldWithValidatorState
                         widget.title ?? "",
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        // style: widget.titleStyle ??
-                        //     InterFontPalette.fBlack_12_600
-                        //         .copyWith(color: ColorPalette.black),
+                        style: widget.titleStyle ??
+                            PlusJakartaFontPalette.fBlack_12_600,
                       );
                     }),
               if (widget.title != null && widget.title != '')

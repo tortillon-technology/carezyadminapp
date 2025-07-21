@@ -6,10 +6,9 @@ import '../../../../res/styles/fonts/bai_font_palette.dart';
 import '../../../../res/styles/fonts/plus_jakarta_font_palette.dart';
 import '../../../../utils/common_widgets/custom_dropdown_button.dart';
 import '../../../../utils/common_widgets/primary_button.dart';
-import '../../model/brand_model.dart';
-import '../../model/vehicle_model.dart';
+import '../../model/brand_model.dart' as bm;
+import '../../model/vehicle_model.dart' as vm;
 import '../../view_model/edit_customer_view_model.dart';
-
 
 void selectNewVehicle({
   required BuildContext context,
@@ -44,7 +43,8 @@ class _VehicleBrandAndModelSelectionState
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
       value: widget.viewModel,
-      child: Consumer<EditCustomerViewModel>(builder: (context, provider, child) {
+      child:
+          Consumer<EditCustomerViewModel>(builder: (context, provider, child) {
         return Padding(
           padding: EdgeInsets.all(16.0.w),
           child: Column(
@@ -94,7 +94,7 @@ class _VehicleBrandAndModelSelectionState
                 items: provider.brandsList,
                 selectedLabel: provider.selectedBrand?.nameEn,
                 title: "Brand",
-                onSelected: (Brand data) {
+                onSelected: (bm.Brand data) {
                   provider.update(
                     callback: () {
                       provider.update(callback: () {
@@ -124,7 +124,7 @@ class _VehicleBrandAndModelSelectionState
                 isLoading: provider.modelsLoader,
                 selectedLabel: provider.selectedModel?.nameEn,
                 title: "Model",
-                onSelected: (Model data) {
+                onSelected: (vm.Model data) {
                   provider.update(
                     callback: () {
                       provider.update(callback: () {
@@ -143,16 +143,16 @@ class _VehicleBrandAndModelSelectionState
                         provider.update(
                           callback: () {
                             provider.update(callback: () {
-                              // provider.customerDetails?.model?.id =
-                              //     provider.selectedModel?.id;
-                              // provider.customerDetails?.model?.nameEn =
-                              //     provider.selectedModel?.nameEn;
-                              // provider.customerDetails?.brand?.id =
-                              //     provider.selectedBrand?.id;
-                              // provider.customerDetails?.brand?.nameEn =
-                              //     provider.selectedBrand?.nameEn;
-                              // provider.customerDetails?.brand?.logo =
-                              //     provider.selectedBrand?.logoUrl;
+                              provider.customerDetails?.model?.id =
+                                  provider.selectedModel?.id;
+                              provider.customerDetails?.model?.nameEn =
+                                  provider.selectedModel?.nameEn;
+                              provider.customerDetails?.brand?.id =
+                                  provider.selectedBrand?.id;
+                              provider.customerDetails?.brand?.nameEn =
+                                  provider.selectedBrand?.nameEn;
+                              provider.customerDetails?.brand?.logo =
+                                  provider.selectedBrand?.logoUrl;
                             });
                           },
                         );

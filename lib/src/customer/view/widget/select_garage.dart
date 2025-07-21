@@ -1,7 +1,7 @@
 import 'package:carezyadminapp/src/customer/model/garage_model.dart';
 import 'package:carezyadminapp/src/customer/view_model/customer_view_model.dart';
 import 'package:carezyadminapp/utils/helpers/common_functions.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
@@ -26,8 +26,16 @@ class _SelectGarageState extends State<SelectGarage> {
   }
 
   init() {
-    if (widget.viewModel.garageList.isEmpty) {
+    if (widget.viewModel.garageList.isEmpty &&
+        widget.viewModel.arguments == null) {
       widget.viewModel.getGarages();
+    } else {
+      widget.viewModel.update(callback: () {
+        final args = widget.viewModel.arguments;
+        widget.viewModel.selectedGarage =
+            Garage(id: args?.garageId, name: args?.garageName);
+        widget.viewModel.checkGarage();
+      });
     }
   }
 
@@ -36,6 +44,8 @@ class _SelectGarageState extends State<SelectGarage> {
     return SingleChildScrollView(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Consumer<CustomerViewModel>(builder: (context, provider, child) {
+        final args = widget.viewModel.arguments;
+        final hasData = args?.garageId != null && args?.garageName != null;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -45,25 +55,29 @@ class _SelectGarageState extends State<SelectGarage> {
               style: BaiFontPalette.fBlack_18_600,
             ),
             24.verticalSpace,
-            CustomDropdown(
-              itemBuilder: (context, item) {
-                bool isSelected = provider.selectedGarage?.id == item.id;
-                return CustomDropdownItem(
-                  label: item.name,
-                  isSelected: isSelected,
-                );
-              },
-              items: provider.garageList,
-              selectedLabel: provider.selectedGarage?.name,
-              title: "Garage",
-              onSelected: (Garage data) {
-                provider.update(
-                  callback: () {
-                    provider.selectedGarage = data;
-                    provider.checkGarage();
-                  },
-                );
-              },
+            AbsorbPointer(
+              absorbing: hasData,
+              child: CustomDropdown(
+                itemBuilder: (context, item) {
+                  bool isSelected = provider.selectedGarage?.id == item.id;
+                  return CustomDropdownItem(
+                    label: item.name,
+                    isSelected: isSelected,
+                  );
+                },
+                items: provider.garageList,
+                selectedLabel: provider.selectedGarage?.name,
+                title: "Garage",
+                color: hasData ? Colors.grey[200] : Colors.white,
+                onSelected: (Garage data) {
+                  provider.update(
+                    callback: () {
+                      provider.selectedGarage = data;
+                      provider.checkGarage();
+                    },
+                  );
+                },
+              ),
             ),
           ],
         );
