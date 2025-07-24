@@ -5,8 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../res/styles/fonts/plus_jakarta_font_palette.dart';
-import '../../../../utils/common_widgets/common_text_form.dart';
-import '../../../../utils/helpers/text_input_formatters.dart';
 import '../../view_model/add_service_view_model.dart';
 
 class SuspensionSystem extends StatelessWidget {
@@ -36,7 +34,7 @@ class SuspensionSystem extends StatelessWidget {
               ],
             ),
             26.verticalSpace,
-
+// 1. Front Left Lower Arm
             SuspensionStatusSelector(
               title: "Front Left Lower Arm",
               selection: provider.flla,
@@ -45,76 +43,26 @@ class SuspensionSystem extends StatelessWidget {
                   provider.flla = s;
                 });
               },
+              onLifeChanged: (data) {
+                provider.fllaLife = data;
+              },
+              remainingController:
+                  provider.remainingFrontLeftLowerArmController,
+              onRemainingChanged: (String data) {
+                if (data.isNotEmpty) {
+                  provider.nextFrontLeftLowerArmChangeODOlController
+                      .text = (int.parse(data) +
+                          int.parse(provider.currentOodometerReading ?? '0'))
+                      .toString();
+                } else {
+                  provider.nextFrontLeftLowerArmChangeODOlController.clear();
+                }
+              },
+              odoController: provider.nextFrontLeftLowerArmChangeODOlController,
             ),
-            26.verticalSpace,
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Remaining Front Left Lower Arm",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "Remaining",
-                        controller:
-                            provider.remainingFrontLeftLowerArmController,
-                        inputAction: TextInputAction.next,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          if (data.isNotEmpty) {
-                            provider.remainingFrontLeftLowerArm = data;
-                            provider.nextFrontLeftLowerArmChangeODOlController
-                                .text = (int.parse(data) +
-                                    int.parse(
-                                        provider.currentOodometerReading ??
-                                            '0'))
-                                .toString();
-                          } else {
-                            provider.remainingFrontLeftLowerArm = null;
-                            provider.nextFrontLeftLowerArmChangeODOlController
-                                .clear();
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                16.horizontalSpace,
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Next service on",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "ODO Reading",
-                        controller:
-                            provider.nextFrontLeftLowerArmChangeODOlController,
-                        inputAction: TextInputAction.done,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          provider.nextFrontLeftLowerArmChangeODO = data;
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            26.verticalSpace,
+            40.verticalSpace,
+
+// 2. Front Right Lower Arm
             SuspensionStatusSelector(
               title: "Front Right Lower Arm",
               selection: provider.frla,
@@ -123,76 +71,26 @@ class SuspensionSystem extends StatelessWidget {
                   provider.frla = s;
                 });
               },
+              onLifeChanged: (data) {
+                provider.frlaLife = data;
+              },
+              remainingController:
+                  provider.remainingFrontRightLowerArmController,
+              onRemainingChanged: (String data) {
+                if (data.isNotEmpty) {
+                  provider.nextFrontRightLowerArmChangeODOlController
+                      .text = (int.parse(data) +
+                          int.parse(provider.currentOodometerReading ?? '0'))
+                      .toString();
+                } else {
+                  provider.nextFrontRightLowerArmChangeODOlController.clear();
+                }
+              },
+              odoController:
+                  provider.nextFrontRightLowerArmChangeODOlController,
             ),
-            26.verticalSpace,
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Remaining Front Right Lower Arm",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "Remaining",
-                        controller:
-                            provider.remainingFrontRightLowerArmController,
-                        inputAction: TextInputAction.next,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          if (data.isNotEmpty) {
-                            provider.remainingFrontRightLowerArm = data;
-                            provider.nextFrontRightLowerArmChangeODOlController
-                                .text = (int.parse(data) +
-                                    int.parse(
-                                        provider.currentOodometerReading ??
-                                            '0'))
-                                .toString();
-                          } else {
-                            provider.remainingFrontRightLowerArm = null;
-                            provider.nextFrontRightLowerArmChangeODOlController
-                                .clear();
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                16.horizontalSpace,
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Next service on",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "ODO Reading",
-                        controller:
-                            provider.nextFrontRightLowerArmChangeODOlController,
-                        inputAction: TextInputAction.done,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          provider.nextFrontRightLowerArmChangeODO = data;
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            26.verticalSpace,
+            40.verticalSpace,
+// 3. Rear Left Lower Arm
             SuspensionStatusSelector(
               title: "Rear Left Lower Arm",
               selection: provider.rlla,
@@ -201,76 +99,24 @@ class SuspensionSystem extends StatelessWidget {
                   provider.rlla = s;
                 });
               },
+              onLifeChanged: (data) {
+                provider.rllaLife = data;
+              },
+              remainingController: provider.remainingRearLeftLowerArmController,
+              onRemainingChanged: (String data) {
+                if (data.isNotEmpty) {
+                  provider.nextRearLeftLowerArmChangeODOlController
+                      .text = (int.parse(data) +
+                          int.parse(provider.currentOodometerReading ?? '0'))
+                      .toString();
+                } else {
+                  provider.nextRearLeftLowerArmChangeODOlController.clear();
+                }
+              },
+              odoController: provider.nextRearLeftLowerArmChangeODOlController,
             ),
-            26.verticalSpace,
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Remaining Rear Left Lower Arm",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "Remaining",
-                        controller:
-                            provider.remainingRearLeftLowerArmController,
-                        inputAction: TextInputAction.next,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          if (data.isNotEmpty) {
-                            provider.remainingRearLeftLowerArm = data;
-                            provider.nextRearLeftLowerArmChangeODOlController
-                                .text = (int.parse(data) +
-                                    int.parse(
-                                        provider.currentOodometerReading ??
-                                            '0'))
-                                .toString();
-                          } else {
-                            provider.remainingRearLeftLowerArm = null;
-                            provider.nextRearLeftLowerArmChangeODOlController
-                                .clear();
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                16.horizontalSpace,
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Next service on",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "ODO Reading",
-                        controller:
-                            provider.nextRearLeftLowerArmChangeODOlController,
-                        inputAction: TextInputAction.done,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          provider.nextRearLeftLowerArmChangeODO = data;
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            26.verticalSpace,
+            40.verticalSpace,
+// 4. Rear Right Lower Arm
             SuspensionStatusSelector(
               title: "Rear Right Lower Arm",
               selection: provider.rrla,
@@ -279,78 +125,25 @@ class SuspensionSystem extends StatelessWidget {
                   provider.rrla = s;
                 });
               },
+              onLifeChanged: (data) {
+                provider.rrlaLife = data;
+              },
+              remainingController:
+                  provider.remainingRearRightLowerArmController,
+              onRemainingChanged: (String data) {
+                if (data.isNotEmpty) {
+                  provider.nextRearRightLowerArmChangeODOlController
+                      .text = (int.parse(data) +
+                          int.parse(provider.currentOodometerReading ?? '0'))
+                      .toString();
+                } else {
+                  provider.nextRearRightLowerArmChangeODOlController.clear();
+                }
+              },
+              odoController: provider.nextRearRightLowerArmChangeODOlController,
             ),
-            26.verticalSpace,
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Remaining Rear Right Lower Arm",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "Remaining",
-                        controller:
-                            provider.remainingRearRightLowerArmController,
-                        inputAction: TextInputAction.next,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          if (data.isNotEmpty) {
-                            provider.remainingRearRightLowerArm = data;
-                            provider.nextRearRightLowerArmChangeODOlController
-                                .text = (int.parse(data) +
-                                    int.parse(
-                                        provider.currentOodometerReading ??
-                                            '0'))
-                                .toString();
-                          } else {
-                            provider.remainingRearRightLowerArm = null;
-                            provider.nextRearRightLowerArmChangeODOlController
-                                .clear();
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                16.horizontalSpace,
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Next service on",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "ODO Reading",
-                        controller:
-                            provider.nextRearRightLowerArmChangeODOlController,
-                        inputAction: TextInputAction.done,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          provider.nextRearRightLowerArmChangeODO = data;
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            26.verticalSpace,
-
-            ////
+            40.verticalSpace,
+// 5. Upper Arm Front Left
             SuspensionStatusSelector(
               title: "Upper Arm Front Left",
               selection: provider.uafl,
@@ -359,76 +152,25 @@ class SuspensionSystem extends StatelessWidget {
                   provider.uafl = s;
                 });
               },
+              onLifeChanged: (data) {
+                provider.uaflLife = data;
+              },
+              remainingController:
+                  provider.remainingUpperArmFrontLeftController,
+              onRemainingChanged: (String data) {
+                if (data.isNotEmpty) {
+                  provider.nextUpperArmFrontLeftChangeODOlController
+                      .text = (int.parse(data) +
+                          int.parse(provider.currentOodometerReading ?? '0'))
+                      .toString();
+                } else {
+                  provider.nextUpperArmFrontLeftChangeODOlController.clear();
+                }
+              },
+              odoController: provider.nextUpperArmFrontLeftChangeODOlController,
             ),
-            26.verticalSpace,
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Remaining Upper Arm Front Left",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "Remaining",
-                        controller:
-                            provider.remainingUpperArmFrontLeftController,
-                        inputAction: TextInputAction.next,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          if (data.isNotEmpty) {
-                            provider.remainingUpperArmFrontLeft = data;
-                            provider.nextUpperArmFrontLeftChangeODOlController
-                                .text = (int.parse(data) +
-                                    int.parse(
-                                        provider.currentOodometerReading ??
-                                            '0'))
-                                .toString();
-                          } else {
-                            provider.remainingUpperArmFrontLeft = null;
-                            provider.nextUpperArmFrontLeftChangeODOlController
-                                .clear();
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                16.horizontalSpace,
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Next service on",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "ODO Reading",
-                        controller:
-                            provider.nextUpperArmFrontLeftChangeODOlController,
-                        inputAction: TextInputAction.done,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          provider.nextUpperArmFrontLeftChangeODO = data;
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            26.verticalSpace,
+            40.verticalSpace,
+// 6. Upper Arm Front Right
             SuspensionStatusSelector(
               title: "Upper Arm Front Right",
               selection: provider.uafr,
@@ -437,76 +179,26 @@ class SuspensionSystem extends StatelessWidget {
                   provider.uafr = s;
                 });
               },
+              onLifeChanged: (data) {
+                provider.uafrLife = data;
+              },
+              remainingController:
+                  provider.remainingUpperArmFrontRightController,
+              onRemainingChanged: (String data) {
+                if (data.isNotEmpty) {
+                  provider.nextUpperArmFrontRightChangeODOlController
+                      .text = (int.parse(data) +
+                          int.parse(provider.currentOodometerReading ?? '0'))
+                      .toString();
+                } else {
+                  provider.nextUpperArmFrontRightChangeODOlController.clear();
+                }
+              },
+              odoController:
+                  provider.nextUpperArmFrontRightChangeODOlController,
             ),
-            26.verticalSpace,
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Remaining Upper Arm Front Right",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "Remaining",
-                        controller:
-                            provider.remainingUpperArmFrontRightController,
-                        inputAction: TextInputAction.next,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          if (data.isNotEmpty) {
-                            provider.remainingUpperArmFrontRight = data;
-                            provider.nextUpperArmFrontRightChangeODOlController
-                                .text = (int.parse(data) +
-                                    int.parse(
-                                        provider.currentOodometerReading ??
-                                            '0'))
-                                .toString();
-                          } else {
-                            provider.remainingUpperArmFrontRight = null;
-                            provider.nextUpperArmFrontRightChangeODOlController
-                                .clear();
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                16.horizontalSpace,
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Next service on",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "ODO Reading",
-                        controller:
-                            provider.nextUpperArmFrontRightChangeODOlController,
-                        inputAction: TextInputAction.done,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          provider.nextUpperArmFrontRightChangeODO = data;
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            26.verticalSpace,
+            40.verticalSpace,
+// 7. Trailor Arm Rear
             SuspensionStatusSelector(
               title: "Trailor Arm Rear",
               selection: provider.tar,
@@ -515,387 +207,239 @@ class SuspensionSystem extends StatelessWidget {
                   provider.tar = s;
                 });
               },
+              onLifeChanged: (data) {
+                provider.tarLife = data;
+              },
+              remainingController: provider.remainingTrailorArmRearController,
+              onRemainingChanged: (String data) {
+                if (data.isNotEmpty) {
+                  provider.nextTrailorArmRearChangeODOlController
+                      .text = (int.parse(data) +
+                          int.parse(provider.currentOodometerReading ?? '0'))
+                      .toString();
+                } else {
+                  provider.nextTrailorArmRearChangeODOlController.clear();
+                }
+              },
+              odoController: provider.nextTrailorArmRearChangeODOlController,
             ),
-            26.verticalSpace,
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Remaining Trailor Arm Rear",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "Remaining",
-                        controller: provider.remainingTrailorArmRearController,
-                        inputAction: TextInputAction.next,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          if (data.isNotEmpty) {
-                            provider.remainingTrailorArmRear = data;
-                            provider.nextTrailorArmRearChangeODOlController
-                                .text = (int.parse(data) +
-                                    int.parse(
-                                        provider.currentOodometerReading ??
-                                            '0'))
-                                .toString();
-                          } else {
-                            provider.remainingTrailorArmRear = null;
-                            provider.nextTrailorArmRearChangeODOlController
-                                .clear();
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                16.horizontalSpace,
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Next service on",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "ODO Reading",
-                        controller:
-                            provider.nextTrailorArmRearChangeODOlController,
-                        inputAction: TextInputAction.done,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          provider.nextTrailorArmRearChangeODO = data;
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            26.verticalSpace,
+            40.verticalSpace,
+// 8. Axle Boot Front Left Inner
             SuspensionStatusSelector(
-              title: "Axle Boot Left Inner",
+              title: "Axle Boot Front Left Inner",
               selection: provider.abli,
               onSelection: (s) {
                 provider.update(callBack: () {
                   provider.abli = s;
                 });
               },
+              onLifeChanged: (data) {
+                provider.abliLife = data;
+              },
+              remainingController:
+                  provider.remainingAxleBootLeftInnerController,
+              onRemainingChanged: (String data) {
+                if (data.isNotEmpty) {
+                  provider.nextAxleBootLeftInnerChangeODOlController
+                      .text = (int.parse(data) +
+                          int.parse(provider.currentOodometerReading ?? '0'))
+                      .toString();
+                } else {
+                  provider.nextAxleBootLeftInnerChangeODOlController.clear();
+                }
+              },
+              odoController: provider.nextAxleBootLeftInnerChangeODOlController,
             ),
-            26.verticalSpace,
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Remaining Axle Boot Left Inner",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "Remaining",
-                        controller:
-                            provider.remainingAxleBootLeftInnerController,
-                        inputAction: TextInputAction.next,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          if (data.isNotEmpty) {
-                            provider.remainingAxleBootLeftInner = data;
-                            provider.nextAxleBootLeftInnerChangeODOlController
-                                .text = (int.parse(data) +
-                                    int.parse(
-                                        provider.currentOodometerReading ??
-                                            '0'))
-                                .toString();
-                          } else {
-                            provider.remainingAxleBootLeftInner = null;
-                            provider.nextAxleBootLeftInnerChangeODOlController
-                                .clear();
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                16.horizontalSpace,
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Next service on",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "ODO Reading",
-                        controller:
-                            provider.nextAxleBootLeftInnerChangeODOlController,
-                        inputAction: TextInputAction.done,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          provider.nextAxleBootLeftInnerChangeODO = data;
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            26.verticalSpace,
+            40.verticalSpace,
+// 9. Axle Boot Front Right Inner
             SuspensionStatusSelector(
-              title: "Axle Boot Right Inner",
+              title: "Axle Boot Front Right Inner",
               selection: provider.abri,
               onSelection: (s) {
                 provider.update(callBack: () {
                   provider.abri = s;
                 });
               },
+              onLifeChanged: (data) {
+                provider.abriLife = data;
+              },
+              remainingController:
+                  provider.remainingAxleBootRightInnerController,
+              onRemainingChanged: (String data) {
+                if (data.isNotEmpty) {
+                  provider.nextAxleBootRightInnerChangeODOlController
+                      .text = (int.parse(data) +
+                          int.parse(provider.currentOodometerReading ?? '0'))
+                      .toString();
+                } else {
+                  provider.nextAxleBootRightInnerChangeODOlController.clear();
+                }
+              },
+              odoController:
+                  provider.nextAxleBootRightInnerChangeODOlController,
             ),
-            26.verticalSpace,
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Remaining Axle Boot Right Inner",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "Remaining",
-                        controller:
-                            provider.remainingAxleBootRightInnerController,
-                        inputAction: TextInputAction.next,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          if (data.isNotEmpty) {
-                            provider.remainingAxleBootRightInner = data;
-                            provider.nextAxleBootRightInnerChangeODOlController
-                                .text = (int.parse(data) +
-                                    int.parse(
-                                        provider.currentOodometerReading ??
-                                            '0'))
-                                .toString();
-                          } else {
-                            provider.remainingAxleBootRightInner = null;
-                            provider.nextAxleBootRightInnerChangeODOlController
-                                .clear();
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                16.horizontalSpace,
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Next service on",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "ODO Reading",
-                        controller:
-                            provider.nextAxleBootRightInnerChangeODOlController,
-                        inputAction: TextInputAction.done,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          provider.nextAxleBootRightInnerChangeODO = data;
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            26.verticalSpace,
+            40.verticalSpace,
+// 10. Axle Boot Front Right Outer
             SuspensionStatusSelector(
-              title: "Axle Boot Right Outer",
+              title: "Axle Boot Front Right Outer",
               selection: provider.abro,
               onSelection: (s) {
                 provider.update(callBack: () {
                   provider.abro = s;
                 });
               },
+              onLifeChanged: (data) {
+                provider.abroLife = data;
+              },
+              remainingController:
+                  provider.remainingAxleBootRightOuterController,
+              onRemainingChanged: (String data) {
+                if (data.isNotEmpty) {
+                  provider.nextAxleBootRightOuterChangeODOlController
+                      .text = (int.parse(data) +
+                          int.parse(provider.currentOodometerReading ?? '0'))
+                      .toString();
+                } else {
+                  provider.nextAxleBootRightOuterChangeODOlController.clear();
+                }
+              },
+              odoController:
+                  provider.nextAxleBootRightOuterChangeODOlController,
             ),
-            26.verticalSpace,
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Remaining Axle Boot Right Outer",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "Remaining",
-                        controller:
-                            provider.remainingAxleBootRightOuterController,
-                        inputAction: TextInputAction.next,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          if (data.isNotEmpty) {
-                            provider.remainingAxleBootRightOuter = data;
-                            provider.nextAxleBootRightOuterChangeODOlController
-                                .text = (int.parse(data) +
-                                    int.parse(
-                                        provider.currentOodometerReading ??
-                                            '0'))
-                                .toString();
-                          } else {
-                            provider.remainingAxleBootRightOuter = null;
-                            provider.nextAxleBootRightOuterChangeODOlController
-                                .clear();
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                16.horizontalSpace,
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Next service on",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "ODO Reading",
-                        controller:
-                            provider.nextAxleBootRightOuterChangeODOlController,
-                        inputAction: TextInputAction.done,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          provider.nextAxleBootRightOuterChangeODO = data;
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            26.verticalSpace,
+            40.verticalSpace,
+// 11. Axle Boot Front Left Outer
             SuspensionStatusSelector(
-              title: "Axle Boot Left Outer",
+              title: "Axle Boot Front Left Outer",
               selection: provider.ablo,
               onSelection: (s) {
                 provider.update(callBack: () {
                   provider.ablo = s;
                 });
               },
+              onLifeChanged: (data) {
+                provider.abloLife = data;
+              },
+              remainingController:
+                  provider.remainingAxleBootLeftOuterController,
+              onRemainingChanged: (String data) {
+                if (data.isNotEmpty) {
+                  provider.nextAxleBootLeftOuterChangeODOlController
+                      .text = (int.parse(data) +
+                          int.parse(provider.currentOodometerReading ?? '0'))
+                      .toString();
+                } else {
+                  provider.nextAxleBootLeftOuterChangeODOlController.clear();
+                }
+              },
+              odoController: provider.nextAxleBootLeftOuterChangeODOlController,
             ),
-            26.verticalSpace,
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Remaining Axle Boot Left Outer",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "Remaining",
-                        controller:
-                            provider.remainingAxleBootLeftOuterController,
-                        inputAction: TextInputAction.next,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          if (data.isNotEmpty) {
-                            provider.remainingAxleBootLeftOuter = data;
-                            provider.nextAxleBootLeftOuterChangeODOlController
-                                .text = (int.parse(data) +
-                                    int.parse(
-                                        provider.currentOodometerReading ??
-                                            '0'))
-                                .toString();
-                          } else {
-                            provider.remainingAxleBootLeftOuter = null;
-                            provider.nextAxleBootLeftOuterChangeODOlController
-                                .clear();
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                16.horizontalSpace,
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Next service on",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "ODO Reading",
-                        controller:
-                            provider.nextAxleBootLeftOuterChangeODOlController,
-                        inputAction: TextInputAction.done,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          provider.nextAxleBootLeftOuterChangeODO = data;
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+            40.verticalSpace,
+// 12. Axle Boot Rear Left Inner
+            SuspensionStatusSelector(
+              title: "Axle Boot Rear Left Inner",
+              selection: provider.abrir,
+              onSelection: (s) {
+                provider.update(callBack: () {
+                  provider.abrir = s;
+                });
+              },
+              onLifeChanged: (data) {
+                provider.abrirLife = data;
+              },
+              remainingController: provider.remainingAbriRearController,
+              onRemainingChanged: (String data) {
+                if (data.isNotEmpty) {
+                  provider
+                      .nextAbriRearChangeODOController.text = (int.parse(data) +
+                          int.parse(provider.currentOodometerReading ?? '0'))
+                      .toString();
+                } else {
+                  provider.nextAbriRearChangeODOController.clear();
+                }
+              },
+              odoController: provider.nextAbriRearChangeODOController,
             ),
-            26.verticalSpace,
+            40.verticalSpace,
+// 13. Axle Boot Rear Right Inner
+            SuspensionStatusSelector(
+              title: "Axle Boot Rear Right Inner",
+              selection: provider.abrrr,
+              onSelection: (s) {
+                provider.update(callBack: () {
+                  provider.abrrr = s;
+                });
+              },
+              onLifeChanged: (data) {
+                provider.abrrrLife = data;
+              },
+              remainingController: provider.remainingAbrrRearController,
+              onRemainingChanged: (String data) {
+                if (data.isNotEmpty) {
+                  provider
+                      .nextAbrrRearChangeODOController.text = (int.parse(data) +
+                          int.parse(provider.currentOodometerReading ?? '0'))
+                      .toString();
+                } else {
+                  provider.nextAbrrRearChangeODOController.clear();
+                }
+              },
+              odoController: provider.nextAbrrRearChangeODOController,
+            ),
+            40.verticalSpace,
+// 14. Axle Boot Rear Right Outer
+            SuspensionStatusSelector(
+              title: "Axle Boot Rear Right Outer",
+              selection: provider.abror,
+              onSelection: (s) {
+                provider.update(callBack: () {
+                  provider.abror = s;
+                });
+              },
+              onLifeChanged: (data) {
+                provider.abrorife =
+                    data; // Note: Using the variable name from your data
+              },
+              remainingController: provider.remainingAbroRearController,
+              onRemainingChanged: (String data) {
+                if (data.isNotEmpty) {
+                  provider
+                      .nextAbroRearChangeODOController.text = (int.parse(data) +
+                          int.parse(provider.currentOodometerReading ?? '0'))
+                      .toString();
+                } else {
+                  provider.nextAbroRearChangeODOController.clear();
+                }
+              },
+              odoController: provider.nextAbroRearChangeODOController,
+            ),
+            40.verticalSpace,
+// 15. Axle Boot Rear Left Outer
+            SuspensionStatusSelector(
+              title: "Axle Boot Rear Left Outer",
+              selection: provider.ablor,
+              onSelection: (s) {
+                provider.update(callBack: () {
+                  provider.ablor = s;
+                });
+              },
+              onLifeChanged: (data) {
+                provider.ablorLife = data;
+              },
+              remainingController: provider.remainingAbloRearController,
+              onRemainingChanged: (String data) {
+                if (data.isNotEmpty) {
+                  provider
+                      .nextAbloRearChangeODOController.text = (int.parse(data) +
+                          int.parse(provider.currentOodometerReading ?? '0'))
+                      .toString();
+                } else {
+                  provider.nextAbloRearChangeODOController.clear();
+                }
+              },
+              odoController: provider.nextAbloRearChangeODOController,
+            ),
+            40.verticalSpace,
+// 16. Link Rod Front Left
             SuspensionStatusSelector(
               title: "Link Rod Front Left",
               selection: provider.lrfl,
@@ -904,76 +448,24 @@ class SuspensionSystem extends StatelessWidget {
                   provider.lrfl = s;
                 });
               },
+              onLifeChanged: (data) {
+                provider.lrflLife = data;
+              },
+              remainingController: provider.remainingLinkRodFrontLeftController,
+              onRemainingChanged: (String data) {
+                if (data.isNotEmpty) {
+                  provider.nextLinkRodFrontLeftChangeODOlController
+                      .text = (int.parse(data) +
+                          int.parse(provider.currentOodometerReading ?? '0'))
+                      .toString();
+                } else {
+                  provider.nextLinkRodFrontLeftChangeODOlController.clear();
+                }
+              },
+              odoController: provider.nextLinkRodFrontLeftChangeODOlController,
             ),
-            26.verticalSpace,
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Remaining Link Rod Front Left",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "Remaining",
-                        controller:
-                            provider.remainingLinkRodFrontLeftController,
-                        inputAction: TextInputAction.next,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          if (data.isNotEmpty) {
-                            provider.remainingLinkRodFrontLeft = data;
-                            provider.nextLinkRodFrontLeftChangeODOlController
-                                .text = (int.parse(data) +
-                                    int.parse(
-                                        provider.currentOodometerReading ??
-                                            '0'))
-                                .toString();
-                          } else {
-                            provider.remainingLinkRodFrontLeft = null;
-                            provider.nextLinkRodFrontLeftChangeODOlController
-                                .clear();
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                16.horizontalSpace,
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Next service on",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "ODO Reading",
-                        controller:
-                            provider.nextLinkRodFrontLeftChangeODOlController,
-                        inputAction: TextInputAction.done,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          provider.nextLinkRodFrontLeftChangeODO = data;
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            26.verticalSpace,
+            40.verticalSpace,
+// 17. Link Rod Front Right
             SuspensionStatusSelector(
               title: "Link Rod Front Right",
               selection: provider.lrfr,
@@ -982,76 +474,25 @@ class SuspensionSystem extends StatelessWidget {
                   provider.lrfr = s;
                 });
               },
+              onLifeChanged: (data) {
+                provider.lrfrLife = data;
+              },
+              remainingController:
+                  provider.remainingLinkRodFrontRightController,
+              onRemainingChanged: (String data) {
+                if (data.isNotEmpty) {
+                  provider.nextLinkRodFrontRightChangeODOlController
+                      .text = (int.parse(data) +
+                          int.parse(provider.currentOodometerReading ?? '0'))
+                      .toString();
+                } else {
+                  provider.nextLinkRodFrontRightChangeODOlController.clear();
+                }
+              },
+              odoController: provider.nextLinkRodFrontRightChangeODOlController,
             ),
-            26.verticalSpace,
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Remaining Link Rod Front Right",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "Remaining",
-                        controller:
-                            provider.remainingLinkRodFrontRightController,
-                        inputAction: TextInputAction.next,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          if (data.isNotEmpty) {
-                            provider.remainingLinkRodFrontRight = data;
-                            provider.nextLinkRodFrontRightChangeODOlController
-                                .text = (int.parse(data) +
-                                    int.parse(
-                                        provider.currentOodometerReading ??
-                                            '0'))
-                                .toString();
-                          } else {
-                            provider.remainingLinkRodFrontRight = null;
-                            provider.nextLinkRodFrontRightChangeODOlController
-                                .clear();
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                16.horizontalSpace,
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Next service on",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "ODO Reading",
-                        controller:
-                            provider.nextLinkRodFrontRightChangeODOlController,
-                        inputAction: TextInputAction.done,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          provider.nextLinkRodFrontRightChangeODO = data;
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            26.verticalSpace,
+            40.verticalSpace,
+// 18. Link Rod Rear Left
             SuspensionStatusSelector(
               title: "Link Rod Rear Left",
               selection: provider.lrrl,
@@ -1060,75 +501,24 @@ class SuspensionSystem extends StatelessWidget {
                   provider.lrrl = s;
                 });
               },
+              onLifeChanged: (data) {
+                provider.lrrlLife = data;
+              },
+              remainingController: provider.remainingLinkRodRearLeftController,
+              onRemainingChanged: (String data) {
+                if (data.isNotEmpty) {
+                  provider.nextLinkRodRearLeftChangeODOlController
+                      .text = (int.parse(data) +
+                          int.parse(provider.currentOodometerReading ?? '0'))
+                      .toString();
+                } else {
+                  provider.nextLinkRodRearLeftChangeODOlController.clear();
+                }
+              },
+              odoController: provider.nextLinkRodRearLeftChangeODOlController,
             ),
-            26.verticalSpace,
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Remaining Link Rod Rear Left",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "Remaining",
-                        controller: provider.remainingLinkRodRearLeftController,
-                        inputAction: TextInputAction.next,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          if (data.isNotEmpty) {
-                            provider.remainingLinkRodRearLeft = data;
-                            provider.nextLinkRodRearLeftChangeODOlController
-                                .text = (int.parse(data) +
-                                    int.parse(
-                                        provider.currentOodometerReading ??
-                                            '0'))
-                                .toString();
-                          } else {
-                            provider.remainingLinkRodRearLeft = null;
-                            provider.nextLinkRodRearLeftChangeODOlController
-                                .clear();
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                16.horizontalSpace,
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Next service on",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "ODO Reading",
-                        controller:
-                            provider.nextLinkRodRearLeftChangeODOlController,
-                        inputAction: TextInputAction.done,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          provider.nextLinkRodRearLeftChangeODO = data;
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            26.verticalSpace,
+            40.verticalSpace,
+// 19. Link Rod Rear Right
             SuspensionStatusSelector(
               title: "Link Rod Rear Right",
               selection: provider.lrrr,
@@ -1137,76 +527,24 @@ class SuspensionSystem extends StatelessWidget {
                   provider.lrrr = s;
                 });
               },
+              onLifeChanged: (data) {
+                provider.lrrrLife = data;
+              },
+              remainingController: provider.remainingLinkRodRearRightController,
+              onRemainingChanged: (String data) {
+                if (data.isNotEmpty) {
+                  provider.nextLinkRodRearRightChangeODOlController
+                      .text = (int.parse(data) +
+                          int.parse(provider.currentOodometerReading ?? '0'))
+                      .toString();
+                } else {
+                  provider.nextLinkRodRearRightChangeODOlController.clear();
+                }
+              },
+              odoController: provider.nextLinkRodRearRightChangeODOlController,
             ),
-            26.verticalSpace,
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Remaining Link Rod Rear Right",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "Remaining",
-                        controller:
-                            provider.remainingLinkRodRearRightController,
-                        inputAction: TextInputAction.next,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          if (data.isNotEmpty) {
-                            provider.remainingLinkRodRearRight = data;
-                            provider.nextLinkRodRearRightChangeODOlController
-                                .text = (int.parse(data) +
-                                    int.parse(
-                                        provider.currentOodometerReading ??
-                                            '0'))
-                                .toString();
-                          } else {
-                            provider.remainingLinkRodRearRight = null;
-                            provider.nextLinkRodRearRightChangeODOlController
-                                .clear();
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                16.horizontalSpace,
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Next service on",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "ODO Reading",
-                        controller:
-                            provider.nextLinkRodRearRightChangeODOlController,
-                        inputAction: TextInputAction.done,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          provider.nextLinkRodRearRightChangeODO = data;
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            26.verticalSpace,
+            40.verticalSpace,
+// 20. Balance Rod Bush Front
             SuspensionStatusSelector(
               title: "Balance Rod Bush Front",
               selection: provider.brbf,
@@ -1215,76 +553,26 @@ class SuspensionSystem extends StatelessWidget {
                   provider.brbf = s;
                 });
               },
+              onLifeChanged: (data) {
+                provider.brbfLife = data;
+              },
+              remainingController:
+                  provider.remainingBalanceRodBushFrontController,
+              onRemainingChanged: (String data) {
+                if (data.isNotEmpty) {
+                  provider.nextBalanceRodBushRearChangeODOlController
+                      .text = (int.parse(data) +
+                          int.parse(provider.currentOodometerReading ?? '0'))
+                      .toString();
+                } else {
+                  provider.nextBalanceRodBushRearChangeODOlController.clear();
+                }
+              },
+              odoController:
+                  provider.nextBalanceRodBushRearChangeODOlController,
             ),
-            26.verticalSpace,
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Remaining Balance Rod Bush Front",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "Remaining",
-                        controller:
-                            provider.remainingBalanceRodBushFrontController,
-                        inputAction: TextInputAction.next,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          if (data.isNotEmpty) {
-                            provider.remainingBalanceRodBushFront = data;
-                            provider.nextBalanceRodBushFrontChangeODOlController
-                                .text = (int.parse(data) +
-                                    int.parse(
-                                        provider.currentOodometerReading ??
-                                            '0'))
-                                .toString();
-                          } else {
-                            provider.remainingBalanceRodBushFront = null;
-                            provider.nextBalanceRodBushFrontChangeODOlController
-                                .clear();
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                16.horizontalSpace,
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Next service on",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "ODO Reading",
-                        controller: provider
-                            .nextBalanceRodBushFrontChangeODOlController,
-                        inputAction: TextInputAction.done,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          provider.nextBalanceRodBushFrontChangeODO = data;
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            26.verticalSpace,
+            40.verticalSpace,
+// 21. Balance Rod Bush Rear
             SuspensionStatusSelector(
               title: "Balance Rod Bush Rear",
               selection: provider.brbr,
@@ -1293,74 +581,231 @@ class SuspensionSystem extends StatelessWidget {
                   provider.brbr = s;
                 });
               },
+              onLifeChanged: (data) {
+                provider.brbrLife = data;
+              },
+              remainingController:
+                  provider.remainingBalanceRodBushRearController,
+              onRemainingChanged: (String data) {
+                if (data.isNotEmpty) {
+                  provider.nextBalanceRodBushRearChangeODOlController
+                      .text = (int.parse(data) +
+                          int.parse(provider.currentOodometerReading ?? '0'))
+                      .toString();
+                } else {
+                  provider.nextBalanceRodBushRearChangeODOlController.clear();
+                }
+              },
+              odoController:
+                  provider.nextBalanceRodBushRearChangeODOlController,
             ),
-            26.verticalSpace,
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Remaining Balance Rod Bush Rear",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "Remaining",
-                        controller:
-                            provider.remainingBalanceRodBushRearController,
-                        inputAction: TextInputAction.next,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          if (data.isNotEmpty) {
-                            provider.remainingBalanceRodBushRear = data;
-                            provider.nextBalanceRodBushRearChangeODOlController
-                                .text = (int.parse(data) +
-                                    int.parse(
-                                        provider.currentOodometerReading ??
-                                            '0'))
-                                .toString();
-                          } else {
-                            provider.remainingBalanceRodBushRear = null;
-                            provider.nextBalanceRodBushRearChangeODOlController
-                                .clear();
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                16.horizontalSpace,
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Next service on",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "ODO Reading",
-                        controller:
-                            provider.nextBalanceRodBushRearChangeODOlController,
-                        inputAction: TextInputAction.done,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onChanged: (String data) {
-                          provider.nextBalanceRodBushRearChangeODO = data;
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+            40.verticalSpace,
+// 22. Front Left Shock Absorber
+            SuspensionStatusSelector(
+              title: "Front Left Shock Absorber",
+              selection: provider.fshockl,
+              onSelection: (s) {
+                provider.update(callBack: () {
+                  provider.fshockl = s;
+                });
+              },
+              onLifeChanged: (data) {
+                provider.fshocklLife = data;
+              },
+              remainingController: provider.remainingFshocklController,
+              onRemainingChanged: (String data) {
+                if (data.isNotEmpty) {
+                  provider
+                      .nextFshocklChangeODOController.text = (int.parse(data) +
+                          int.parse(provider.currentOodometerReading ?? '0'))
+                      .toString();
+                } else {
+                  provider.nextFshocklChangeODOController.clear();
+                }
+              },
+              odoController: provider.nextFshocklChangeODOController,
+            ),
+            40.verticalSpace,
+// 23. Front Right Shock Absorber
+            SuspensionStatusSelector(
+              title: "Front Right Shock Absorber",
+              selection: provider.fshockr,
+              onSelection: (s) {
+                provider.update(callBack: () {
+                  provider.fshockr = s;
+                });
+              },
+              onLifeChanged: (data) {
+                provider.fshockrLife = data;
+              },
+              remainingController: provider.remainingFshockrController,
+              onRemainingChanged: (String data) {
+                if (data.isNotEmpty) {
+                  provider
+                      .nextFshockrChangeODOController.text = (int.parse(data) +
+                          int.parse(provider.currentOodometerReading ?? '0'))
+                      .toString();
+                } else {
+                  provider.nextFshockrChangeODOController.clear();
+                }
+              },
+              odoController: provider.nextFshockrChangeODOController,
+            ),
+            40.verticalSpace,
+// 24. Rear Left Shock Absorber
+            SuspensionStatusSelector(
+              title: "Rear Left Shock Absorber",
+              selection: provider.rshockl,
+              onSelection: (s) {
+                provider.update(callBack: () {
+                  provider.rshockl = s;
+                });
+              },
+              onLifeChanged: (data) {
+                provider.rshocklLife = data;
+              },
+              remainingController: provider.remainingRshocklController,
+              onRemainingChanged: (String data) {
+                if (data.isNotEmpty) {
+                  provider
+                      .nextRshocklChangeODOController.text = (int.parse(data) +
+                          int.parse(provider.currentOodometerReading ?? '0'))
+                      .toString();
+                } else {
+                  provider.nextRshocklChangeODOController.clear();
+                }
+              },
+              odoController: provider.nextRshocklChangeODOController,
+            ),
+            40.verticalSpace,
+// 25. Rear Right Shock Absorber
+            SuspensionStatusSelector(
+              title: "Rear Right Shock Absorber",
+              selection: provider.rshockr,
+              onSelection: (s) {
+                provider.update(callBack: () {
+                  provider.rshockr = s;
+                });
+              },
+              onLifeChanged: (data) {
+                provider.rshockrLife = data;
+              },
+              remainingController: provider.remainingRshockrController,
+              onRemainingChanged: (String data) {
+                if (data.isNotEmpty) {
+                  provider
+                      .nextRshockrChangeODOController.text = (int.parse(data) +
+                          int.parse(provider.currentOodometerReading ?? '0'))
+                      .toString();
+                } else {
+                  provider.nextRshockrChangeODOController.clear();
+                }
+              },
+              odoController: provider.nextRshockrChangeODOController,
+            ),
+            40.verticalSpace,
+// 26. Front Left Wheel Bearing
+            SuspensionStatusSelector(
+              title: "Front Left Wheel Bearing",
+              selection: provider.wlbearfl,
+              onSelection: (s) {
+                provider.update(callBack: () {
+                  provider.wlbearfl = s;
+                });
+              },
+              onLifeChanged: (data) {
+                provider.wlbearflLife = data;
+              },
+              remainingController: provider.remainingWlbearflController,
+              onRemainingChanged: (String data) {
+                if (data.isNotEmpty) {
+                  provider
+                      .nextWlbearflChangeODOController.text = (int.parse(data) +
+                          int.parse(provider.currentOodometerReading ?? '0'))
+                      .toString();
+                } else {
+                  provider.nextWlbearflChangeODOController.clear();
+                }
+              },
+              odoController: provider.nextWlbearflChangeODOController,
+            ),
+            40.verticalSpace,
+// 27. Front Right Wheel Bearing
+            SuspensionStatusSelector(
+              title: "Front Right Wheel Bearing",
+              selection: provider.wlbearfr,
+              onSelection: (s) {
+                provider.update(callBack: () {
+                  provider.wlbearfr = s;
+                });
+              },
+              onLifeChanged: (data) {
+                provider.wlbearfrLife = data;
+              },
+              remainingController: provider.remainingWlbearfrController,
+              onRemainingChanged: (String data) {
+                if (data.isNotEmpty) {
+                  provider
+                      .nextWlbearfrChangeODOController.text = (int.parse(data) +
+                          int.parse(provider.currentOodometerReading ?? '0'))
+                      .toString();
+                } else {
+                  provider.nextWlbearfrChangeODOController.clear();
+                }
+              },
+              odoController: provider.nextWlbearfrChangeODOController,
+            ),
+            40.verticalSpace,
+// 28. Rear Left Wheel Bearing
+            SuspensionStatusSelector(
+              title: "Rear Left Wheel Bearing",
+              selection: provider.wlbearrl,
+              onSelection: (s) {
+                provider.update(callBack: () {
+                  provider.wlbearrl = s;
+                });
+              },
+              onLifeChanged: (data) {
+                provider.wlbearrlLife = data;
+              },
+              remainingController: provider.remainingWlbearrlController,
+              onRemainingChanged: (String data) {
+                if (data.isNotEmpty) {
+                  provider
+                      .nextWlbearrlChangeODOController.text = (int.parse(data) +
+                          int.parse(provider.currentOodometerReading ?? '0'))
+                      .toString();
+                } else {
+                  provider.nextWlbearrlChangeODOController.clear();
+                }
+              },
+              odoController: provider.nextWlbearrlChangeODOController,
+            ),
+            40.verticalSpace,
+// 29. Rear Right Wheel Bearing
+            SuspensionStatusSelector(
+              title: "Rear Right Wheel Bearing",
+              selection: provider.wlbearrr,
+              onSelection: (s) {
+                provider.update(callBack: () {
+                  provider.wlbearrr = s;
+                });
+              },
+              onLifeChanged: (data) {
+                provider.wlbearrrLife = data;
+              },
+              remainingController: provider.remainingWlbearrrController,
+              onRemainingChanged: (String data) {
+                if (data.isNotEmpty) {
+                  provider
+                      .nextWlbearrrChangeODOController.text = (int.parse(data) +
+                          int.parse(provider.currentOodometerReading ?? '0'))
+                      .toString();
+                } else {
+                  provider.nextWlbearrrChangeODOController.clear();
+                }
+              },
+              odoController: provider.nextWlbearrrChangeODOController,
             ),
           ],
         );

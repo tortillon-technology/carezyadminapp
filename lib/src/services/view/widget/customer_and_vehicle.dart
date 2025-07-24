@@ -23,7 +23,6 @@ class CustomerAndVehicle extends StatefulWidget {
 
 class _CustomerAndVehicleState extends State<CustomerAndVehicle> {
   final nextServiceReadingController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
@@ -139,34 +138,11 @@ class _CustomerAndVehicleState extends State<CustomerAndVehicle> {
                           ],
                           onTap: () {
                             provider.nextServiceReading = null;
-                            nextServiceReadingController.clear();
                           },
                           onChanged: (String data) {
                             provider.currentOodometerReading = data;
                           },
                         ),
-                      20.verticalSpace,
-                      Text(
-                        "Oil Life (km)",
-                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                      ),
-                      16.verticalSpace,
-                      CommonTextFormFieldWithValidator(
-                        hintText: "Enter oil life (km)",
-                        controller: provider.oilLifeController,
-                        inputAction: TextInputAction.next,
-                        inputType: TextInputType.number,
-                        inputFormatters: [
-                          TextInputFormats.digitsFormatter,
-                        ],
-                        onTap: () {
-                          provider.nextServiceReading = null;
-                          nextServiceReadingController.clear();
-                        },
-                        onChanged: (String data) {
-                          provider.oilLife = data;
-                        },
-                      ),
                       20.verticalSpace,
                       Text(
                         "Next Service Reading",
@@ -184,64 +160,23 @@ class _CustomerAndVehicleState extends State<CustomerAndVehicle> {
                         onChanged: (String data) {
                           provider.remainingOilController.clear();
                           provider.remainingOil = null;
+                          provider.nextOilChangeODOlController.clear();
 
+                          // If input is empty, clear everything and return
                           if (data.isEmpty) {
                             provider.nextServiceReading = null;
-                            //
-                            provider.nextOilChangeODO = null;
-                            provider.nextOilChangeODOlController.clear();
-                            //
-                          } else {
-                            provider.nextServiceReading = data;
-                            //---
-                            if ((provider.currentOodometerReading?.isNotEmpty ??
-                                    false) &&
-                                (provider.nextServiceReading?.isNotEmpty ??
-                                    false)) {
-                              if ((int.parse(provider.currentOodometerReading
-                                      .toString())) <
-                                  ((int.parse(provider.nextServiceReading
-                                      .toString())))) {
-                                //! 80000 < 85000
-
-                                if (provider.oilLife?.isNotEmpty ?? false) {
-                                  final nextOilChange = ((int.parse(
-                                          provider.nextServiceReading //! 85000
-                                              .toString()))) -
-                                      ((int.parse(provider
-                                          .currentOodometerReading //!80000
-                                          .toString())));
-
-                                  provider.remainingOilController.text =
-                                      '$nextOilChange';
-                                  provider.remainingOil = '$nextOilChange';
-                                  provider.nextOilChangeODO = '$nextOilChange';
-                                  provider.nextOilChangeODOlController.text =
-                                      provider.nextServiceReading ?? '__';
-                                }
-                              }
-
-                              // * correct
-                              if ((int.parse(provider.currentOodometerReading
-                                      .toString())) >
-                                  ((int.parse(provider.nextServiceReading
-                                      .toString())))) {
-                                if (provider.oilLife?.isNotEmpty ?? false) {
-                                  final nextOilChange = ((int.parse(provider
-                                          .currentOodometerReading
-                                          .toString()))) +
-                                      ((int.parse(
-                                          provider.oilLife.toString())));
-                                  provider.nextOilChangeODOlController.text =
-                                      '$nextOilChange';
-                                  provider.nextOilChangeODO = '$nextOilChange';
-                                  provider.remainingOilController.text =
-                                      provider.oilLife ?? '__';
-                                  provider.remainingOil = provider.oilLife;
-                                }
-                              }
-                            }
+                            provider.setValuesForAllRemainingFields();
+                            return;
                           }
+
+                          // Set the next service reading
+                          provider.nextServiceReading = data;
+
+                          // Check if we have valid current odometer and oil life data
+                          if (_hasValidData(provider)) {
+                            _calculateOilService(provider);
+                          }
+
                           provider.setValuesForAllRemainingFields();
                           //
                         },
@@ -256,5 +191,33 @@ class _CustomerAndVehicleState extends State<CustomerAndVehicle> {
         ),
       ),
     );
+  }
+
+  // Helper method to check if we have valid data
+  bool _hasValidData(AddServiceViewModel provider) {
+    return (provider.currentOodometerReading?.isNotEmpty ?? false) &&
+        (provider.nextServiceReading?.isNotEmpty ?? false) &&
+        (provider.oilLife?.isNotEmpty ?? false);
+  }
+
+// Helper method to calculate oil service
+  void _calculateOilService(AddServiceViewModel provider) {
+    final currentOdo = int.parse(provider.currentOodometerReading!);
+    final nextService = int.parse(provider.nextServiceReading!);
+    final oilLifeKm = int.parse(provider.oilLife!);
+
+    if (currentOdo < nextService) {
+      // Normal case: Service is in the future
+      final remainingKm = nextService - currentOdo;
+      provider.remainingOilController.text = '$remainingKm';
+      provider.nextOilChangeODOlController.text = '$nextService';
+      provider.remainingOil = remainingKm.toString();
+    } else {
+      // Overdue case: Service was missed, calculate next service
+      final nextOilChange = currentOdo + oilLifeKm;
+      provider.nextOilChangeODOlController.text = '$nextOilChange';
+      provider.remainingOilController.text = '$oilLifeKm';
+      provider.remainingOil = provider.oilLife;
+    }
   }
 }

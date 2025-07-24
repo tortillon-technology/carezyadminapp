@@ -30,7 +30,7 @@ class ServiceViewModel extends AutoDisposeViewModel with Helper {
     bool isPaginating = false,
     bool isSearch = false,
   }) async {
-    if (isSearch && !isPaginating) {
+    if (!isPaginating) {
       serviceList = [];
       totalItems = 0;
       nextPage = 1;
@@ -89,7 +89,6 @@ class ServiceViewModel extends AutoDisposeViewModel with Helper {
 
   @override
   updateLoader({required SearchLoader isLoad, bool isPaginate = false}) {
-
     isPaginating = isPaginate;
     if (isPaginating) {
       notifyListeners();

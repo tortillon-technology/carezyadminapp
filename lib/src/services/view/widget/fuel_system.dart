@@ -5,8 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../res/styles/fonts/plus_jakarta_font_palette.dart';
-import '../../../../utils/common_widgets/common_text_form.dart';
-import '../../../../utils/helpers/text_input_formatters.dart';
 import '../../view_model/add_service_view_model.dart';
 
 class FuelSystem extends StatelessWidget {
@@ -46,73 +44,23 @@ class FuelSystem extends StatelessWidget {
                     provider.fuelPump = selection;
                   });
                 },
+                onLifeChanged: (data) {
+                  provider.fuelPumpLife = data;
+                },
+                remainingController: provider.remainingFuelPumpController,
+                onRemainingChanged: (String data) {
+                  if (data.isNotEmpty) {
+                    provider.nextFuelPumpChangeODOlController
+                        .text = (int.parse(data) +
+                            int.parse(provider.currentOodometerReading ?? '0'))
+                        .toString();
+                  } else {
+                    provider.nextFuelPumpChangeODOlController.clear();
+                  }
+                },
+                odoController: provider.nextFuelPumpChangeODOlController,
               ),
-              26.verticalSpace,
-              Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Remaining Fuel Pump",
-                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                        ),
-                        16.verticalSpace,
-                        CommonTextFormFieldWithValidator(
-                          hintText: "Remaining",
-                          controller: provider.remainingFuelPumpController,
-                          inputAction: TextInputAction.next,
-                          inputType: TextInputType.number,
-                          inputFormatters: [
-                            TextInputFormats.digitsFormatter,
-                          ],
-                          onChanged: (String data) {
-                            if (data.isNotEmpty) {
-                              provider.remainingFuelPump = data;
-                              provider.nextFuelPumpChangeODOlController.text =
-                                  (int.parse(data) +
-                                          int.parse(provider
-                                                  .currentOodometerReading ??
-                                              '0'))
-                                      .toString();
-                            } else {
-                              provider.remainingFuelPump = null;
-                              provider.nextFuelPumpChangeODOlController.clear();
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  16.horizontalSpace,
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Next service on",
-                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                        ),
-                        16.verticalSpace,
-                        CommonTextFormFieldWithValidator(
-                          hintText: "ODO Reading",
-                          controller: provider.nextFuelPumpChangeODOlController,
-                          inputAction: TextInputAction.done,
-                          inputType: TextInputType.number,
-                          inputFormatters: [
-                            TextInputFormats.digitsFormatter,
-                          ],
-                          onChanged: (String data) {
-                            provider.nextFuelPumpChangeODO = data;
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              26.verticalSpace,
+              40.verticalSpace,
               StatusSelector(
                 title: "Fuel Filter",
                 selection: provider.fuelFilter,
@@ -121,75 +69,23 @@ class FuelSystem extends StatelessWidget {
                     provider.fuelFilter = selection;
                   });
                 },
+                onLifeChanged: (data) {
+                  provider.fuelFilterLife = data;
+                },
+                remainingController: provider.remainingFuelFilterController,
+                onRemainingChanged: (String data) {
+                  if (data.isNotEmpty) {
+                    provider.nextFuelFilterChangeODOlController
+                        .text = (int.parse(data) +
+                            int.parse(provider.currentOodometerReading ?? '0'))
+                        .toString();
+                  } else {
+                    provider.nextFuelFilterChangeODOlController.clear();
+                  }
+                },
+                odoController: provider.nextFuelFilterChangeODOlController,
               ),
-              26.verticalSpace,
-              Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Remaining Fuel Filter",
-                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                        ),
-                        16.verticalSpace,
-                        CommonTextFormFieldWithValidator(
-                          hintText: "Remaining",
-                          controller: provider.remainingFuelFilterController,
-                          inputAction: TextInputAction.next,
-                          inputType: TextInputType.number,
-                          inputFormatters: [
-                            TextInputFormats.digitsFormatter,
-                          ],
-                          onChanged: (String data) {
-                            if (data.isNotEmpty) {
-                              provider.remainingFuelFilter = data;
-                              provider.nextFuelFilterChangeODOlController.text =
-                                  (int.parse(data) +
-                                          int.parse(provider
-                                                  .currentOodometerReading ??
-                                              '0'))
-                                      .toString();
-                            } else {
-                              provider.remainingFuelFilter = null;
-                              provider.nextFuelFilterChangeODOlController
-                                  .clear();
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  16.horizontalSpace,
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Next service on",
-                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                        ),
-                        16.verticalSpace,
-                        CommonTextFormFieldWithValidator(
-                          hintText: "ODO Reading",
-                          controller:
-                              provider.nextFuelFilterChangeODOlController,
-                          inputAction: TextInputAction.done,
-                          inputType: TextInputType.number,
-                          inputFormatters: [
-                            TextInputFormats.digitsFormatter,
-                          ],
-                          onChanged: (String data) {
-                            provider.nextFuelFilterChangeODO = data;
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              26.verticalSpace,
+              40.verticalSpace,
               StatusSelector(
                 title: "Canister",
                 selection: provider.canister,
@@ -198,73 +94,23 @@ class FuelSystem extends StatelessWidget {
                     provider.canister = selection;
                   });
                 },
+                onLifeChanged: (data) {
+                  provider.canisterLife = data;
+                },
+                remainingController: provider.remainingCanisterController,
+                onRemainingChanged: (String data) {
+                  if (data.isNotEmpty) {
+                    provider.nextCanisterChangeODOlController
+                        .text = (int.parse(data) +
+                            int.parse(provider.currentOodometerReading ?? '0'))
+                        .toString();
+                  } else {
+                    provider.nextCanisterChangeODOlController.clear();
+                  }
+                },
+                odoController: provider.nextCanisterChangeODOlController,
               ),
-              26.verticalSpace,
-              Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Remaining Canister",
-                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                        ),
-                        16.verticalSpace,
-                        CommonTextFormFieldWithValidator(
-                          hintText: "Remaining",
-                          controller: provider.remainingCanisterController,
-                          inputAction: TextInputAction.next,
-                          inputType: TextInputType.number,
-                          inputFormatters: [
-                            TextInputFormats.digitsFormatter,
-                          ],
-                          onChanged: (String data) {
-                            if (data.isNotEmpty) {
-                              provider.remainingCanister = data;
-                              provider.nextCanisterChangeODOlController.text =
-                                  (int.parse(data) +
-                                          int.parse(provider
-                                                  .currentOodometerReading ??
-                                              '0'))
-                                      .toString();
-                            } else {
-                              provider.remainingCanister = null;
-                              provider.nextCanisterChangeODOlController.clear();
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  16.horizontalSpace,
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Next service on",
-                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                        ),
-                        16.verticalSpace,
-                        CommonTextFormFieldWithValidator(
-                          hintText: "ODO Reading",
-                          controller: provider.nextCanisterChangeODOlController,
-                          inputAction: TextInputAction.done,
-                          inputType: TextInputType.number,
-                          inputFormatters: [
-                            TextInputFormats.digitsFormatter,
-                          ],
-                          onChanged: (String data) {
-                            provider.nextCanisterChangeODO = data;
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              26.verticalSpace,
+              40.verticalSpace,
               StatusSelector(
                 title: "Fuel Tank",
                 selection: provider.fuelTank,
@@ -273,71 +119,21 @@ class FuelSystem extends StatelessWidget {
                     provider.fuelTank = selection;
                   });
                 },
-              ),
-              26.verticalSpace,
-              Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Remaining Fuel Tank",
-                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                        ),
-                        16.verticalSpace,
-                        CommonTextFormFieldWithValidator(
-                          hintText: "Remaining",
-                          controller: provider.remainingFuelTankController,
-                          inputAction: TextInputAction.next,
-                          inputType: TextInputType.number,
-                          inputFormatters: [
-                            TextInputFormats.digitsFormatter,
-                          ],
-                          onChanged: (String data) {
-                            if (data.isNotEmpty) {
-                              provider.remainingFuelTank = data;
-                              provider.nextFuelTankChangeODOlController.text =
-                                  (int.parse(data) +
-                                          int.parse(provider
-                                                  .currentOodometerReading ??
-                                              '0'))
-                                      .toString();
-                            } else {
-                              provider.remainingFuelTank = null;
-                              provider.nextFuelTankChangeODOlController.clear();
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  16.horizontalSpace,
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Next service on",
-                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                        ),
-                        16.verticalSpace,
-                        CommonTextFormFieldWithValidator(
-                          hintText: "ODO Reading",
-                          controller: provider.nextFuelTankChangeODOlController,
-                          inputAction: TextInputAction.done,
-                          inputType: TextInputType.number,
-                          inputFormatters: [
-                            TextInputFormats.digitsFormatter,
-                          ],
-                          onChanged: (String data) {
-                            provider.nextFuelTankChangeODO = data;
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                onLifeChanged: (data) {
+                  provider.fuelTankLife = data;
+                },
+                remainingController: provider.remainingFuelTankController,
+                onRemainingChanged: (String data) {
+                  if (data.isNotEmpty) {
+                    provider.nextFuelTankChangeODOlController
+                        .text = (int.parse(data) +
+                            int.parse(provider.currentOodometerReading ?? '0'))
+                        .toString();
+                  } else {
+                    provider.nextFuelTankChangeODOlController.clear();
+                  }
+                },
+                odoController: provider.nextFuelTankChangeODOlController,
               ),
             ],
           );

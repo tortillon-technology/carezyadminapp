@@ -1,3 +1,4 @@
+
 import 'package:carezyadminapp/src/services/view/widget/status_selector.dart';
 import 'package:carezyadminapp/utils/helpers/extensions.dart';
 import 'package:flutter/material.dart';
@@ -5,8 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../res/styles/fonts/plus_jakarta_font_palette.dart';
-import '../../../../utils/common_widgets/common_text_form.dart';
-import '../../../../utils/helpers/text_input_formatters.dart';
 import '../../view_model/add_service_view_model.dart';
 
 class DifferentialCompartments extends StatefulWidget {
@@ -57,78 +56,26 @@ class _DifferentialCompartmentsState extends State<DifferentialCompartments> {
                     provider.frontDifferentialOil = selection;
                   });
                 },
+                onLifeChanged: (data) {
+                  provider.frontDifferentialOilLife = data;
+                },
+                remainingController:
+                    provider.frontDifferentialOilLifeController,
+                onRemainingChanged: (data) {
+                  if (data.isNotEmpty) {
+                    provider.nextFrontDifferentialOilChangeODOlController
+                        .text = (int.parse(data) +
+                            int.parse(provider.currentOodometerReading ?? '0'))
+                        .toString();
+                  } else {
+                    provider.nextFrontDifferentialOilChangeODOlController
+                        .clear();
+                  }
+                },
+                odoController:
+                    provider.nextFrontDifferentialOilChangeODOlController,
               ),
-              26.verticalSpace,
-              Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Remaining Front Differential Oil",
-                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                        ),
-                        16.verticalSpace,
-                        CommonTextFormFieldWithValidator(
-                          hintText: "Remaining",
-                          controller:
-                              provider.frontDifferentialOilLifeController,
-                          inputAction: TextInputAction.next,
-                          inputType: TextInputType.number,
-                          inputFormatters: [
-                            TextInputFormats.digitsFormatter,
-                          ],
-                          onChanged: (String data) {
-                            if (data.isNotEmpty) {
-                              provider.frontDifferentialOilLife = data;
-                              provider
-                                  .nextFrontDifferentialOilChangeODOlController
-                                  .text = (int.parse(data) +
-                                      int.parse(
-                                          provider.currentOodometerReading ??
-                                              '0'))
-                                  .toString();
-                            } else {
-                              provider.frontDifferentialOilLife = null;
-                              provider
-                                  .nextFrontDifferentialOilChangeODOlController
-                                  .clear();
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  16.horizontalSpace,
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Next service on",
-                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                        ),
-                        16.verticalSpace,
-                        CommonTextFormFieldWithValidator(
-                          hintText: "ODO Reading",
-                          controller: provider
-                              .nextFrontDifferentialOilChangeODOlController,
-                          inputAction: TextInputAction.done,
-                          inputType: TextInputType.number,
-                          inputFormatters: [
-                            TextInputFormats.digitsFormatter,
-                          ],
-                          onChanged: (String data) {
-                            provider.nextFrontDifferentialOilChangeODO = data;
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              26.verticalSpace,
+              40.verticalSpace,
               StatusSelector(
                 title: "Shaft Status",
                 selection: provider.shaftStatus,
@@ -137,75 +84,23 @@ class _DifferentialCompartmentsState extends State<DifferentialCompartments> {
                     provider.shaftStatus = selection;
                   });
                 },
+                onLifeChanged: (data) {
+                  provider.shaftStatusLife = data;
+                },
+                remainingController: provider.remainingShaftStatusController,
+                onRemainingChanged: (data) {
+                  if (data.isNotEmpty) {
+                    provider.nextShaftStatusChangeODOlController
+                        .text = (int.parse(data) +
+                            int.parse(provider.currentOodometerReading ?? '0'))
+                        .toString();
+                  } else {
+                    provider.nextShaftStatusChangeODOlController.clear();
+                  }
+                },
+                odoController: provider.nextShaftStatusChangeODOlController,
               ),
-              26.verticalSpace,
-              Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Remaining Shaft Status",
-                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                        ),
-                        16.verticalSpace,
-                        CommonTextFormFieldWithValidator(
-                          hintText: "Remaining",
-                          controller: provider.remainingShaftStatusController,
-                          inputAction: TextInputAction.next,
-                          inputType: TextInputType.number,
-                          inputFormatters: [
-                            TextInputFormats.digitsFormatter,
-                          ],
-                          onChanged: (String data) {
-                            if (data.isNotEmpty) {
-                              provider.remainingShaftStatus = data;
-                              provider.nextShaftStatusChangeODOlController
-                                  .text = (int.parse(data) +
-                                      int.parse(
-                                          provider.currentOodometerReading ??
-                                              '0'))
-                                  .toString();
-                            } else {
-                              provider.remainingShaftStatus = null;
-                              provider.nextShaftStatusChangeODOlController
-                                  .clear();
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  16.horizontalSpace,
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Next service on",
-                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                        ),
-                        16.verticalSpace,
-                        CommonTextFormFieldWithValidator(
-                          hintText: "ODO Reading",
-                          controller:
-                              provider.nextShaftStatusChangeODOlController,
-                          inputAction: TextInputAction.done,
-                          inputType: TextInputType.number,
-                          inputFormatters: [
-                            TextInputFormats.digitsFormatter,
-                          ],
-                          onChanged: (String data) {
-                            provider.nextShaftStatusChangeODO = data;
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              26.verticalSpace,
+              40.verticalSpace,
               StatusSelector(
                 title: "Shaft Seals",
                 selection: provider.shaftSeals,
@@ -214,75 +109,23 @@ class _DifferentialCompartmentsState extends State<DifferentialCompartments> {
                     provider.shaftSeals = selection;
                   });
                 },
+                onLifeChanged: (data) {
+                  provider.shaftSealsLife = data;
+                },
+                remainingController: provider.remainingShaftSealsController,
+                onRemainingChanged: (data) {
+                  if (data.isNotEmpty) {
+                    provider.nextShaftSealsChangeODOlController
+                        .text = (int.parse(data) +
+                            int.parse(provider.currentOodometerReading ?? '0'))
+                        .toString();
+                  } else {
+                    provider.nextShaftSealsChangeODOlController.clear();
+                  }
+                },
+                odoController: provider.nextShaftSealsChangeODOlController,
               ),
-              26.verticalSpace,
-              Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Remaining Shaft Seals",
-                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                        ),
-                        16.verticalSpace,
-                        CommonTextFormFieldWithValidator(
-                          hintText: "Remaining",
-                          controller: provider.remainingShaftSealsController,
-                          inputAction: TextInputAction.next,
-                          inputType: TextInputType.number,
-                          inputFormatters: [
-                            TextInputFormats.digitsFormatter,
-                          ],
-                          onChanged: (String data) {
-                            if (data.isNotEmpty) {
-                              provider.remainingShaftSeals = data;
-                              provider.nextShaftSealsChangeODOlController.text =
-                                  (int.parse(data) +
-                                          int.parse(provider
-                                                  .currentOodometerReading ??
-                                              '0'))
-                                      .toString();
-                            } else {
-                              provider.remainingShaftSeals = null;
-                              provider.nextShaftSealsChangeODOlController
-                                  .clear();
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  16.horizontalSpace,
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Next service on",
-                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                        ),
-                        16.verticalSpace,
-                        CommonTextFormFieldWithValidator(
-                          hintText: "ODO Reading",
-                          controller:
-                              provider.nextShaftSealsChangeODOlController,
-                          inputAction: TextInputAction.done,
-                          inputType: TextInputType.number,
-                          inputFormatters: [
-                            TextInputFormats.digitsFormatter,
-                          ],
-                          onChanged: (String data) {
-                            provider.nextShaftSealsChangeODO = data;
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              26.verticalSpace,
+              40.verticalSpace,
               StatusSelector(
                 title: "Rear Differential Oil",
                 selection: provider.rearDifferentialOil,
@@ -291,78 +134,25 @@ class _DifferentialCompartmentsState extends State<DifferentialCompartments> {
                     provider.rearDifferentialOil = selection;
                   });
                 },
+                onLifeChanged: (data) {
+                  provider.rearDifferentialOilLife = data;
+                },
+                remainingController: provider.rearDifferentialOilLifeController,
+                onRemainingChanged: (data) {
+                  if (data.isNotEmpty) {
+                    provider.nextRearDifferentialOilChangeODOlController
+                        .text = (int.parse(data) +
+                            int.parse(provider.currentOodometerReading ?? '0'))
+                        .toString();
+                  } else {
+                    provider.nextRearDifferentialOilChangeODOlController
+                        .clear();
+                  }
+                },
+                odoController:
+                    provider.nextRearDifferentialOilChangeODOlController,
               ),
-              26.verticalSpace,
-              Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Remaining Rear Differential Oil",
-                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                        ),
-                        16.verticalSpace,
-                        CommonTextFormFieldWithValidator(
-                          hintText: "Remaining",
-                          controller:
-                              provider.rearDifferentialOilLifeController,
-                          inputAction: TextInputAction.next,
-                          inputType: TextInputType.number,
-                          inputFormatters: [
-                            TextInputFormats.digitsFormatter,
-                          ],
-                          onChanged: (String data) {
-                            if (data.isNotEmpty) {
-                              provider.rearDifferentialOilLife = data;
-                              provider
-                                  .nextRearDifferentialOilChangeODOlController
-                                  .text = (int.parse(data) +
-                                      int.parse(
-                                          provider.currentOodometerReading ??
-                                              '0'))
-                                  .toString();
-                            } else {
-                              provider.rearDifferentialOilLife = null;
-                              provider
-                                  .nextRearDifferentialOilChangeODOlController
-                                  .clear();
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  16.horizontalSpace,
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Next service on",
-                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                        ),
-                        16.verticalSpace,
-                        CommonTextFormFieldWithValidator(
-                          hintText: "ODO Reading",
-                          controller: provider
-                              .nextRearDifferentialOilChangeODOlController,
-                          inputAction: TextInputAction.done,
-                          inputType: TextInputType.number,
-                          inputFormatters: [
-                            TextInputFormats.digitsFormatter,
-                          ],
-                          onChanged: (String data) {
-                            provider.nextRearDifferentialOilChangeODO = data;
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              26.verticalSpace,
+              40.verticalSpace,
               StatusSelector(
                 title: "Differential Bushes",
                 selection: provider.differentialBushes,
@@ -371,77 +161,25 @@ class _DifferentialCompartmentsState extends State<DifferentialCompartments> {
                     provider.differentialBushes = selection;
                   });
                 },
+                onLifeChanged: (data) {
+                  provider.differentialBushesLife = data;
+                },
+                remainingController:
+                    provider.remainingDifferentialBushesController,
+                onRemainingChanged: (data) {
+                  if (data.isNotEmpty) {
+                    provider.nextDifferentialBushesChangeODOlController
+                        .text = (int.parse(data) +
+                            int.parse(provider.currentOodometerReading ?? '0'))
+                        .toString();
+                  } else {
+                    provider.nextDifferentialBushesChangeODOlController.clear();
+                  }
+                },
+                odoController:
+                    provider.nextDifferentialBushesChangeODOlController,
               ),
-              26.verticalSpace,
-              Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Remaining Differential Bushes",
-                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                        ),
-                        16.verticalSpace,
-                        CommonTextFormFieldWithValidator(
-                          hintText: "Remaining",
-                          controller:
-                              provider.remainingDifferentialBushesController,
-                          inputAction: TextInputAction.next,
-                          inputType: TextInputType.number,
-                          inputFormatters: [
-                            TextInputFormats.digitsFormatter,
-                          ],
-                          onChanged: (String data) {
-                            if (data.isNotEmpty) {
-                              provider.remainingDifferentialBushes = data;
-                              provider
-                                  .nextDifferentialBushesChangeODOlController
-                                  .text = (int.parse(data) +
-                                      int.parse(
-                                          provider.currentOodometerReading ??
-                                              '0'))
-                                  .toString();
-                            } else {
-                              provider.remainingDifferentialBushes = null;
-                              provider
-                                  .nextDifferentialBushesChangeODOlController
-                                  .clear();
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  16.horizontalSpace,
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Next service on",
-                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                        ),
-                        16.verticalSpace,
-                        CommonTextFormFieldWithValidator(
-                          hintText: "ODO Reading",
-                          controller: provider
-                              .nextDifferentialBushesChangeODOlController,
-                          inputAction: TextInputAction.done,
-                          inputType: TextInputType.number,
-                          inputFormatters: [
-                            TextInputFormats.digitsFormatter,
-                          ],
-                          onChanged: (String data) {
-                            provider.nextDifferentialBushesChangeODO = data;
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+           
             ],
           );
         }),

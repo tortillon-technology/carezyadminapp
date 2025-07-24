@@ -55,78 +55,25 @@ class _BreakSystemState extends State<BreakSystem> {
                     provider.flbdPercentage = percentage;
                   });
                 },
+                onLifeChanged: (data) {
+                  provider.flBreakDiscLife = data;
+                },
+                remainingController:
+                    provider.remainingFrontLeftBreakDiscController,
+                onRemainingChanged: (data) {
+                  if (data.isNotEmpty) {
+                    provider.nextFrontLeftBreakDiscChangeODOlController
+                        .text = (int.parse(data) +
+                            int.parse(provider.currentOodometerReading ?? '0'))
+                        .toString();
+                  } else {
+                    provider.nextFrontLeftBreakDiscChangeODOlController.clear();
+                  }
+                },
+                odoController:
+                    provider.nextFrontLeftBreakDiscChangeODOlController,
               ),
-              26.verticalSpace,
-              // Row(
-              //   children: [
-              //     Expanded(
-              //       child: Column(
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-              //         children: [
-              //           Text(
-              //             "Remaining Front Left Break Disc",
-              //             style: PlusJakartaFontPalette.f1C1C1C_14_600,
-              //           ),
-              //           16.verticalSpace,
-              //           CommonTextFormFieldWithValidator(
-              //             hintText: "Remaining",
-              //             controller:
-              //                 provider.remainingFrontLeftBreakDiscController,
-              //             inputAction: TextInputAction.next,
-              //             inputType: TextInputType.number,
-              //             inputFormatters: [
-              //               TextInputFormats.digitsFormatter,
-              //             ],
-              //             onChanged: (String data) {
-              //               if (data.isNotEmpty) {
-              //                 provider.remainingFrontLeftBreakDisc = data;
-              //                 provider
-              //                     .nextFrontLeftBreakDiscChangeODOlController
-              //                     .text = (int.parse(data) +
-              //                         int.parse(
-              //                             provider.currentOodometerReading ??
-              //                                 '0'))
-              //                     .toString();
-              //               } else {
-              //                 provider.remainingFrontLeftBreakDisc = null;
-              //                 provider
-              //                     .nextFrontLeftBreakDiscChangeODOlController
-              //                     .clear();
-              //               }
-              //             },
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //     16.horizontalSpace,
-              //     Expanded(
-              //       child: Column(
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-              //         children: [
-              //           Text(
-              //             "Next service on",
-              //             style: PlusJakartaFontPalette.f1C1C1C_14_600,
-              //           ),
-              //           16.verticalSpace,
-              //           CommonTextFormFieldWithValidator(
-              //             hintText: "ODO Reading",
-              //             controller: provider
-              //                 .nextFrontLeftBreakDiscChangeODOlController,
-              //             inputAction: TextInputAction.done,
-              //             inputType: TextInputType.number,
-              //             inputFormatters: [
-              //               TextInputFormats.digitsFormatter,
-              //             ],
-              //             onChanged: (String data) {
-              //               provider.nextFrontLeftBreakDiscChangeODO = data;
-              //             },
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //   ],
-              // ),
-              // 26.verticalSpace,
+              40.verticalSpace,
               StatusSelector(
                 title: "Front Right Break Disc",
                 showPercentage: true,
@@ -141,78 +88,26 @@ class _BreakSystemState extends State<BreakSystem> {
                     provider.frbdPercentage = percentage;
                   });
                 },
+                onLifeChanged: (data) {
+                  provider.frBreakDiscLife = data;
+                },
+                remainingController:
+                    provider.remainingFrontRightBreakDiscController,
+                onRemainingChanged: (data) {
+                  if (data.isNotEmpty) {
+                    provider.nextFrontRightBreakDiscChangeODOlController
+                        .text = (int.parse(data) +
+                            int.parse(provider.currentOodometerReading ?? '0'))
+                        .toString();
+                  } else {
+                    provider.nextFrontRightBreakDiscChangeODOlController
+                        .clear();
+                  }
+                },
+                odoController:
+                    provider.nextFrontRightBreakDiscChangeODOlController,
               ),
-              26.verticalSpace,
-              // Row(
-              //   children: [
-              //     Expanded(
-              //       child: Column(
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-              //         children: [
-              //           Text(
-              //             "Remaining Front Right Break Disc",
-              //             style: PlusJakartaFontPalette.f1C1C1C_14_600,
-              //           ),
-              //           16.verticalSpace,
-              //           CommonTextFormFieldWithValidator(
-              //             hintText: "Remaining",
-              //             controller:
-              //                 provider.remainingFrontRightBreakDiscController,
-              //             inputAction: TextInputAction.next,
-              //             inputType: TextInputType.number,
-              //             inputFormatters: [
-              //               TextInputFormats.digitsFormatter,
-              //             ],
-              //             onChanged: (String data) {
-              //               if (data.isNotEmpty) {
-              //                 provider.remainingFrontRightBreakDisc = data;
-              //                 provider
-              //                     .nextFrontRightBreakDiscChangeODOlController
-              //                     .text = (int.parse(data) +
-              //                         int.parse(
-              //                             provider.currentOodometerReading ??
-              //                                 '0'))
-              //                     .toString();
-              //               } else {
-              //                 provider.remainingFrontRightBreakDisc = null;
-              //                 provider
-              //                     .nextFrontRightBreakDiscChangeODOlController
-              //                     .clear();
-              //               }
-              //             },
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //     16.horizontalSpace,
-              //     Expanded(
-              //       child: Column(
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-              //         children: [
-              //           Text(
-              //             "Next service on",
-              //             style: PlusJakartaFontPalette.f1C1C1C_14_600,
-              //           ),
-              //           16.verticalSpace,
-              //           CommonTextFormFieldWithValidator(
-              //             hintText: "ODO Reading",
-              //             controller: provider
-              //                 .nextFrontRightBreakDiscChangeODOlController,
-              //             inputAction: TextInputAction.done,
-              //             inputType: TextInputType.number,
-              //             inputFormatters: [
-              //               TextInputFormats.digitsFormatter,
-              //             ],
-              //             onChanged: (String data) {
-              //               provider.nextFrontRightBreakDiscChangeODO = data;
-              //             },
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //   ],
-              // ),
-              // 26.verticalSpace,
+              40.verticalSpace,
               StatusSelector(
                 title: "Rear Left Break Disc",
                 showPercentage: true,
@@ -227,76 +122,25 @@ class _BreakSystemState extends State<BreakSystem> {
                     provider.rlbdPercentage = percentage;
                   });
                 },
+                onLifeChanged: (data) {
+                  provider.rlBreakDiscLife = data;
+                },
+                remainingController:
+                    provider.remainingRearLeftBreakDiscController,
+                onRemainingChanged: (data) {
+                  if (data.isNotEmpty) {
+                    provider.nextRearLeftBreakDiscChangeODOlController
+                        .text = (int.parse(data) +
+                            int.parse(provider.currentOodometerReading ?? '0'))
+                        .toString();
+                  } else {
+                    provider.nextRearLeftBreakDiscChangeODOlController.clear();
+                  }
+                },
+                odoController:
+                    provider.nextRearLeftBreakDiscChangeODOlController,
               ),
-              26.verticalSpace,
-              // Row(
-              //   children: [
-              //     Expanded(
-              //       child: Column(
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-              //         children: [
-              //           Text(
-              //             "Remaining Rear Left Break Disc",
-              //             style: PlusJakartaFontPalette.f1C1C1C_14_600,
-              //           ),
-              //           16.verticalSpace,
-              //           CommonTextFormFieldWithValidator(
-              //             hintText: "Remaining",
-              //             controller:
-              //                 provider.remainingRearLeftBreakDiscController,
-              //             inputAction: TextInputAction.next,
-              //             inputType: TextInputType.number,
-              //             inputFormatters: [
-              //               TextInputFormats.digitsFormatter,
-              //             ],
-              //             onChanged: (String data) {
-              //               if (data.isNotEmpty) {
-              //                 provider.remainingRearLeftBreakDisc = data;
-              //                 provider.nextRearLeftBreakDiscChangeODOlController
-              //                     .text = (int.parse(data) +
-              //                         int.parse(
-              //                             provider.currentOodometerReading ??
-              //                                 '0'))
-              //                     .toString();
-              //               } else {
-              //                 provider.remainingRearLeftBreakDisc = null;
-              //                 provider.nextRearLeftBreakDiscChangeODOlController
-              //                     .clear();
-              //               }
-              //             },
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //     16.horizontalSpace,
-              //     Expanded(
-              //       child: Column(
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-              //         children: [
-              //           Text(
-              //             "Next service on",
-              //             style: PlusJakartaFontPalette.f1C1C1C_14_600,
-              //           ),
-              //           16.verticalSpace,
-              //           CommonTextFormFieldWithValidator(
-              //             hintText: "ODO Reading",
-              //             controller: provider
-              //                 .nextRearLeftBreakDiscChangeODOlController,
-              //             inputAction: TextInputAction.done,
-              //             inputType: TextInputType.number,
-              //             inputFormatters: [
-              //               TextInputFormats.digitsFormatter,
-              //             ],
-              //             onChanged: (String data) {
-              //               provider.nextRearLeftBreakDiscChangeODO = data;
-              //             },
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //   ],
-              // ),
-              // 26.verticalSpace,
+              40.verticalSpace,
               StatusSelector(
                 title: "Rear Right Break Disc",
                 showPercentage: true,
@@ -311,78 +155,25 @@ class _BreakSystemState extends State<BreakSystem> {
                     provider.rrbdPercentage = percentage;
                   });
                 },
+                onLifeChanged: (data) {
+                  provider.rrBreakDiscLife = data;
+                },
+                remainingController:
+                    provider.remainingRearRightBreakDiscController,
+                onRemainingChanged: (data) {
+                  if (data.isNotEmpty) {
+                    provider.nextRearRightBreakDiscChangeODOlController
+                        .text = (int.parse(data) +
+                            int.parse(provider.currentOodometerReading ?? '0'))
+                        .toString();
+                  } else {
+                    provider.nextRearRightBreakDiscChangeODOlController.clear();
+                  }
+                },
+                odoController:
+                    provider.nextRearRightBreakDiscChangeODOlController,
               ),
-              26.verticalSpace,
-              // Row(
-              //   children: [
-              //     Expanded(
-              //       child: Column(
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-              //         children: [
-              //           Text(
-              //             "Remaining Rear Right Break Disc",
-              //             style: PlusJakartaFontPalette.f1C1C1C_14_600,
-              //           ),
-              //           16.verticalSpace,
-              //           CommonTextFormFieldWithValidator(
-              //             hintText: "Remaining",
-              //             controller:
-              //                 provider.remainingRearRightBreakDiscController,
-              //             inputAction: TextInputAction.next,
-              //             inputType: TextInputType.number,
-              //             inputFormatters: [
-              //               TextInputFormats.digitsFormatter,
-              //             ],
-              //             onChanged: (String data) {
-              //               if (data.isNotEmpty) {
-              //                 provider.remainingRearRightBreakDisc = data;
-              //                 provider
-              //                     .nextRearRightBreakDiscChangeODOlController
-              //                     .text = (int.parse(data) +
-              //                         int.parse(
-              //                             provider.currentOodometerReading ??
-              //                                 '0'))
-              //                     .toString();
-              //               } else {
-              //                 provider.remainingRearRightBreakDisc = null;
-              //                 provider
-              //                     .nextRearRightBreakDiscChangeODOlController
-              //                     .clear();
-              //               }
-              //             },
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //     16.horizontalSpace,
-              //     Expanded(
-              //       child: Column(
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-              //         children: [
-              //           Text(
-              //             "Next service on",
-              //             style: PlusJakartaFontPalette.f1C1C1C_14_600,
-              //           ),
-              //           16.verticalSpace,
-              //           CommonTextFormFieldWithValidator(
-              //             hintText: "ODO Reading",
-              //             controller: provider
-              //                 .nextRearRightBreakDiscChangeODOlController,
-              //             inputAction: TextInputAction.done,
-              //             inputType: TextInputType.number,
-              //             inputFormatters: [
-              //               TextInputFormats.digitsFormatter,
-              //             ],
-              //             onChanged: (String data) {
-              //               provider.nextRearRightBreakDiscChangeODO = data;
-              //             },
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //   ],
-              // ),
-              // 26.verticalSpace,
+              40.verticalSpace,
               StatusSelector(
                 title: "Front Break Pad",
                 showPercentage: true,
@@ -397,75 +188,23 @@ class _BreakSystemState extends State<BreakSystem> {
                     provider.fbPadPercentage = percentage;
                   });
                 },
+                onLifeChanged: (data) {
+                  provider.fbPadLife = data;
+                },
+                remainingController: provider.remainingFrontBreakPadController,
+                onRemainingChanged: (data) {
+                  if (data.isNotEmpty) {
+                    provider.nextFrontBreakPadChangeODOlController
+                        .text = (int.parse(data) +
+                            int.parse(provider.currentOodometerReading ?? '0'))
+                        .toString();
+                  } else {
+                    provider.nextFrontBreakPadChangeODOlController.clear();
+                  }
+                },
+                odoController: provider.nextFrontBreakPadChangeODOlController,
               ),
-              26.verticalSpace,
-              // Row(
-              //   children: [
-              //     Expanded(
-              //       child: Column(
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-              //         children: [
-              //           Text(
-              //             "Remaining Front Break Pad",
-              //             style: PlusJakartaFontPalette.f1C1C1C_14_600,
-              //           ),
-              //           16.verticalSpace,
-              //           CommonTextFormFieldWithValidator(
-              //             hintText: "Remaining",
-              //             controller: provider.remainingFrontBreakPadController,
-              //             inputAction: TextInputAction.next,
-              //             inputType: TextInputType.number,
-              //             inputFormatters: [
-              //               TextInputFormats.digitsFormatter,
-              //             ],
-              //             onChanged: (String data) {
-              //               if (data.isNotEmpty) {
-              //                 provider.remainingFrontBreakPad = data;
-              //                 provider.nextFrontBreakPadChangeODOlController
-              //                     .text = (int.parse(data) +
-              //                         int.parse(
-              //                             provider.currentOodometerReading ??
-              //                                 '0'))
-              //                     .toString();
-              //               } else {
-              //                 provider.remainingFrontBreakPad = null;
-              //                 provider.nextFrontBreakPadChangeODOlController
-              //                     .clear();
-              //               }
-              //             },
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //     16.horizontalSpace,
-              //     Expanded(
-              //       child: Column(
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-              //         children: [
-              //           Text(
-              //             "Next service on",
-              //             style: PlusJakartaFontPalette.f1C1C1C_14_600,
-              //           ),
-              //           16.verticalSpace,
-              //           CommonTextFormFieldWithValidator(
-              //             hintText: "ODO Reading",
-              //             controller:
-              //                 provider.nextFrontBreakPadChangeODOlController,
-              //             inputAction: TextInputAction.done,
-              //             inputType: TextInputType.number,
-              //             inputFormatters: [
-              //               TextInputFormats.digitsFormatter,
-              //             ],
-              //             onChanged: (String data) {
-              //               provider.nextFrontBreakPadChangeODO = data;
-              //             },
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //   ],
-              // ),
-              // 26.verticalSpace,
+              40.verticalSpace,
               StatusSelector(
                 title: "Rear Break Pad",
                 showPercentage: true,
@@ -480,75 +219,23 @@ class _BreakSystemState extends State<BreakSystem> {
                     provider.rbPadPercentage = percentage;
                   });
                 },
+                onLifeChanged: (data) {
+                  provider.rbPadLife = data;
+                },
+                remainingController: provider.remainingRearBreakPadController,
+                onRemainingChanged: (data) {
+                  if (data.isNotEmpty) {
+                    provider.nextRearBreakPadChangeODOlController
+                        .text = (int.parse(data) +
+                            int.parse(provider.currentOodometerReading ?? '0'))
+                        .toString();
+                  } else {
+                    provider.nextRearBreakPadChangeODOlController.clear();
+                  }
+                },
+                odoController: provider.nextRearBreakPadChangeODOlController,
               ),
-              26.verticalSpace,
-              // Row(
-              //   children: [
-              //     Expanded(
-              //       child: Column(
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-              //         children: [
-              //           Text(
-              //             "Remaining Rear Break Pad",
-              //             style: PlusJakartaFontPalette.f1C1C1C_14_600,
-              //           ),
-              //           16.verticalSpace,
-              //           CommonTextFormFieldWithValidator(
-              //             hintText: "Remaining",
-              //             controller: provider.remainingRearBreakPadController,
-              //             inputAction: TextInputAction.next,
-              //             inputType: TextInputType.number,
-              //             inputFormatters: [
-              //               TextInputFormats.digitsFormatter,
-              //             ],
-              //             onChanged: (String data) {
-              //               if (data.isNotEmpty) {
-              //                 provider.remainingRearBreakPad = data;
-              //                 provider.nextRearBreakPadChangeODOlController
-              //                     .text = (int.parse(data) +
-              //                         int.parse(
-              //                             provider.currentOodometerReading ??
-              //                                 '0'))
-              //                     .toString();
-              //               } else {
-              //                 provider.remainingRearBreakPad = null;
-              //                 provider.nextRearBreakPadChangeODOlController
-              //                     .clear();
-              //               }
-              //             },
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //     16.horizontalSpace,
-              //     Expanded(
-              //       child: Column(
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-              //         children: [
-              //           Text(
-              //             "Next service on",
-              //             style: PlusJakartaFontPalette.f1C1C1C_14_600,
-              //           ),
-              //           16.verticalSpace,
-              //           CommonTextFormFieldWithValidator(
-              //             hintText: "ODO Reading",
-              //             controller:
-              //                 provider.nextRearBreakPadChangeODOlController,
-              //             inputAction: TextInputAction.done,
-              //             inputType: TextInputType.number,
-              //             inputFormatters: [
-              //               TextInputFormats.digitsFormatter,
-              //             ],
-              //             onChanged: (String data) {
-              //               provider.nextRearBreakPadChangeODO = data;
-              //             },
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //   ],
-              // ),
-              // 26.verticalSpace,
+              40.verticalSpace,
               StatusSelector(
                 title: "Rear Break Shoe",
                 showPercentage: true,
@@ -563,75 +250,23 @@ class _BreakSystemState extends State<BreakSystem> {
                     provider.rbShoePercentage = percentage;
                   });
                 },
+                onLifeChanged: (data) {
+                  provider.rbShoeLife = data;
+                },
+                remainingController: provider.remainingRearBreakShoeController,
+                onRemainingChanged: (data) {
+                  if (data.isNotEmpty) {
+                    provider.nextRearBreakShoeChangeODOlController
+                        .text = (int.parse(data) +
+                            int.parse(provider.currentOodometerReading ?? '0'))
+                        .toString();
+                  } else {
+                    provider.nextRearBreakShoeChangeODOlController.clear();
+                  }
+                },
+                odoController: provider.nextRearBreakShoeChangeODOlController,
               ),
-              26.verticalSpace,
-              // Row(
-              //   children: [
-              //     Expanded(
-              //       child: Column(
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-              //         children: [
-              //           Text(
-              //             "Remaining Rear Break Shoe",
-              //             style: PlusJakartaFontPalette.f1C1C1C_14_600,
-              //           ),
-              //           16.verticalSpace,
-              //           CommonTextFormFieldWithValidator(
-              //             hintText: "Remaining",
-              //             controller: provider.remainingRearBreakShoeController,
-              //             inputAction: TextInputAction.next,
-              //             inputType: TextInputType.number,
-              //             inputFormatters: [
-              //               TextInputFormats.digitsFormatter,
-              //             ],
-              //             onChanged: (String data) {
-              //               if (data.isNotEmpty) {
-              //                 provider.remainingRearBreakShoe = data;
-              //                 provider.nextRearBreakShoeChangeODOlController
-              //                     .text = (int.parse(data) +
-              //                         int.parse(
-              //                             provider.currentOodometerReading ??
-              //                                 '0'))
-              //                     .toString();
-              //               } else {
-              //                 provider.remainingRearBreakShoe = null;
-              //                 provider.nextRearBreakShoeChangeODOlController
-              //                     .clear();
-              //               }
-              //             },
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //     16.horizontalSpace,
-              //     Expanded(
-              //       child: Column(
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-              //         children: [
-              //           Text(
-              //             "Next service on",
-              //             style: PlusJakartaFontPalette.f1C1C1C_14_600,
-              //           ),
-              //           16.verticalSpace,
-              //           CommonTextFormFieldWithValidator(
-              //             hintText: "ODO Reading",
-              //             controller:
-              //                 provider.nextRearBreakShoeChangeODOlController,
-              //             inputAction: TextInputAction.done,
-              //             inputType: TextInputType.number,
-              //             inputFormatters: [
-              //               TextInputFormats.digitsFormatter,
-              //             ],
-              //             onChanged: (String data) {
-              //               provider.nextRearBreakShoeChangeODO = data;
-              //             },
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //   ],
-              // ),
-              // 26.verticalSpace,
+              40.verticalSpace,
               StatusSelector(
                 title: "Break Fluid",
                 showPercentage: true,
@@ -646,74 +281,22 @@ class _BreakSystemState extends State<BreakSystem> {
                     provider.breakFluidPercentage = percentage;
                   });
                 },
+                onLifeChanged: (data) {
+                  provider.breakFluidLife = data;
+                },
+                remainingController: provider.remainingBreakFluidController,
+                onRemainingChanged: (data) {
+                  if (data.isNotEmpty) {
+                    provider.nextBreakFluidChangeODOlController
+                        .text = (int.parse(data) +
+                            int.parse(provider.currentOodometerReading ?? '0'))
+                        .toString();
+                  } else {
+                    provider.nextBreakFluidChangeODOlController.clear();
+                  }
+                },
+                odoController: provider.nextBreakFluidChangeODOlController,
               ),
-              26.verticalSpace,
-              // Row(
-              //   children: [
-              //     Expanded(
-              //       child: Column(
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-              //         children: [
-              //           Text(
-              //             "Remaining Break Fluid",
-              //             style: PlusJakartaFontPalette.f1C1C1C_14_600,
-              //           ),
-              //           16.verticalSpace,
-              //           CommonTextFormFieldWithValidator(
-              //             hintText: "Remaining",
-              //             controller: provider.remainingBreakFluidController,
-              //             inputAction: TextInputAction.next,
-              //             inputType: TextInputType.number,
-              //             inputFormatters: [
-              //               TextInputFormats.digitsFormatter,
-              //             ],
-              //             onChanged: (String data) {
-              //               if (data.isNotEmpty) {
-              //                 provider.remainingBreakFluid = data;
-              //                 provider.nextBreakFluidChangeODOlController.text =
-              //                     (int.parse(data) +
-              //                             int.parse(provider
-              //                                     .currentOodometerReading ??
-              //                                 '0'))
-              //                         .toString();
-              //               } else {
-              //                 provider.remainingBreakFluid = null;
-              //                 provider.nextBreakFluidChangeODOlController
-              //                     .clear();
-              //               }
-              //             },
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //     16.horizontalSpace,
-              //     Expanded(
-              //       child: Column(
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-              //         children: [
-              //           Text(
-              //             "Next service on",
-              //             style: PlusJakartaFontPalette.f1C1C1C_14_600,
-              //           ),
-              //           16.verticalSpace,
-              //           CommonTextFormFieldWithValidator(
-              //             hintText: "ODO Reading",
-              //             controller:
-              //                 provider.nextBreakFluidChangeODOlController,
-              //             inputAction: TextInputAction.done,
-              //             inputType: TextInputType.number,
-              //             inputFormatters: [
-              //               TextInputFormats.digitsFormatter,
-              //             ],
-              //             onChanged: (String data) {
-              //               provider.nextBreakFluidChangeODO = data;
-              //             },
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //   ],
-              // ),
             ],
           );
         }),

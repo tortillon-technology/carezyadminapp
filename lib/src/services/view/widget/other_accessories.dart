@@ -6,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../res/styles/fonts/plus_jakarta_font_palette.dart';
-import '../../../../utils/helpers/text_input_formatters.dart';
 import '../../view_model/add_service_view_model.dart';
 
 class OtherAccessories extends StatelessWidget {
@@ -46,75 +45,24 @@ class OtherAccessories extends StatelessWidget {
                     provider.centerLock = selection;
                   });
                 },
-              ),
-              26.verticalSpace,
-              Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Remaining Center Lock",
-                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                        ),
-                        16.verticalSpace,
-                        CommonTextFormFieldWithValidator(
-                          hintText: "Remaining",
-                          controller: provider.remainingCenterLockController,
-                          inputAction: TextInputAction.next,
-                          inputType: TextInputType.number,
-                          inputFormatters: [
-                            TextInputFormats.digitsFormatter,
-                          ],
-                          onChanged: (String data) {
-                            if (data.isNotEmpty) {
-                              provider.remainingCenterLock = data;
-                              provider.nextCenterLockChangeODOlController.text =
-                                  (int.parse(data) +
-                                          int.parse(provider
-                                                  .currentOodometerReading ??
-                                              '0'))
-                                      .toString();
-                            } else {
-                              provider.remainingCenterLock = null;
-                              provider.nextCenterLockChangeODOlController
-                                  .clear();
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  16.horizontalSpace,
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Next service on",
-                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                        ),
-                        16.verticalSpace,
-                        CommonTextFormFieldWithValidator(
-                          hintText: "ODO Reading",
-                          controller:
-                              provider.nextCenterLockChangeODOlController,
-                          inputAction: TextInputAction.done,
-                          inputType: TextInputType.number,
-                          inputFormatters: [
-                            TextInputFormats.digitsFormatter,
-                          ],
-                          onChanged: (String data) {
-                            provider.nextCenterLockChangeODO = data;
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                onLifeChanged: (data) {
+                  provider.centerLockLife = data;
+                },
+                remainingController: provider.remainingCenterLockController,
+                onRemainingChanged: (String data) {
+                  if (data.isNotEmpty) {
+                    provider.nextCenterLockChangeODOlController
+                        .text = (int.parse(data) +
+                            int.parse(provider.currentOodometerReading ?? '0'))
+                        .toString();
+                  } else {
+                    provider.nextCenterLockChangeODOlController.clear();
+                  }
+                },
+                odoController: provider.nextCenterLockChangeODOlController,
               ),
               18.verticalSpace,
+
               CommonTextFormFieldWithValidator(
                 hintText: "Remarks",
                 onChanged: (String data) {
@@ -122,7 +70,7 @@ class OtherAccessories extends StatelessWidget {
                 },
               ),
               //
-              26.verticalSpace,
+              40.verticalSpace,
               StatusSelector(
                 title: "Window Lifter",
                 selection: provider.windowLifter,
@@ -131,75 +79,24 @@ class OtherAccessories extends StatelessWidget {
                     provider.windowLifter = selection;
                   });
                 },
-              ),
-              26.verticalSpace,
-              Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Remaining Window Lifter",
-                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                        ),
-                        16.verticalSpace,
-                        CommonTextFormFieldWithValidator(
-                          hintText: "Remaining",
-                          controller: provider.remainingWindowLifterController,
-                          inputAction: TextInputAction.next,
-                          inputType: TextInputType.number,
-                          inputFormatters: [
-                            TextInputFormats.digitsFormatter,
-                          ],
-                          onChanged: (String data) {
-                            if (data.isNotEmpty) {
-                              provider.remainingWindowLifter = data;
-                              provider.nextWindowLifterChangeODOlController
-                                  .text = (int.parse(data) +
-                                      int.parse(
-                                          provider.currentOodometerReading ??
-                                              '0'))
-                                  .toString();
-                            } else {
-                              provider.remainingWindowLifter = null;
-                              provider.nextWindowLifterChangeODOlController
-                                  .clear();
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  16.horizontalSpace,
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Next service on",
-                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                        ),
-                        16.verticalSpace,
-                        CommonTextFormFieldWithValidator(
-                          hintText: "ODO Reading",
-                          controller:
-                              provider.nextWindowLifterChangeODOlController,
-                          inputAction: TextInputAction.done,
-                          inputType: TextInputType.number,
-                          inputFormatters: [
-                            TextInputFormats.digitsFormatter,
-                          ],
-                          onChanged: (String data) {
-                            provider.nextWindowLifterChangeODO = data;
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                onLifeChanged: (data) {
+                  provider.windowLifterLife = data;
+                },
+                remainingController: provider.remainingWindowLifterController,
+                onRemainingChanged: (String data) {
+                  if (data.isNotEmpty) {
+                    provider.nextWindowLifterChangeODOlController
+                        .text = (int.parse(data) +
+                            int.parse(provider.currentOodometerReading ?? '0'))
+                        .toString();
+                  } else {
+                    provider.nextWindowLifterChangeODOlController.clear();
+                  }
+                },
+                odoController: provider.nextWindowLifterChangeODOlController,
               ),
               18.verticalSpace,
+
               CommonTextFormFieldWithValidator(
                 hintText: "Remarks",
                 onChanged: (String data) {
@@ -216,75 +113,25 @@ class OtherAccessories extends StatelessWidget {
                     provider.alignment = selection;
                   });
                 },
+                onLifeChanged: (data) {
+                  provider.alignmentLife = data;
+                },
+                remainingController: provider.remainingAlignmentController,
+                onRemainingChanged: (String data) {
+                  if (data.isNotEmpty) {
+                    provider.nextAlignmentChangeODOlController
+                        .text = (int.parse(data) +
+                            int.parse(provider.currentOodometerReading ?? '0'))
+                        .toString();
+                  } else {
+                    provider.nextAlignmentChangeODOlController.clear();
+                  }
+                },
+                odoController: provider.nextAlignmentChangeODOlController,
               ),
-              26.verticalSpace,
-              Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Remaining Alignment",
-                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                        ),
-                        16.verticalSpace,
-                        CommonTextFormFieldWithValidator(
-                          hintText: "Remaining",
-                          controller: provider.remainingAlignmentController,
-                          inputAction: TextInputAction.next,
-                          inputType: TextInputType.number,
-                          inputFormatters: [
-                            TextInputFormats.digitsFormatter,
-                          ],
-                          onChanged: (String data) {
-                            if (data.isNotEmpty) {
-                              provider.remainingAlignment = data;
-                              provider.nextAlignmentChangeODOlController.text =
-                                  (int.parse(data) +
-                                          int.parse(provider
-                                                  .currentOodometerReading ??
-                                              '0'))
-                                      .toString();
-                            } else {
-                              provider.remainingAlignment = null;
-                              provider.nextAlignmentChangeODOlController
-                                  .clear();
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  16.horizontalSpace,
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Next service on",
-                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                        ),
-                        16.verticalSpace,
-                        CommonTextFormFieldWithValidator(
-                          hintText: "ODO Reading",
-                          controller:
-                              provider.nextAlignmentChangeODOlController,
-                          inputAction: TextInputAction.done,
-                          inputType: TextInputType.number,
-                          inputFormatters: [
-                            TextInputFormats.digitsFormatter,
-                          ],
-                          onChanged: (String data) {
-                            provider.nextAlignmentChangeODO = data;
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              26.verticalSpace,
+
+              40.verticalSpace,
+
               StatusSelector(
                 title: "Wheel Balance",
                 selection: provider.wheelBalance,
@@ -293,75 +140,24 @@ class OtherAccessories extends StatelessWidget {
                     provider.wheelBalance = selection;
                   });
                 },
+                onLifeChanged: (data) {
+                  provider.wheelBalanceLife = data;
+                },
+                remainingController: provider.remainingWheelBalanceController,
+                onRemainingChanged: (String data) {
+                  if (data.isNotEmpty) {
+                    provider.nextWheelBalanceChangeODOlController
+                        .text = (int.parse(data) +
+                            int.parse(provider.currentOodometerReading ?? '0'))
+                        .toString();
+                  } else {
+                    provider.nextWheelBalanceChangeODOlController.clear();
+                  }
+                },
+                odoController: provider.nextWheelBalanceChangeODOlController,
               ),
-              26.verticalSpace,
-              Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Remaining Wheel Balance",
-                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                        ),
-                        16.verticalSpace,
-                        CommonTextFormFieldWithValidator(
-                          hintText: "Remaining",
-                          controller: provider.remainingWheelBalanceController,
-                          inputAction: TextInputAction.next,
-                          inputType: TextInputType.number,
-                          inputFormatters: [
-                            TextInputFormats.digitsFormatter,
-                          ],
-                          onChanged: (String data) {
-                            if (data.isNotEmpty) {
-                              provider.remainingWheelBalance = data;
-                              provider.nextWheelBalanceChangeODOlController
-                                  .text = (int.parse(data) +
-                                      int.parse(
-                                          provider.currentOodometerReading ??
-                                              '0'))
-                                  .toString();
-                            } else {
-                              provider.remainingWheelBalance = null;
-                              provider.nextWheelBalanceChangeODOlController
-                                  .clear();
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  16.horizontalSpace,
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Next service on",
-                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                        ),
-                        16.verticalSpace,
-                        CommonTextFormFieldWithValidator(
-                          hintText: "ODO Reading",
-                          controller:
-                              provider.nextWheelBalanceChangeODOlController,
-                          inputAction: TextInputAction.done,
-                          inputType: TextInputType.number,
-                          inputFormatters: [
-                            TextInputFormats.digitsFormatter,
-                          ],
-                          onChanged: (String data) {
-                            provider.nextWheelBalanceChangeODO = data;
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              26.verticalSpace,
+              40.verticalSpace,
+
               StatusSelector(
                 title: "Wiper Blade Front",
                 selection: provider.wiperBladeFront,
@@ -370,76 +166,11 @@ class OtherAccessories extends StatelessWidget {
                     provider.wiperBladeFront = selection;
                   });
                 },
+                showLife: false,
+                showRemainingAndNextOdo: false,
               ),
-              26.verticalSpace,
-              Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Remaining Wiper Blade Front",
-                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                        ),
-                        16.verticalSpace,
-                        CommonTextFormFieldWithValidator(
-                          hintText: "Remaining",
-                          controller:
-                              provider.remainingWiperBladeFrontController,
-                          inputAction: TextInputAction.next,
-                          inputType: TextInputType.number,
-                          inputFormatters: [
-                            TextInputFormats.digitsFormatter,
-                          ],
-                          onChanged: (String data) {
-                            if (data.isNotEmpty) {
-                              provider.remainingWiperBladeFront = data;
-                              provider.nextWiperBladeFrontChangeODOlController
-                                  .text = (int.parse(data) +
-                                      int.parse(
-                                          provider.currentOodometerReading ??
-                                              '0'))
-                                  .toString();
-                            } else {
-                              provider.remainingWiperBladeFront = null;
-                              provider.nextWiperBladeFrontChangeODOlController
-                                  .clear();
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  16.horizontalSpace,
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Next service on",
-                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                        ),
-                        16.verticalSpace,
-                        CommonTextFormFieldWithValidator(
-                          hintText: "ODO Reading",
-                          controller:
-                              provider.nextWiperBladeFrontChangeODOlController,
-                          inputAction: TextInputAction.done,
-                          inputType: TextInputType.number,
-                          inputFormatters: [
-                            TextInputFormats.digitsFormatter,
-                          ],
-                          onChanged: (String data) {
-                            provider.nextWiperBladeFrontChangeODO = data;
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              26.verticalSpace,
+
+              40.verticalSpace,
               StatusSelector(
                 title: "Wiper Blade Rear",
                 selection: provider.wiperBladeRear,
@@ -448,73 +179,47 @@ class OtherAccessories extends StatelessWidget {
                     provider.wiperBladeRear = selection;
                   });
                 },
+                showLife: false,
+                showRemainingAndNextOdo: false,
               ),
-              26.verticalSpace,
+              40.verticalSpace,
+              StatusSelector(
+                title: "Battery",
+                selection: provider.batterySelection,
+                onSelection: (selection) {
+                  provider.update(callBack: () {
+                    provider.batterySelection = selection;
+                  });
+                },
+                showLife: false,
+                showRemainingAndNextOdo: false,
+              ),
+              18.verticalSpace,
+
+              CommonTextFormFieldWithValidator(
+                hintText: "Battery Ampere",
+                onChanged: (String data) {
+                  provider.batteryAmpere = data;
+                },
+              ),
+              18.verticalSpace,
               Row(
                 children: [
                   Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Remaining Wiper Blade Rear",
-                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        16.verticalSpace,
-                        CommonTextFormFieldWithValidator(
-                          hintText: "Remaining",
-                          controller:
-                              provider.remainingWiperBladeRearController,
-                          inputAction: TextInputAction.next,
-                          inputType: TextInputType.number,
-                          inputFormatters: [
-                            TextInputFormats.digitsFormatter,
-                          ],
-                          onChanged: (String data) {
-                            if (data.isNotEmpty) {
-                              provider.remainingWiperBladeRear = data;
-                              provider.nextWiperBladeRearChangeODOlController
-                                  .text = (int.parse(data) +
-                                      int.parse(
-                                          provider.currentOodometerReading ??
-                                              '0'))
-                                  .toString();
-                            } else {
-                              provider.remainingWiperBladeRear = null;
-                              provider.nextWiperBladeRearChangeODOlController
-                                  .clear();
-                            }
-                          },
-                        ),
-                      ],
+                    child: CommonTextFormFieldWithValidator(
+                      hintText: "Battery Brand",
+                      onChanged: (String data) {
+                        provider.batteryBrand = data;
+                      },
                     ),
                   ),
-                  16.horizontalSpace,
+                  18.horizontalSpace,
                   Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Next service on",
-                          style: PlusJakartaFontPalette.f1C1C1C_14_600,
-                        ),
-                        16.verticalSpace,
-                        CommonTextFormFieldWithValidator(
-                          hintText: "ODO Reading",
-                          controller:
-                              provider.nextWiperBladeRearChangeODOlController,
-                          inputAction: TextInputAction.done,
-                          inputType: TextInputType.number,
-                          inputFormatters: [
-                            TextInputFormats.digitsFormatter,
-                          ],
-                          onChanged: (String data) {
-                            provider.nextWiperBladeRearChangeODO = data;
-                          },
-                        ),
-                      ],
+                    child: CommonTextFormFieldWithValidator(
+                      hintText: "Battery Type",
+                      onChanged: (String data) {
+                        provider.batteryType = data;
+                      },
                     ),
                   ),
                 ],

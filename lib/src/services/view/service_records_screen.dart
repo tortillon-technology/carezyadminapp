@@ -145,105 +145,100 @@ class _ServiceRecordsScreenState extends State<ServiceRecordsScreen> {
                     );
                     viewModel.check('');
                   },
-                  child: Center(
-                    child: SingleChildScrollView(
-                      controller: _scrollController,
-                      padding: EdgeInsets.symmetric(vertical: 10.h),
-                      child: Consumer<ServiceViewModel>(
-                          builder: (context, provider, child) {
-                        return SearchSwitchState(
-                          loader: provider.isLoading,
-                          child: Column(
-                            children: [
-                              ...List.generate(
-                                provider.serviceList.length,
-                                (index) {
-                                  bool isLast =
-                                      index == provider.serviceList.length;
-                                  final item = provider.serviceList[index];
-                                  String customerName =
-                                      item.serviceNumber ?? "";
-                                  String vehicleName = item.vehicleName ?? "";
-                                  String lastServiceDate =
-                                      item.serviceDate ?? "";
-                                  return InkWell(
-                                    splashColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () {
-                                      viewModel.id = (item.id ?? 0).toString();
-                                      Navigator.pushNamed(
-                                          context,
-                                          RouteConstants
-                                              .routeServiceDetailsScreen,
-                                          arguments: viewModel);
-                                    },
-                                    child: Container(
-                                      padding: EdgeInsets.all(16.w),
-                                      margin: EdgeInsets.only(
-                                          bottom: isLast ? 0 : 8.h),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius:
-                                            BorderRadius.circular(10.r),
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  customerName
-                                                      .capitalizeEachLetter(),
-                                                  style: PlusJakartaFontPalette
-                                                      .fBlack_14_600,
-                                                ),
-                                                4.verticalSpace,
-                                                Text(
-                                                  vehicleName,
-                                                  style: PlusJakartaFontPalette
-                                                      .f6E6E6E_12_500,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          if (lastServiceDate.isNotEmpty)
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
-                                              children: [
-                                                Text(
-                                                  lastServiceDate,
-                                                  style: PlusJakartaFontPalette
-                                                      .fBlack_12_600,
-                                                ),
-                                              ],
-                                            )
-                                        ],
-                                      ),
+                  child: SingleChildScrollView(
+                    controller: _scrollController,
+                    padding: EdgeInsets.symmetric(vertical: 10.h),
+                    child: Consumer<ServiceViewModel>(
+                        builder: (context, provider, child) {
+                      return SearchSwitchState(
+                        loader: provider.isLoading,
+                        child: Column(
+                          children: [
+                            ...List.generate(
+                              provider.serviceList.length,
+                              (index) {
+                                bool isLast =
+                                    index == provider.serviceList.length;
+                                final item = provider.serviceList[index];
+                                String customerName = item.serviceNumber ?? "";
+                                String vehicleName = item.vehicleName ?? "";
+                                String lastServiceDate = item.serviceDate ?? "";
+                                return InkWell(
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () {
+                                    viewModel.id = (item.id ?? 0).toString();
+                                    Navigator.pushNamed(
+                                        context,
+                                        RouteConstants
+                                            .routeServiceDetailsScreen,
+                                        arguments: viewModel);
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.all(16.w),
+                                    margin: EdgeInsets.only(
+                                        bottom: isLast ? 0 : 8.h),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10.r),
                                     ),
-                                  );
-                                },
-                              ),
-                              if (provider.isPaginating)
-                                SizedBox(
-                                  width: context.sw(),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      CircularProgressIndicator(
-                                        color: ColorPalette.fEC0008,
-                                      )
-                                    ],
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                customerName
+                                                    .capitalizeEachLetter(),
+                                                style: PlusJakartaFontPalette
+                                                    .fBlack_14_600,
+                                              ),
+                                              4.verticalSpace,
+                                              Text(
+                                                vehicleName,
+                                                style: PlusJakartaFontPalette
+                                                    .f6E6E6E_12_500,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        if (lastServiceDate.isNotEmpty)
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
+                                            children: [
+                                              Text(
+                                                lastServiceDate,
+                                                style: PlusJakartaFontPalette
+                                                    .fBlack_12_600,
+                                              ),
+                                            ],
+                                          )
+                                      ],
+                                    ),
                                   ),
+                                );
+                              },
+                            ),
+                            if (provider.isPaginating)
+                              SizedBox(
+                                width: context.sw(),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    CircularProgressIndicator(
+                                      color: ColorPalette.fEC0008,
+                                    )
+                                  ],
                                 ),
-                              100.verticalSpace,
-                            ],
-                          ),
-                        );
-                      }),
-                    ),
+                              ),
+                            100.verticalSpace,
+                          ],
+                        ),
+                      );
+                    }),
                   ),
                 ),
               )
@@ -263,7 +258,12 @@ class _ServiceRecordsScreenState extends State<ServiceRecordsScreen> {
               ),
               onPressed: () {
                 Navigator.pushNamed(
-                    context, RouteConstants.routeAddServiceScreen);
+                        context, RouteConstants.routeAddServiceScreen)
+                    .then(
+                  (value) {
+                   viewModel.getServiceList();
+                  },
+                );
               },
             )
           ],

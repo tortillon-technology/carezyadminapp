@@ -14,7 +14,14 @@ class StatusSelector extends StatefulWidget {
   final Function(Selection? selection)? onSelection;
   final Function(String percentage)? onPercentageChange;
   final bool showPercentage;
-  final TextEditingController? controller;
+  final bool showRemainingAndNextOdo;
+  final bool showLife;
+  final TextEditingController? percentageController;
+  final TextEditingController? lifeController;
+  final TextEditingController? remainingController;
+  final TextEditingController? odoController;
+  final Function(String data)? onLifeChanged;
+  final Function(String data)? onRemainingChanged;
 
   const StatusSelector({
     super.key,
@@ -23,7 +30,14 @@ class StatusSelector extends StatefulWidget {
     this.onSelection,
     this.onPercentageChange,
     this.showPercentage = false,
-    this.controller,
+    this.showRemainingAndNextOdo = true,
+    this.showLife = true,
+    this.percentageController,
+    this.lifeController,
+    this.remainingController,
+    this.odoController,
+    this.onLifeChanged,
+    this.onRemainingChanged,
   });
 
   @override
@@ -43,7 +57,8 @@ class _StatusSelectorState extends State<StatusSelector> {
         children: [
           Text(
             widget.title,
-            style: PlusJakartaFontPalette.f1C1C1C_14_600,
+            style:
+                PlusJakartaFontPalette.f1C1C1C_14_600.copyWith(fontSize: 16.sp),
           ),
           16.verticalSpace,
           Row(
@@ -83,12 +98,12 @@ class _StatusSelectorState extends State<StatusSelector> {
             Row(
               children: [
                 SizedBox(
-                    width: 60.w,
+                    width: 120.w,
                     child: CommonTextFormFieldWithValidator(
                       height: 40.h,
                       hintText: "%",
                       inputType: TextInputType.number,
-                      controller: widget.controller,
+                      controller: widget.percentageController,
                       inputFormatters: [
                         RangeInputFormatter(),
                         TextInputFormats.digitsFormatter,
@@ -110,6 +125,74 @@ class _StatusSelectorState extends State<StatusSelector> {
                 Text(
                   "Percentage",
                   style: PlusJakartaFontPalette.fBlack_14_400,
+                ),
+              ],
+            ),
+          if (widget.showLife) 20.verticalSpace,
+          if (widget.showLife)
+            Text(
+              "${widget.title} Life (km)",
+              style: PlusJakartaFontPalette.f1C1C1C_14_600,
+            ),
+          if (widget.showLife) 16.verticalSpace,
+          if (widget.showLife)
+            CommonTextFormFieldWithValidator(
+              hintText: "Enter life (km)",
+              controller: widget.lifeController,
+              inputAction: TextInputAction.next,
+              inputType: TextInputType.number,
+              inputFormatters: [
+                TextInputFormats.digitsFormatter,
+              ],
+              onChanged: widget.onLifeChanged,
+            ),
+          if (widget.showRemainingAndNextOdo) 20.verticalSpace,
+          if (widget.showRemainingAndNextOdo)
+            Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Remaining Life (km)",
+                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                      ),
+                      16.verticalSpace,
+                      CommonTextFormFieldWithValidator(
+                        hintText: "Remaining",
+                        controller: widget.remainingController,
+                        inputAction: TextInputAction.next,
+                        inputType: TextInputType.number,
+                        inputFormatters: [
+                          TextInputFormats.digitsFormatter,
+                        ],
+                        onChanged: widget.onRemainingChanged,
+                      ),
+                    ],
+                  ),
+                ),
+                16.horizontalSpace,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Next service on",
+                        style: PlusJakartaFontPalette.f1C1C1C_14_600,
+                      ),
+                      16.verticalSpace,
+                      CommonTextFormFieldWithValidator(
+                        hintText: "ODO Reading",
+                        controller: widget.odoController,
+                        inputAction: TextInputAction.done,
+                        inputType: TextInputType.number,
+                        inputFormatters: [
+                          TextInputFormats.digitsFormatter,
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

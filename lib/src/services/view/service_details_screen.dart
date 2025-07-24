@@ -51,6 +51,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
           final srvNumber = data?.serviceNumber ?? "";
           final vehicle = data?.vehicleName ?? "";
           final regNumber = data?.registrationNumber ?? "";
+          final serviceDate = data?.serviceDate ?? "";
           final vinNumber = data?.vinNumber ?? "";
           return CommonSwitchState(
             loader: provider.loaderState,
@@ -88,7 +89,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                               ],
                             ),
                             Text(
-                              'April 4, 2025',
+                              serviceDate,
                               style: PlusJakartaFontPalette.f6E6E6E_14_500
                                   .copyWith(
                                       color: HexColor("#EC0008"),
