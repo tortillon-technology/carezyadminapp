@@ -1,78 +1,117 @@
-import 'dart:convert';
+import 'package:equatable/equatable.dart';
 
-OodoModel oodoModelFromJson(String str) => OodoModel.fromJson(json.decode(str));
-
-String oodoModelToJson(OodoModel data) => json.encode(data.toJson());
-
-class OodoModel {
-  final bool? status;
-  final String? message;
-  final Results? results;
-
-  OodoModel({
+class OdoModel extends Equatable {
+  const OdoModel({
     this.status,
     this.message,
     this.results,
   });
 
-  factory OodoModel.fromJson(Map<String, dynamic> json) => OodoModel(
-        status: json["status"],
-        message: json["message"],
-        results:
-            json["results"] == null ? null : Results.fromJson(json["results"]),
-      );
+  final bool? status;
+  final String? message;
+  final Results? results;
 
-  Map<String, dynamic> toJson() => {
-        "status": status,
-        "message": message,
-        "results": results?.toJson(),
-      };
+  factory OdoModel.fromJson(Map<String, dynamic> json) {
+    return OdoModel(
+      status: json["status"] ?? false,
+      message: json["message"] ?? "",
+      results:
+          json["results"] == null ? null : Results.fromJson(json["results"]),
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+        status,
+        message,
+        results,
+      ];
 }
 
-class Results {
-  final Data? data;
-
-  Results({
-    this.data,
+class Results extends Equatable {
+  const Results({
+    required this.data,
   });
 
-  factory Results.fromJson(Map<String, dynamic> json) => Results(
-        data: json["data"] == null ? null : Data.fromJson(json["data"]),
-      );
+  final Data? data;
 
-  Map<String, dynamic> toJson() => {
-        "data": data?.toJson(),
-      };
+  factory Results.fromJson(Map<String, dynamic> json) {
+    return Results(
+      data: json["data"] == null ? null : Data.fromJson(json["data"]),
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+        data,
+      ];
 }
 
-class Data {
-  final int? id;
-  final String? nameEn;
-  final String? currentKilometer;
-  final String? remainingKm;
-  final String? nextServiceOdo;
-
-  Data({
+class Data extends Equatable {
+  const Data({
     this.id,
     this.nameEn,
     this.currentKilometer,
-    this.remainingKm,
-    this.nextServiceOdo,
+    this.components,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-        id: json["id"],
-        nameEn: json["name_en"],
-        currentKilometer: json["current_kilometer"],
-        remainingKm: json["remaining_km"],
-        nextServiceOdo: json["next_service_odo"],
-      );
+  final int? id;
+  final String? nameEn;
+  final String? currentKilometer;
+  final List<Component>? components;
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name_en": nameEn,
-        "current_kilometer": currentKilometer,
-        "remaining_km": remainingKm,
-        "next_service_odo": nextServiceOdo,
-      };
+  factory Data.fromJson(Map<String, dynamic> json) {
+    return Data(
+      id: json["id"] ?? 0,
+      nameEn: json["name_en"] ?? "",
+      currentKilometer: json["current_kilometer"] ?? "",
+      components: json["components"] == null
+          ? []
+          : List<Component>.from(
+              json["components"]!.map((x) => Component.fromJson(x))),
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+        id,
+        nameEn,
+        currentKilometer,
+        components,
+      ];
+}
+
+class Component extends Equatable {
+  const Component({
+    this.component,
+    this.oilLife,
+    this.remainingKm,
+    this.nextServiceOdo,
+    this.componentLife,
+  });
+
+  final String? component;
+  final String? oilLife;
+  final String? remainingKm;
+  final String? nextServiceOdo;
+  final String? componentLife;
+
+  factory Component.fromJson(Map<String, dynamic> json) {
+    return Component(
+      component: json["component"] ?? "",
+      oilLife: json["oil_life"] ?? "",
+      remainingKm: json["remaining_km"] ?? "",
+      nextServiceOdo: json["next_service_odo"] ?? "",
+      componentLife: json["component_life"] ?? "",
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+        component,
+        oilLife,
+        remainingKm,
+        nextServiceOdo,
+        componentLife,
+      ];
 }

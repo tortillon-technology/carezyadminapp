@@ -44,9 +44,7 @@ class FuelSystem extends StatelessWidget {
                     provider.fuelPump = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.fuelPumpLife = data;
-                },
+                lifeController: provider.lifeFuelPumpController,
                 remainingController: provider.remainingFuelPumpController,
                 onRemainingChanged: (String data) {
                   if (data.isNotEmpty) {
@@ -69,9 +67,7 @@ class FuelSystem extends StatelessWidget {
                     provider.fuelFilter = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.fuelFilterLife = data;
-                },
+                lifeController: provider.lifeFuelFilterController,
                 remainingController: provider.remainingFuelFilterController,
                 onRemainingChanged: (String data) {
                   if (data.isNotEmpty) {
@@ -94,9 +90,7 @@ class FuelSystem extends StatelessWidget {
                     provider.canister = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.canisterLife = data;
-                },
+                lifeController: provider.lifeCanisterController,
                 remainingController: provider.remainingCanisterController,
                 onRemainingChanged: (String data) {
                   if (data.isNotEmpty) {
@@ -119,9 +113,7 @@ class FuelSystem extends StatelessWidget {
                     provider.fuelTank = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.fuelTankLife = data;
-                },
+                lifeController: provider.lifeFuelTankController,
                 remainingController: provider.remainingFuelTankController,
                 onRemainingChanged: (String data) {
                   if (data.isNotEmpty) {

@@ -44,9 +44,7 @@ class SteeringSystem extends StatelessWidget {
                     provider.sbl = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.sblLife = data;
-                },
+                lifeController: provider.lifeSteeringBootLeftController,
                 remainingController:
                     provider.remainingSteeringBootLeftController,
                 onRemainingChanged: (String data) {
@@ -71,9 +69,7 @@ class SteeringSystem extends StatelessWidget {
                     provider.sbr = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.sbrLife = data;
-                },
+                lifeController: provider.lifeSteeringBootRightController,
                 remainingController:
                     provider.remainingSteeringBootRightController,
                 onRemainingChanged: (String data) {
@@ -98,9 +94,7 @@ class SteeringSystem extends StatelessWidget {
                     provider.sel = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.selLife = data;
-                },
+                lifeController: provider.lifeSteeringEndLeftController,
                 remainingController:
                     provider.remainingSteeringEndLeftController,
                 onRemainingChanged: (String data) {
@@ -124,9 +118,7 @@ class SteeringSystem extends StatelessWidget {
                     provider.ser = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.serLife = data;
-                },
+                lifeController: provider.lifeSteeringEndRightController,
                 remainingController:
                     provider.remainingSteeringEndRightController,
                 onRemainingChanged: (String data) {
@@ -151,9 +143,7 @@ class SteeringSystem extends StatelessWidget {
                     provider.bjl = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.bjlLife = data;
-                },
+                lifeController: provider.lifeBallJointLeftController,
                 remainingController: provider.remainingBallJointLeftController,
                 onRemainingChanged: (String data) {
                   if (data.isNotEmpty) {
@@ -176,9 +166,7 @@ class SteeringSystem extends StatelessWidget {
                     provider.bjr = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.bjrLife = data;
-                },
+                lifeController: provider.lifeBallJointRightController,
                 remainingController: provider.remainingBallJointRightController,
                 onRemainingChanged: (String data) {
                   if (data.isNotEmpty) {

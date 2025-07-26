@@ -43,9 +43,8 @@ class SuspensionSystem extends StatelessWidget {
                   provider.flla = s;
                 });
               },
-              onLifeChanged: (data) {
-                provider.fllaLife = data;
-              },
+              lifeController: provider.lifeFrontLeftLowerArmController,
+            
               remainingController:
                   provider.remainingFrontLeftLowerArmController,
               onRemainingChanged: (String data) {
@@ -71,9 +70,7 @@ class SuspensionSystem extends StatelessWidget {
                   provider.frla = s;
                 });
               },
-              onLifeChanged: (data) {
-                provider.frlaLife = data;
-              },
+              lifeController: provider.lifeFrontRightLowerArmController,
               remainingController:
                   provider.remainingFrontRightLowerArmController,
               onRemainingChanged: (String data) {
@@ -99,9 +96,7 @@ class SuspensionSystem extends StatelessWidget {
                   provider.rlla = s;
                 });
               },
-              onLifeChanged: (data) {
-                provider.rllaLife = data;
-              },
+              lifeController: provider.lifeRearLeftLowerArmController,
               remainingController: provider.remainingRearLeftLowerArmController,
               onRemainingChanged: (String data) {
                 if (data.isNotEmpty) {
@@ -125,9 +120,7 @@ class SuspensionSystem extends StatelessWidget {
                   provider.rrla = s;
                 });
               },
-              onLifeChanged: (data) {
-                provider.rrlaLife = data;
-              },
+              lifeController: provider.lifeRearRightLowerArmController,
               remainingController:
                   provider.remainingRearRightLowerArmController,
               onRemainingChanged: (String data) {
@@ -152,9 +145,7 @@ class SuspensionSystem extends StatelessWidget {
                   provider.uafl = s;
                 });
               },
-              onLifeChanged: (data) {
-                provider.uaflLife = data;
-              },
+              lifeController: provider.lifeUpperArmFrontLeftController,
               remainingController:
                   provider.remainingUpperArmFrontLeftController,
               onRemainingChanged: (String data) {
@@ -179,9 +170,7 @@ class SuspensionSystem extends StatelessWidget {
                   provider.uafr = s;
                 });
               },
-              onLifeChanged: (data) {
-                provider.uafrLife = data;
-              },
+              lifeController: provider.lifeUpperArmFrontRightController,
               remainingController:
                   provider.remainingUpperArmFrontRightController,
               onRemainingChanged: (String data) {
@@ -207,9 +196,7 @@ class SuspensionSystem extends StatelessWidget {
                   provider.tar = s;
                 });
               },
-              onLifeChanged: (data) {
-                provider.tarLife = data;
-              },
+              lifeController: provider.lifeTrailorArmRearController,
               remainingController: provider.remainingTrailorArmRearController,
               onRemainingChanged: (String data) {
                 if (data.isNotEmpty) {
@@ -233,9 +220,7 @@ class SuspensionSystem extends StatelessWidget {
                   provider.abli = s;
                 });
               },
-              onLifeChanged: (data) {
-                provider.abliLife = data;
-              },
+              lifeController: provider.lifeAxleBootLeftInnerController,
               remainingController:
                   provider.remainingAxleBootLeftInnerController,
               onRemainingChanged: (String data) {
@@ -260,9 +245,7 @@ class SuspensionSystem extends StatelessWidget {
                   provider.abri = s;
                 });
               },
-              onLifeChanged: (data) {
-                provider.abriLife = data;
-              },
+              lifeController: provider.lifeAxleBootRightInnerController,
               remainingController:
                   provider.remainingAxleBootRightInnerController,
               onRemainingChanged: (String data) {
@@ -288,9 +271,7 @@ class SuspensionSystem extends StatelessWidget {
                   provider.abro = s;
                 });
               },
-              onLifeChanged: (data) {
-                provider.abroLife = data;
-              },
+              lifeController: provider.lifeAxleBootRightOuterController,
               remainingController:
                   provider.remainingAxleBootRightOuterController,
               onRemainingChanged: (String data) {
@@ -316,9 +297,7 @@ class SuspensionSystem extends StatelessWidget {
                   provider.ablo = s;
                 });
               },
-              onLifeChanged: (data) {
-                provider.abloLife = data;
-              },
+              lifeController: provider.lifeAxleBootLeftOuterController,
               remainingController:
                   provider.remainingAxleBootLeftOuterController,
               onRemainingChanged: (String data) {
@@ -343,9 +322,7 @@ class SuspensionSystem extends StatelessWidget {
                   provider.abrir = s;
                 });
               },
-              onLifeChanged: (data) {
-                provider.abrirLife = data;
-              },
+              lifeController: provider.lifeAbriRearController,
               remainingController: provider.remainingAbriRearController,
               onRemainingChanged: (String data) {
                 if (data.isNotEmpty) {
@@ -369,9 +346,7 @@ class SuspensionSystem extends StatelessWidget {
                   provider.abrrr = s;
                 });
               },
-              onLifeChanged: (data) {
-                provider.abrrrLife = data;
-              },
+              lifeController: provider.lifeAbrrRearController,
               remainingController: provider.remainingAbrrRearController,
               onRemainingChanged: (String data) {
                 if (data.isNotEmpty) {
@@ -395,10 +370,7 @@ class SuspensionSystem extends StatelessWidget {
                   provider.abror = s;
                 });
               },
-              onLifeChanged: (data) {
-                provider.abrorife =
-                    data; // Note: Using the variable name from your data
-              },
+              lifeController: provider.lifeAbroRearController,
               remainingController: provider.remainingAbroRearController,
               onRemainingChanged: (String data) {
                 if (data.isNotEmpty) {
@@ -422,9 +394,7 @@ class SuspensionSystem extends StatelessWidget {
                   provider.ablor = s;
                 });
               },
-              onLifeChanged: (data) {
-                provider.ablorLife = data;
-              },
+              lifeController: provider.lifeAbloRearController,
               remainingController: provider.remainingAbloRearController,
               onRemainingChanged: (String data) {
                 if (data.isNotEmpty) {
@@ -448,9 +418,7 @@ class SuspensionSystem extends StatelessWidget {
                   provider.lrfl = s;
                 });
               },
-              onLifeChanged: (data) {
-                provider.lrflLife = data;
-              },
+              lifeController: provider.lifeLinkRodFrontLeftController,
               remainingController: provider.remainingLinkRodFrontLeftController,
               onRemainingChanged: (String data) {
                 if (data.isNotEmpty) {
@@ -474,9 +442,7 @@ class SuspensionSystem extends StatelessWidget {
                   provider.lrfr = s;
                 });
               },
-              onLifeChanged: (data) {
-                provider.lrfrLife = data;
-              },
+              lifeController: provider.lifeLinkRodFrontRightController,
               remainingController:
                   provider.remainingLinkRodFrontRightController,
               onRemainingChanged: (String data) {
@@ -501,9 +467,7 @@ class SuspensionSystem extends StatelessWidget {
                   provider.lrrl = s;
                 });
               },
-              onLifeChanged: (data) {
-                provider.lrrlLife = data;
-              },
+              lifeController: provider.lifeLinkRodRearLeftController,
               remainingController: provider.remainingLinkRodRearLeftController,
               onRemainingChanged: (String data) {
                 if (data.isNotEmpty) {
@@ -527,9 +491,7 @@ class SuspensionSystem extends StatelessWidget {
                   provider.lrrr = s;
                 });
               },
-              onLifeChanged: (data) {
-                provider.lrrrLife = data;
-              },
+              lifeController: provider.lifeLinkRodRearRightController,
               remainingController: provider.remainingLinkRodRearRightController,
               onRemainingChanged: (String data) {
                 if (data.isNotEmpty) {
@@ -553,9 +515,7 @@ class SuspensionSystem extends StatelessWidget {
                   provider.brbf = s;
                 });
               },
-              onLifeChanged: (data) {
-                provider.brbfLife = data;
-              },
+              lifeController: provider.lifeBalanceRodBushFrontController,
               remainingController:
                   provider.remainingBalanceRodBushFrontController,
               onRemainingChanged: (String data) {
@@ -581,9 +541,7 @@ class SuspensionSystem extends StatelessWidget {
                   provider.brbr = s;
                 });
               },
-              onLifeChanged: (data) {
-                provider.brbrLife = data;
-              },
+              lifeController: provider.lifeBalanceRodBushRearController,
               remainingController:
                   provider.remainingBalanceRodBushRearController,
               onRemainingChanged: (String data) {
@@ -609,9 +567,7 @@ class SuspensionSystem extends StatelessWidget {
                   provider.fshockl = s;
                 });
               },
-              onLifeChanged: (data) {
-                provider.fshocklLife = data;
-              },
+              lifeController: provider.lifeFshocklController,
               remainingController: provider.remainingFshocklController,
               onRemainingChanged: (String data) {
                 if (data.isNotEmpty) {
@@ -635,9 +591,7 @@ class SuspensionSystem extends StatelessWidget {
                   provider.fshockr = s;
                 });
               },
-              onLifeChanged: (data) {
-                provider.fshockrLife = data;
-              },
+              lifeController: provider.lifeFshockrController,
               remainingController: provider.remainingFshockrController,
               onRemainingChanged: (String data) {
                 if (data.isNotEmpty) {
@@ -661,9 +615,7 @@ class SuspensionSystem extends StatelessWidget {
                   provider.rshockl = s;
                 });
               },
-              onLifeChanged: (data) {
-                provider.rshocklLife = data;
-              },
+              lifeController: provider.lifeRshocklController,
               remainingController: provider.remainingRshocklController,
               onRemainingChanged: (String data) {
                 if (data.isNotEmpty) {
@@ -687,9 +639,7 @@ class SuspensionSystem extends StatelessWidget {
                   provider.rshockr = s;
                 });
               },
-              onLifeChanged: (data) {
-                provider.rshockrLife = data;
-              },
+              lifeController: provider.lifeRshockrController,
               remainingController: provider.remainingRshockrController,
               onRemainingChanged: (String data) {
                 if (data.isNotEmpty) {
@@ -713,9 +663,7 @@ class SuspensionSystem extends StatelessWidget {
                   provider.wlbearfl = s;
                 });
               },
-              onLifeChanged: (data) {
-                provider.wlbearflLife = data;
-              },
+              lifeController: provider.lifeWlbearflController,
               remainingController: provider.remainingWlbearflController,
               onRemainingChanged: (String data) {
                 if (data.isNotEmpty) {
@@ -739,9 +687,7 @@ class SuspensionSystem extends StatelessWidget {
                   provider.wlbearfr = s;
                 });
               },
-              onLifeChanged: (data) {
-                provider.wlbearfrLife = data;
-              },
+              lifeController: provider.lifeWlbearfrController,
               remainingController: provider.remainingWlbearfrController,
               onRemainingChanged: (String data) {
                 if (data.isNotEmpty) {
@@ -765,9 +711,7 @@ class SuspensionSystem extends StatelessWidget {
                   provider.wlbearrl = s;
                 });
               },
-              onLifeChanged: (data) {
-                provider.wlbearrlLife = data;
-              },
+              lifeController: provider.lifeWlbearrlController,
               remainingController: provider.remainingWlbearrlController,
               onRemainingChanged: (String data) {
                 if (data.isNotEmpty) {
@@ -791,9 +735,7 @@ class SuspensionSystem extends StatelessWidget {
                   provider.wlbearrr = s;
                 });
               },
-              onLifeChanged: (data) {
-                provider.wlbearrrLife = data;
-              },
+              lifeController: provider.lifeWlbearrrController,
               remainingController: provider.remainingWlbearrrController,
               onRemainingChanged: (String data) {
                 if (data.isNotEmpty) {

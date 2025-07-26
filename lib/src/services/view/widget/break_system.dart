@@ -50,13 +50,11 @@ class _BreakSystemState extends State<BreakSystem> {
                     provider.flBreakDisc = selection;
                   });
                 },
+                lifeController: provider.lifeFrontLeftBreakDiscController,
                 onPercentageChange: (percentage) {
                   provider.update(callBack: () {
                     provider.flbdPercentage = percentage;
                   });
-                },
-                onLifeChanged: (data) {
-                  provider.flBreakDiscLife = data;
                 },
                 remainingController:
                     provider.remainingFrontLeftBreakDiscController,
@@ -83,13 +81,11 @@ class _BreakSystemState extends State<BreakSystem> {
                     provider.frBreakDisc = selection;
                   });
                 },
+                lifeController: provider.lifeFrontRightBreakDiscController,
                 onPercentageChange: (percentage) {
                   provider.update(callBack: () {
                     provider.frbdPercentage = percentage;
                   });
-                },
-                onLifeChanged: (data) {
-                  provider.frBreakDiscLife = data;
                 },
                 remainingController:
                     provider.remainingFrontRightBreakDiscController,
@@ -111,6 +107,7 @@ class _BreakSystemState extends State<BreakSystem> {
               StatusSelector(
                 title: "Rear Left Break Disc",
                 showPercentage: true,
+                lifeController: provider.lifeRearLeftBreakDiscController,
                 selection: provider.rlBreakDisc,
                 onSelection: (selection) {
                   provider.update(callBack: () {
@@ -121,9 +118,6 @@ class _BreakSystemState extends State<BreakSystem> {
                   provider.update(callBack: () {
                     provider.rlbdPercentage = percentage;
                   });
-                },
-                onLifeChanged: (data) {
-                  provider.rlBreakDiscLife = data;
                 },
                 remainingController:
                     provider.remainingRearLeftBreakDiscController,
@@ -150,13 +144,11 @@ class _BreakSystemState extends State<BreakSystem> {
                     provider.rrBreakDisc = selection;
                   });
                 },
+                lifeController: provider.lifeRearRightBreakDiscController,
                 onPercentageChange: (percentage) {
                   provider.update(callBack: () {
                     provider.rrbdPercentage = percentage;
                   });
-                },
-                onLifeChanged: (data) {
-                  provider.rrBreakDiscLife = data;
                 },
                 remainingController:
                     provider.remainingRearRightBreakDiscController,
@@ -183,13 +175,11 @@ class _BreakSystemState extends State<BreakSystem> {
                     provider.fbPad = selection;
                   });
                 },
+                lifeController: provider.lifeFrontBreakPadController,
                 onPercentageChange: (percentage) {
                   provider.update(callBack: () {
                     provider.fbPadPercentage = percentage;
                   });
-                },
-                onLifeChanged: (data) {
-                  provider.fbPadLife = data;
                 },
                 remainingController: provider.remainingFrontBreakPadController,
                 onRemainingChanged: (data) {
@@ -214,13 +204,11 @@ class _BreakSystemState extends State<BreakSystem> {
                     provider.rbPad = selection;
                   });
                 },
+                lifeController: provider.lifeRearBreakPadController,
                 onPercentageChange: (percentage) {
                   provider.update(callBack: () {
                     provider.rbPadPercentage = percentage;
                   });
-                },
-                onLifeChanged: (data) {
-                  provider.rbPadLife = data;
                 },
                 remainingController: provider.remainingRearBreakPadController,
                 onRemainingChanged: (data) {
@@ -245,13 +233,11 @@ class _BreakSystemState extends State<BreakSystem> {
                     provider.rbShoe = selection;
                   });
                 },
+                lifeController: provider.lifeRearBreakShoeController,
                 onPercentageChange: (percentage) {
                   provider.update(callBack: () {
                     provider.rbShoePercentage = percentage;
                   });
-                },
-                onLifeChanged: (data) {
-                  provider.rbShoeLife = data;
                 },
                 remainingController: provider.remainingRearBreakShoeController,
                 onRemainingChanged: (data) {
@@ -276,13 +262,11 @@ class _BreakSystemState extends State<BreakSystem> {
                     provider.breakFluid = selection;
                   });
                 },
+                lifeController: provider.lifeBreakFluidController,
                 onPercentageChange: (percentage) {
                   provider.update(callBack: () {
                     provider.breakFluidPercentage = percentage;
                   });
-                },
-                onLifeChanged: (data) {
-                  provider.breakFluidLife = data;
                 },
                 remainingController: provider.remainingBreakFluidController,
                 onRemainingChanged: (data) {

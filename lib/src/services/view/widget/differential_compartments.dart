@@ -1,4 +1,3 @@
-
 import 'package:carezyadminapp/src/services/view/widget/status_selector.dart';
 import 'package:carezyadminapp/utils/helpers/extensions.dart';
 import 'package:flutter/material.dart';
@@ -19,11 +18,6 @@ class DifferentialCompartments extends StatefulWidget {
 }
 
 class _DifferentialCompartmentsState extends State<DifferentialCompartments> {
-  final frontDiffOilLifeController = TextEditingController();
-  final nextFrontDiffOilChangeODOlController = TextEditingController();
-  final rearDiffOilLifeController = TextEditingController();
-  final nextRearDiffOilLifeChangeODOlController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
@@ -56,9 +50,7 @@ class _DifferentialCompartmentsState extends State<DifferentialCompartments> {
                     provider.frontDifferentialOil = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.frontDifferentialOilLife = data;
-                },
+                lifeController: provider.frontDifferentialOilLifeController,
                 remainingController:
                     provider.frontDifferentialOilLifeController,
                 onRemainingChanged: (data) {
@@ -84,9 +76,7 @@ class _DifferentialCompartmentsState extends State<DifferentialCompartments> {
                     provider.shaftStatus = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.shaftStatusLife = data;
-                },
+                lifeController: provider.lifeShaftStatusController,
                 remainingController: provider.remainingShaftStatusController,
                 onRemainingChanged: (data) {
                   if (data.isNotEmpty) {
@@ -109,9 +99,7 @@ class _DifferentialCompartmentsState extends State<DifferentialCompartments> {
                     provider.shaftSeals = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.shaftSealsLife = data;
-                },
+                lifeController: provider.lifeShaftSealsController,
                 remainingController: provider.remainingShaftSealsController,
                 onRemainingChanged: (data) {
                   if (data.isNotEmpty) {
@@ -134,9 +122,8 @@ class _DifferentialCompartmentsState extends State<DifferentialCompartments> {
                     provider.rearDifferentialOil = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.rearDifferentialOilLife = data;
-                },
+                lifeController: provider.rearDifferentialOilLifeController,
+               
                 remainingController: provider.rearDifferentialOilLifeController,
                 onRemainingChanged: (data) {
                   if (data.isNotEmpty) {
@@ -161,9 +148,7 @@ class _DifferentialCompartmentsState extends State<DifferentialCompartments> {
                     provider.differentialBushes = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.differentialBushesLife = data;
-                },
+                lifeController: provider.lifeDifferentialBushesController,
                 remainingController:
                     provider.remainingDifferentialBushesController,
                 onRemainingChanged: (data) {
@@ -179,7 +164,6 @@ class _DifferentialCompartmentsState extends State<DifferentialCompartments> {
                 odoController:
                     provider.nextDifferentialBushesChangeODOlController,
               ),
-           
             ],
           );
         }),

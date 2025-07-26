@@ -42,7 +42,6 @@ class _EngineCompartmentState extends State<EngineCompartment> {
             color: Colors.white, borderRadius: BorderRadius.circular(16.r)),
         child:
             Consumer<AddServiceViewModel>(builder: (context, provider, child) {
-      
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -65,9 +64,7 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                     provider.engineOil = selection;
                   });
                 },
-                onLifeChanged: (String data) {
-                  provider.oilLife = data;
-                },
+                lifeController: provider.lifeOilController,
                 remainingController: provider.remainingOilController,
                 onRemainingChanged: (data) {
                   provider.nextOilChangeODOlController.text = nextOdo(data);
@@ -87,9 +84,7 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                     provider.oilFilter = selection;
                   });
                 },
-                onLifeChanged: (String data) {
-                  provider.oilFilterLife = data;
-                },
+                lifeController: provider.lifeOilFilterController,
                 remainingController: provider.remainingOilFilterController,
                 onRemainingChanged: (data) {
                   provider.oilFilterOdoController.text = nextOdo(data);
@@ -106,9 +101,7 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                     provider.airFilter = selection;
                   });
                 },
-                onLifeChanged: (String data) {
-                  provider.airFilterLife = data;
-                },
+                lifeController: provider.lifeAirFilterController,
                 remainingController: provider.remainingAirFilterController,
                 onRemainingChanged: (data) {
                   provider.nextAirFilterChangeODOlController.text =
@@ -125,9 +118,7 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                     provider.acFilter = selection;
                   });
                 },
-                onLifeChanged: (String data) {
-                  provider.acFilterLife = data;
-                },
+                lifeController: provider.lifeAcFilterController,
                 remainingController: provider.remainingAcFilterController,
                 onRemainingChanged: (data) {
                   provider.nextAcFilterChangeODOlController.text =
@@ -145,9 +136,7 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                     provider.sparkPlug = selection;
                   });
                 },
-                onLifeChanged: (String data) {
-                  provider.sparkPlugLife = data;
-                },
+                lifeController: provider.lifeSparkPlugController,
                 remainingController: provider.remainingSparkPlugController,
                 onRemainingChanged: (data) {
                   provider.nextSparkPlugChangeODOlController.text =
@@ -165,9 +154,7 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                     provider.ignitionCoil = selection;
                   });
                 },
-                onLifeChanged: (String data) {
-                  provider.ignitionCoilLife = data;
-                },
+                lifeController: provider.lifeIgnitionCoilController,
                 remainingController: provider.remainingIgnitionCoilController,
                 onRemainingChanged: (data) {
                   provider.nextIgnitionCoilChangeODOlController.text =
@@ -186,9 +173,7 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                     provider.valveCowerGasket = selection;
                   });
                 },
-                onLifeChanged: (String data) {
-                  provider.valveCowerGasketLife = data;
-                },
+                lifeController: provider.lifeValveCowerGasketController,
                 remainingController:
                     provider.remainingValveCowerGasketController,
                 onRemainingChanged: (data) {
@@ -207,9 +192,7 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                     provider.plugSeal = selection;
                   });
                 },
-                onLifeChanged: (String data) {
-                  provider.plugSealLife = data;
-                },
+                lifeController: provider.lifePlugSealController,
                 remainingController: provider.remainingPlugSealController,
                 onRemainingChanged: (data) {
                   provider.nextPlugSealChangeODOlController.text =
@@ -228,9 +211,7 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                     provider.engineBelt = selection;
                   });
                 },
-                onLifeChanged: (String data) {
-                  provider.engineBeltLife = data;
-                },
+                lifeController: provider.lifeEngineBeltController,
                 remainingController: provider.remainingEngineBeltController,
                 onRemainingChanged: (data) {
                   provider.nextEngineBeltChangeODOlController.text =
@@ -248,9 +229,7 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                     provider.engineBeltTentioner = selection;
                   });
                 },
-                onLifeChanged: (String data) {
-                  provider.engineBeltTentionerLife = data;
-                },
+                lifeController: provider.lifeEngineBeltTentionerController,
                 remainingController:
                     provider.remainingEngineBeltTentionerController,
                 onRemainingChanged: (data) {
@@ -269,9 +248,7 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                     provider.idlPulley = selection;
                   });
                 },
-                onLifeChanged: (String data) {
-                  provider.idlPulleyLife = data;
-                },
+                lifeController: provider.lifeIDLPulleyController,
                 remainingController: provider.remainingIDLPulleyController,
                 onRemainingChanged: (data) {
                   provider.nextIDLPulleyChangeODOlController.text =
@@ -289,9 +266,7 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                     provider.injectors = selection;
                   });
                 },
-                onLifeChanged: (String data) {
-                  provider.injectorsLife = data;
-                },
+                lifeController: provider.lifeInjectorsController,
                 remainingController: provider.remainingInjectorsController,
                 onRemainingChanged: (data) {
                   provider.nextInjectorsChangeODOlController.text =
@@ -309,9 +284,7 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                     provider.selfMotor = selection;
                   });
                 },
-                onLifeChanged: (String data) {
-                  provider.selfMotorLife = data;
-                },
+                lifeController: provider.lifeSelfMotorController,
                 remainingController: provider.remainingSelfMotorController,
                 onRemainingChanged: (data) {
                   provider.nextSelfMotorChangeODOlController.text =
@@ -329,9 +302,7 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                     provider.radiator = selection;
                   });
                 },
-                onLifeChanged: (String data) {
-                  provider.radiatorLife = data;
-                },
+                lifeController: provider.lifeRadiatorController,
                 remainingController: provider.remainingRadiatorController,
                 onRemainingChanged: (data) {
                   provider.nextRadiatorController.text = nextOdo(data);
@@ -347,9 +318,7 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                     provider.radiatorHose = selection;
                   });
                 },
-                onLifeChanged: (String data) {
-                  provider.radiatorHoseLife = data;
-                },
+                lifeController: provider.lifeRadiatorHoseController,
                 remainingController: provider.remainingRadiatorHoseController,
                 onRemainingChanged: (data) {
                   provider.nextRadiatorHoseController.text = nextOdo(data);
@@ -366,9 +335,7 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                     provider.thermostat = selection;
                   });
                 },
-                onLifeChanged: (String data) {
-                  provider.thermostatLife = data;
-                },
+                lifeController: provider.lifeThermostatController,
                 remainingController: provider.remainingThermostatController,
                 onRemainingChanged: (data) {
                   provider.nextThermostatController.text = nextOdo(data);
@@ -385,9 +352,7 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                     provider.engineColant = selection;
                   });
                 },
-                onLifeChanged: (String data) {
-                  provider.engineCoolantLife = data;
-                },
+                lifeController: provider.lifeCoolantController,
                 remainingController: provider.remainingCoolantController,
                 onRemainingChanged: (data) {
                   provider.nextCoolantController.text = nextOdo(data);
@@ -404,9 +369,7 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                     provider.engineCoolar = selection;
                   });
                 },
-                onLifeChanged: (String data) {
-                  provider.engineCoolarLife = data;
-                },
+                lifeController: provider.lifeEngineCoolarController,
                 remainingController: provider.remainingEngineCoolarController,
                 onRemainingChanged: (data) {
                   provider.nextEngineCoolarController.text = nextOdo(data);
@@ -423,9 +386,7 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                     provider.radiatorCap = selection;
                   });
                 },
-                onLifeChanged: (String data) {
-                  provider.radiatorCapLife = data;
-                },
+                lifeController: provider.lifeRadiatorCapController,
                 remainingController: provider.remainingRadiatorCapController,
                 onRemainingChanged: (data) {
                   provider.nextRadiatorCapController.text = nextOdo(data);
@@ -442,9 +403,7 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                     provider.coolantSpareTank = selection;
                   });
                 },
-                onLifeChanged: (String data) {
-                  provider.coolantSpareTankLife = data;
-                },
+                lifeController: provider.lifeCoolantSpareTankController,
                 remainingController:
                     provider.remainingCoolantSpareTankController,
                 onRemainingChanged: (data) {
@@ -461,9 +420,7 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                     provider.radiatorFanMotor = selection;
                   });
                 },
-                onLifeChanged: (String data) {
-                  provider.radiatorFanMotorLife = data;
-                },
+                lifeController: provider.lifeRadiatorFanMotorController,
                 remainingController:
                     provider.remainingRadiatorFanMotorController,
                 onRemainingChanged: (data) {
@@ -481,9 +438,7 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                     provider.engineCoolantLevel = selection;
                   });
                 },
-                onLifeChanged: (String data) {
-                  provider.engineCoolantLevelLife = data;
-                },
+                lifeController: provider.lifeEngineCoolantLevelController,
                 remainingController:
                     provider.remainingEngineCoolantLevelController,
                 onRemainingChanged: (data) {
@@ -515,9 +470,7 @@ class _EngineCompartmentState extends State<EngineCompartment> {
                     provider.engineMount = selection;
                   });
                 },
-                onLifeChanged: (String data) {
-                  provider.engineMountLife = data;
-                },
+                lifeController: provider.lifeEngineMountController,
                 remainingController: provider.remainingEngineMountController,
                 onRemainingChanged: (data) {
                   provider.nextEngineMountChangeODOlController.text =

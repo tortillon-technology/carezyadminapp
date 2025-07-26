@@ -45,9 +45,7 @@ class OtherAccessories extends StatelessWidget {
                     provider.centerLock = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.centerLockLife = data;
-                },
+                lifeController: provider.lifeCenterLockController,
                 remainingController: provider.remainingCenterLockController,
                 onRemainingChanged: (String data) {
                   if (data.isNotEmpty) {
@@ -79,9 +77,7 @@ class OtherAccessories extends StatelessWidget {
                     provider.windowLifter = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.windowLifterLife = data;
-                },
+                lifeController: provider.lifeWindowLifterController,
                 remainingController: provider.remainingWindowLifterController,
                 onRemainingChanged: (String data) {
                   if (data.isNotEmpty) {
@@ -113,9 +109,7 @@ class OtherAccessories extends StatelessWidget {
                     provider.alignment = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.alignmentLife = data;
-                },
+                lifeController: provider.lifeAlignmentController,
                 remainingController: provider.remainingAlignmentController,
                 onRemainingChanged: (String data) {
                   if (data.isNotEmpty) {
@@ -140,9 +134,7 @@ class OtherAccessories extends StatelessWidget {
                     provider.wheelBalance = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.wheelBalanceLife = data;
-                },
+                lifeController: provider.lifeWheelBalanceController,
                 remainingController: provider.remainingWheelBalanceController,
                 onRemainingChanged: (String data) {
                   if (data.isNotEmpty) {
@@ -184,22 +176,21 @@ class OtherAccessories extends StatelessWidget {
               ),
               40.verticalSpace,
               StatusSelector(
-                title: "Battery",
-                selection: provider.batterySelection,
+                title: "Main Battery",
+                selection: provider.mainBatterySelection,
                 onSelection: (selection) {
                   provider.update(callBack: () {
-                    provider.batterySelection = selection;
+                    provider.mainBatterySelection = selection;
                   });
                 },
                 showLife: false,
                 showRemainingAndNextOdo: false,
               ),
               18.verticalSpace,
-
               CommonTextFormFieldWithValidator(
                 hintText: "Battery Ampere",
                 onChanged: (String data) {
-                  provider.batteryAmpere = data;
+                  provider.mainBatteryAmpere = data;
                 },
               ),
               18.verticalSpace,
@@ -209,7 +200,7 @@ class OtherAccessories extends StatelessWidget {
                     child: CommonTextFormFieldWithValidator(
                       hintText: "Battery Brand",
                       onChanged: (String data) {
-                        provider.batteryBrand = data;
+                        provider.mainBatteryBrand = data;
                       },
                     ),
                   ),
@@ -218,7 +209,48 @@ class OtherAccessories extends StatelessWidget {
                     child: CommonTextFormFieldWithValidator(
                       hintText: "Battery Type",
                       onChanged: (String data) {
-                        provider.batteryType = data;
+                        provider.mainBatteryType = data;
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              40.verticalSpace,
+              StatusSelector(
+                title: "Auxiliary Battery",
+                selection: provider.auxiliaryBatterySelection,
+                onSelection: (selection) {
+                  provider.update(callBack: () {
+                    provider.auxiliaryBatterySelection = selection;
+                  });
+                },
+                showLife: false,
+                showRemainingAndNextOdo: false,
+              ),
+              18.verticalSpace,
+              CommonTextFormFieldWithValidator(
+                hintText: "Battery Ampere",
+                onChanged: (String data) {
+                  provider.auxiliaryBatteryAmpere = data;
+                },
+              ),
+              18.verticalSpace,
+              Row(
+                children: [
+                  Expanded(
+                    child: CommonTextFormFieldWithValidator(
+                      hintText: "Battery Brand",
+                      onChanged: (String data) {
+                        provider.auxiliaryBatteryBrand = data;
+                      },
+                    ),
+                  ),
+                  18.horizontalSpace,
+                  Expanded(
+                    child: CommonTextFormFieldWithValidator(
+                      hintText: "Battery Type",
+                      onChanged: (String data) {
+                        provider.auxiliaryBatteryType = data;
                       },
                     ),
                   ),

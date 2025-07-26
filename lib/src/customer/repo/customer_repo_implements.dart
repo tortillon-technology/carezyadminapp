@@ -77,7 +77,7 @@ class CustomerRepoImplements extends CustomerRepo {
   }
 
   @override
-  Future<Either<ResponseError, OodoModel>> getOodoReading(
+  Future<Either<ResponseError, OdoModel>> getOodoReading(
       {required int customerID}) {
     return service
         .safe(service.getRequest(
@@ -85,7 +85,7 @@ class CustomerRepoImplements extends CustomerRepo {
         ))
         .thenRight(service.checkHttpStatus)
         .thenRight(service.parseJson)
-        .mapRight((right) => OodoModel.fromJson(right));
+        .mapRight((right) => OdoModel.fromJson(right));
   }
 
   @override

@@ -13,6 +13,7 @@ import 'package:carezyadminapp/src/services/view/widget/steering_system.dart';
 import 'package:carezyadminapp/src/services/view/widget/suspension_system.dart';
 import 'package:carezyadminapp/src/services/view/widget/tyre_pressure.dart';
 import 'package:carezyadminapp/src/services/view_model/add_service_view_model.dart';
+import 'package:carezyadminapp/utils/helpers/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -70,39 +71,62 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
           textSpace: 16,
         ),
         body: SingleChildScrollView(
-          padding: EdgeInsets.all(16.w),
-          child: Selector<AddServiceViewModel, bool>(
-              selector: (_, selector) => selector.isServiceAdding,
-              builder: (_, isServiceAdding, child) {
+          child: Selector<AddServiceViewModel, Tuple2<bool, bool>>(
+              selector: (_, selector) => Tuple2(
+                  selector.isServiceAdding, selector.isOodoReadingLoading),
+              builder: (_, data, child) {
                 return AbsorbPointer(
-                  absorbing: isServiceAdding,
-                  child: Column(
+                  absorbing: data.item1 || data.item2,
+                  child: Stack(
                     children: [
-                      SearchCustomer(viewModel: viewModel),
-                      16.verticalSpace,
-                      CustomerAndVehicle(viewModel: viewModel),
-                      16.verticalSpace,
-                      EngineCompartment(viewModel: viewModel),
-                      16.verticalSpace,
-                      GearCompartments(viewModel: viewModel),
-                      16.verticalSpace,
-                      DifferentialCompartments(viewModel: viewModel),
-                      16.verticalSpace,
-                      BreakSystem(viewModel: viewModel),
-                      16.verticalSpace,
-                      SuspensionSystem(viewModel: viewModel),
-                      16.verticalSpace,
-                      AcCompartments(viewModel: viewModel),
-                      16.verticalSpace,
-                      SteeringSystem(viewModel: viewModel),
-                      16.verticalSpace,
-                      LightSystem(viewModel: viewModel),
-                      16.verticalSpace,
-                      FuelSystem(viewModel: viewModel),
-                      16.verticalSpace,
-                      TyrePressure(viewModel: viewModel),
-                      16.verticalSpace,
-                      OtherAccessories(viewModel: viewModel)
+                      Padding(
+                        padding: EdgeInsets.all(16.w),
+                        child: GestureDetector(
+                          onTap: () {
+                            FocusManager.instance.primaryFocus?.unfocus();
+                          },
+                          child: Column(
+                            children: [
+                              SearchCustomer(viewModel: viewModel),
+                              16.verticalSpace,
+                              CustomerAndVehicle(viewModel: viewModel),
+                              16.verticalSpace,
+                              EngineCompartment(viewModel: viewModel),
+                              16.verticalSpace,
+                              GearCompartments(viewModel: viewModel),
+                              16.verticalSpace,
+                              DifferentialCompartments(viewModel: viewModel),
+                              16.verticalSpace,
+                              BreakSystem(viewModel: viewModel),
+                              16.verticalSpace,
+                              SuspensionSystem(viewModel: viewModel),
+                              16.verticalSpace,
+                              AcCompartments(viewModel: viewModel),
+                              16.verticalSpace,
+                              SteeringSystem(viewModel: viewModel),
+                              16.verticalSpace,
+                              LightSystem(viewModel: viewModel),
+                              16.verticalSpace,
+                              FuelSystem(viewModel: viewModel),
+                              16.verticalSpace,
+                              TyrePressure(viewModel: viewModel),
+                              16.verticalSpace,
+                              OtherAccessories(viewModel: viewModel)
+                            ],
+                          ),
+                        ),
+                      ),
+                      if (data.item2)
+                        Container(
+                          width: context.sw(),
+                          height: context.sh(),
+                          color: Colors.black26,
+                          child: const Center(
+                            child: CircularProgressIndicator(
+                              color: ColorPalette.primaryColor,
+                            ),
+                          ),
+                        )
                     ],
                   ),
                 );

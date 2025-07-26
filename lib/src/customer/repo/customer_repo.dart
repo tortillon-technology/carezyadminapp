@@ -21,7 +21,7 @@ abstract class CustomerRepo {
 
   Future<Either<ResponseError, GarageModel>> getGarages();
 
-  Future<Either<ResponseError, OodoModel>> getOodoReading(
+  Future<Either<ResponseError, OdoModel>> getOodoReading(
       {required int customerID});
 
   Future<Either<ResponseError, CustomerListModel>> getCustomerList({

@@ -19,12 +19,6 @@ class GearCompartments extends StatefulWidget {
 }
 
 class _GearCompartmentsState extends State<GearCompartments> {
-  final oilLifeController = TextEditingController();
-  final nextOilChangeODOlController = TextEditingController();
-  final fourWheelOilLifeController = TextEditingController();
-  final nextFourWheelOilChangeODOlController = TextEditingController();
-  final noOfGearMountsController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
@@ -57,9 +51,7 @@ class _GearCompartmentsState extends State<GearCompartments> {
                     provider.gearOil = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.gearOilLife = data;
-                },
+                lifeController: provider.lifeGearOilController,
                 remainingController: provider.remainingGearOilController,
                 onRemainingChanged: (data) {
                   if (data.isNotEmpty) {
@@ -82,9 +74,7 @@ class _GearCompartmentsState extends State<GearCompartments> {
                     provider.gearFilter = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.gearFilterLife = data;
-                },
+                lifeController: provider.lifeGearFilterController,
                 remainingController: provider.remainingGearFilterController,
                 onRemainingChanged: (data) {
                   if (data.isNotEmpty) {
@@ -107,9 +97,7 @@ class _GearCompartmentsState extends State<GearCompartments> {
                     provider.fourWheelOil = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.fourOilLife = data;
-                },
+                lifeController: provider.lifeFourWheelOilController,
                 remainingController: provider.remainingFourWheelOilController,
                 onRemainingChanged: (data) {
                   if (data.isNotEmpty) {
@@ -132,9 +120,8 @@ class _GearCompartmentsState extends State<GearCompartments> {
                     provider.transmissionControlModule = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.transmissionControlModuleLife = data;
-                },
+                lifeController:
+                    provider.lifeTransmissionControlModuleController,
                 remainingController:
                     provider.remainingTransmissionControlOilController,
                 onRemainingChanged: (data) {
@@ -160,9 +147,7 @@ class _GearCompartmentsState extends State<GearCompartments> {
                     provider.gearGasket = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.gearGasketLife = data;
-                },
+                lifeController: provider.lifeGearGasketController,
                 remainingController: provider.remainingGearGasketController,
                 onRemainingChanged: (data) {
                   if (data.isNotEmpty) {
@@ -185,9 +170,7 @@ class _GearCompartmentsState extends State<GearCompartments> {
                     provider.gearMount = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.gearMountLife = data;
-                },
+                lifeController: provider.lifeGearMountController,
                 remainingController: provider.remainingGearMountController,
                 onRemainingChanged: (data) {
                   if (data.isNotEmpty) {
@@ -209,18 +192,13 @@ class _GearCompartmentsState extends State<GearCompartments> {
               16.verticalSpace,
               CommonTextFormFieldWithValidator(
                 hintText: "Number",
-                controller: noOfGearMountsController,
                 inputAction: TextInputAction.done,
                 inputType: TextInputType.number,
                 inputFormatters: [
                   TextInputFormats.digitsFormatter,
                 ],
                 onChanged: (String data) {
-                  if (data.isEmpty) {
-                    provider.noOfGearMounts = null;
-                  } else {
-                    provider.noOfGearMounts = data;
-                  }
+                  provider.noOfGearMounts = data;
                 },
               ),
               40.verticalSpace,
@@ -232,9 +210,7 @@ class _GearCompartmentsState extends State<GearCompartments> {
                     provider.gearCoolar = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.gearCoolarLife = data;
-                },
+                lifeController: provider.lifeGearCoolarController,
                 remainingController: provider.remainingGearCoolarController,
                 onRemainingChanged: (data) {
                   if (data.isNotEmpty) {

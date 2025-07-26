@@ -49,9 +49,7 @@ class _AcCompartmentsState extends State<AcCompartments> {
                     provider.acGas = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.acGasLife = data;
-                },
+                lifeController: provider.lifeAcGasController,
                 remainingController: provider.remainingAcGasController,
                 onRemainingChanged: (String data) {
                   if (data.isNotEmpty) {
@@ -74,9 +72,7 @@ class _AcCompartmentsState extends State<AcCompartments> {
                     provider.compressor = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.compressorLife = data;
-                },
+                lifeController: provider.lifeCompressorController,
                 remainingController: provider.remainingCompressorController,
                 onRemainingChanged: (String data) {
                   if (data.isNotEmpty) {
@@ -99,9 +95,7 @@ class _AcCompartmentsState extends State<AcCompartments> {
                     provider.condenser = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.condenserLife = data;
-                },
+                lifeController: provider.lifeCondenserController,
                 remainingController: provider.remainingCondenserController,
                 onRemainingChanged: (String data) {
                   if (data.isNotEmpty) {
@@ -124,9 +118,8 @@ class _AcCompartmentsState extends State<AcCompartments> {
                     provider.evaporator = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.evaporatorLife = data;
-                },
+                lifeController: provider.lifeEvaporatorController,
+              
                 remainingController: provider.remainingEvaporatorController,
                 onRemainingChanged: (String data) {
                   if (data.isNotEmpty) {
@@ -149,9 +142,7 @@ class _AcCompartmentsState extends State<AcCompartments> {
                     provider.exValve = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.exValveLife = data;
-                },
+                lifeController: provider.lifeExValveController,
                 remainingController: provider.remainingExValveController,
                 onRemainingChanged: (String data) {
                   if (data.isNotEmpty) {

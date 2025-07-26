@@ -45,9 +45,7 @@ class LightSystem extends StatelessWidget {
                     provider.headLight = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.headLightLife = data;
-                },
+                lifeController: provider.lifeHeadLightController,
                 remainingController: provider.remainingHeadLightController,
                 onRemainingChanged: (String data) {
                   if (data.isNotEmpty) {
@@ -70,9 +68,7 @@ class LightSystem extends StatelessWidget {
                     provider.parkLight = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.parkLightLife = data;
-                },
+                lifeController: provider.lifeParkLightController,
                 remainingController: provider.remainingParkLightController,
                 onRemainingChanged: (String data) {
                   if (data.isNotEmpty) {
@@ -95,9 +91,7 @@ class LightSystem extends StatelessWidget {
                     provider.indicators = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.indicatorsLife = data;
-                },
+                lifeController: provider.lifeIndicatorsController,
                 remainingController: provider.remainingIndicatorsController,
                 onRemainingChanged: (String data) {
                   if (data.isNotEmpty) {
@@ -120,9 +114,7 @@ class LightSystem extends StatelessWidget {
                     provider.reverseGearLight = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.reverseGearLightLife = data;
-                },
+                lifeController: provider.lifeReverseGearController,
                 remainingController: provider.remainingReverseGearController,
                 onRemainingChanged: (String data) {
                   if (data.isNotEmpty) {
@@ -145,9 +137,7 @@ class LightSystem extends StatelessWidget {
                     provider.dimBright = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.dimBrightLife = data;
-                },
+                lifeController: provider.lifeDimBrightController,
                 remainingController: provider.remainingDimBrightController,
                 onRemainingChanged: (String data) {
                   if (data.isNotEmpty) {
@@ -170,9 +160,7 @@ class LightSystem extends StatelessWidget {
                     provider.fogLamps = selection;
                   });
                 },
-                onLifeChanged: (data) {
-                  provider.fogLampsLife = data;
-                },
+                lifeController: provider.lifeFogLampsController,
                 remainingController: provider.remainingFogLampsController,
                 onRemainingChanged: (String data) {
                   if (data.isNotEmpty) {

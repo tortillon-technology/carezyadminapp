@@ -143,8 +143,6 @@ class _CommonTextFormFieldWithValidatorState
 
   @override
   Widget build(BuildContext context) {
-    final d = _getDefaultContentPadding();
-
     final outlinedErrorBorder = widget.errorText != null
         ? OutlineInputBorder(
             borderSide: BorderSide(
